@@ -5,10 +5,41 @@
     "VIC",
     "VCB",
     "VHM",
+    "BID",
+    "CTG",
+    "TCB",
+    "VPB",
+    "HPG",
     "GAS",
-    "GVR"
+    "MBB",
+    "VPL",
+    "FPT",
+    "LPB",
+    "HDB",
+    "GVR",
+    "ACB",
+    "VNM",
+    "STB",
+    "MWG",
+    "MSN",
+    "VJC",
+    "SHB",
+    "VRE",
+    "SSI",
+    "VIB",
+    "SAB",
+    "SSB",
+    "BSR",
+    "GEE",
+    "PLX"
   ],
-  "reserve": [],
+  "reserve": [
+    "VIX",
+    "TPB",
+    "EIB",
+    "POW",
+    "GEX"
+  ],
   "missing_data": [
     "AAA",
     "AAM",
@@ -17,7 +48,6 @@
     "ABR",
     "ABS",
     "ABT",
-    "ACB",
     "ACC",
     "ACG",
     "ACL",
@@ -37,18 +67,15 @@
     "AST",
     "BAF",
     "BCE",
-    "BCM",
     "BFC",
     "BHN",
     "BIC",
-    "BID",
     "BKG",
     "BMC",
     "BMI",
     "BMP",
     "BRC",
     "BSI",
-    "BSR",
     "BTP",
     "BTT",
     "BVB",
@@ -79,7 +106,6 @@
     "CSV",
     "CTD",
     "CTF",
-    "CTG",
     "CTI",
     "CTR",
     "CTS",
@@ -120,7 +146,6 @@
     "DXG",
     "DXS",
     "DXV",
-    "EIB",
     "ELC",
     "EVE",
     "EVF",
@@ -131,14 +156,11 @@
     "FIR",
     "FIT",
     "FMC",
-    "FPT",
     "FRT",
     "FTS",
     "GDT",
-    "GEE",
     "GEG",
     "GEL",
-    "GEX",
     "GHC",
     "GIL",
     "GMD",
@@ -153,7 +175,6 @@
     "HAX",
     "HCD",
     "HCM",
-    "HDB",
     "HDC",
     "HDG",
     "HHP",
@@ -164,7 +185,6 @@
     "HMC",
     "HNA",
     "HPA",
-    "HPG",
     "HPX",
     "HQC",
     "HRC",
@@ -188,7 +208,6 @@
     "ITC",
     "ITD",
     "JVC",
-    "KBC",
     "KDC",
     "KDH",
     "KHG",
@@ -207,20 +226,15 @@
     "LHG",
     "LIX",
     "LM8",
-    "LPB",
     "LPS",
     "LSS",
-    "MBB",
     "MCH",
     "MCM",
     "MCP",
     "MDG",
     "MHC",
     "MIG",
-    "MSB",
     "MSH",
-    "MSN",
-    "MWG",
     "MZG",
     "NAB",
     "NAF",
@@ -238,9 +252,7 @@
     "NT2",
     "NTC",
     "NTL",
-    "NVL",
     "NVT",
-    "OCB",
     "OGC",
     "OPC",
     "ORS",
@@ -260,11 +272,8 @@
     "PIT",
     "PJT",
     "PLP",
-    "PLX",
     "PMG",
     "PNC",
-    "PNJ",
-    "POW",
     "PPC",
     "PTB",
     "PTC",
@@ -275,10 +284,8 @@
     "QCG",
     "QNP",
     "RAL",
-    "REE",
     "RYG",
     "S4A",
-    "SAB",
     "SAM",
     "SAV",
     "SBA",
@@ -295,7 +302,6 @@
     "SGR",
     "SGT",
     "SHA",
-    "SHB",
     "SHI",
     "SHP",
     "SIP",
@@ -308,11 +314,8 @@
     "SPM",
     "SRC",
     "SRF",
-    "SSB",
     "SSC",
-    "SSI",
     "ST8",
-    "STB",
     "STG",
     "STK",
     "SVC",
@@ -322,7 +325,6 @@
     "SZL",
     "TAL",
     "TBC",
-    "TCB",
     "TCH",
     "TCI",
     "TCL",
@@ -352,7 +354,6 @@
     "TNH",
     "TNI",
     "TNT",
-    "TPB",
     "TPC",
     "TRA",
     "TRC",
@@ -379,28 +380,21 @@
     "VFG",
     "VGC",
     "VHC",
-    "VIB",
     "VID",
     "VIP",
-    "VIX",
-    "VJC",
     "VMD",
     "VND",
     "VNG",
     "VNL",
-    "VNM",
     "VNS",
     "VOS",
-    "VPB",
     "VPD",
     "VPG",
     "VPH",
     "VPI",
-    "VPL",
     "VPS",
     "VPX",
     "VRC",
-    "VRE",
     "VSC",
     "VSH",
     "VSI",
@@ -426,6 +420,8 @@
       "lnst_ty": 15988.0,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
+      "niem_yet_nguon": "xác nhận thủ công",
+      "niem_yet_thang": 100,
       "ket_luan": "Trong rổ dự kiến",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
@@ -482,6 +478,8 @@
       "lnst_ty": 23998.8,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
+      "niem_yet_nguon": "xác nhận thủ công",
+      "niem_yet_thang": 119,
       "ket_luan": "Trong rổ dự kiến",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
@@ -538,6 +536,8 @@
       "lnst_ty": 48235.0,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
+      "niem_yet_nguon": "xác nhận thủ công",
+      "niem_yet_thang": 88,
       "ket_luan": "Trong rổ dự kiến",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
@@ -594,7 +594,9 @@
       "lnst_ty": 14947.1,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
-      "ket_luan": "Thiếu dữ liệu",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Trong rổ dự kiến",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -602,8 +604,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
           "shortfall": null
         },
         {
@@ -618,6 +620,20 @@
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 2.013%",
+          "shortfall": null
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 5.693.359 cp và GTGD 224 tỷ/phiên",
+          "shortfall": null
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
           "shortfall": null
         }
       ]
@@ -636,7 +652,9 @@
       "lnst_ty": 20657.0,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
-      "ket_luan": "Thiếu dữ liệu",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Trong rổ dự kiến",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -644,8 +662,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
           "shortfall": null
         },
         {
@@ -660,6 +678,20 @@
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.811%",
+          "shortfall": null
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 9.300.154 cp và GTGD 323 tỷ/phiên",
+          "shortfall": null
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
           "shortfall": null
         }
       ]
@@ -678,7 +710,9 @@
       "lnst_ty": 14021.1,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
-      "ket_luan": "Thiếu dữ liệu",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Trong rổ dự kiến",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -686,8 +720,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
           "shortfall": null
         },
         {
@@ -702,6 +736,20 @@
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.355%",
+          "shortfall": null
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 13.626.397 cp và GTGD 463 tỷ/phiên",
+          "shortfall": null
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
           "shortfall": null
         }
       ]
@@ -720,7 +768,9 @@
       "lnst_ty": 14583.3,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
-      "ket_luan": "Thiếu dữ liệu",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Trong rổ dự kiến",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -728,8 +778,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
           "shortfall": null
         },
         {
@@ -744,6 +794,20 @@
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.461%",
+          "shortfall": null
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 21.032.437 cp và GTGD 611 tỷ/phiên",
+          "shortfall": null
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
           "shortfall": null
         }
       ]
@@ -762,7 +826,9 @@
       "lnst_ty": 15365.0,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
-      "ket_luan": "Thiếu dữ liệu",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Trong rổ dự kiến",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -770,8 +836,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
           "shortfall": null
         },
         {
@@ -786,6 +852,20 @@
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.755%",
+          "shortfall": null
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 34.323.210 cp và GTGD 840 tỷ/phiên",
+          "shortfall": null
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
           "shortfall": null
         }
       ]
@@ -804,6 +884,8 @@
       "lnst_ty": 8804.7,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
+      "niem_yet_nguon": "xác nhận thủ công",
+      "niem_yet_thang": 172,
       "ket_luan": "Trong rổ dự kiến",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
@@ -860,6 +942,8 @@
       "lnst_ty": 3249.0,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
       "ket_luan": "Thiếu dữ liệu",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
@@ -868,8 +952,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
           "shortfall": null
         },
         {
@@ -902,7 +986,9 @@
       "lnst_ty": 15744.6,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
-      "ket_luan": "Thiếu dữ liệu",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Trong rổ dự kiến",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -910,8 +996,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
           "shortfall": null
         },
         {
@@ -926,6 +1012,20 @@
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.544%",
+          "shortfall": null
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 21.570.485 cp và GTGD 451 tỷ/phiên",
+          "shortfall": null
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
           "shortfall": null
         }
       ]
@@ -944,7 +1044,9 @@
       "lnst_ty": 2180.0,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
-      "ket_luan": "Thiếu dữ liệu",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Trong rổ dự kiến",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -952,8 +1054,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
           "shortfall": null
         },
         {
@@ -968,6 +1070,20 @@
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.247%",
+          "shortfall": null
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 667.596 cp và GTGD 56 tỷ/phiên",
+          "shortfall": null
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
           "shortfall": null
         }
       ]
@@ -986,7 +1102,9 @@
       "lnst_ty": 5055.0,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
-      "ket_luan": "Thiếu dữ liệu",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Trong rổ dự kiến",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -994,8 +1112,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
           "shortfall": null
         },
         {
@@ -1010,6 +1128,20 @@
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.580%",
+          "shortfall": null
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 8.266.077 cp và GTGD 718 tỷ/phiên",
+          "shortfall": null
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
           "shortfall": null
         }
       ]
@@ -1028,7 +1160,9 @@
       "lnst_ty": 4799.9,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
-      "ket_luan": "Thiếu dữ liệu",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Trong rổ dự kiến",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -1036,8 +1170,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
           "shortfall": null
         },
         {
@@ -1052,6 +1186,20 @@
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.076%",
+          "shortfall": null
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 2.165.735 cp và GTGD 99 tỷ/phiên",
+          "shortfall": null
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
           "shortfall": null
         }
       ]
@@ -1070,7 +1218,9 @@
       "lnst_ty": 10322.0,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
-      "ket_luan": "Thiếu dữ liệu",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Trong rổ dự kiến",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -1078,8 +1228,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
           "shortfall": null
         },
         {
@@ -1094,6 +1244,20 @@
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.346%",
+          "shortfall": null
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 13.915.276 cp và GTGD 358 tỷ/phiên",
+          "shortfall": null
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
           "shortfall": null
         }
       ]
@@ -1112,6 +1276,8 @@
       "lnst_ty": 4413.9,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
+      "niem_yet_nguon": "xác nhận thủ công",
+      "niem_yet_thang": 78,
       "ket_luan": "Trong rổ dự kiến",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
@@ -1168,7 +1334,9 @@
       "lnst_ty": 8612.9,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
-      "ket_luan": "Thiếu dữ liệu",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Trong rổ dự kiến",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -1176,8 +1344,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
           "shortfall": null
         },
         {
@@ -1192,6 +1360,20 @@
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.266%",
+          "shortfall": null
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 13.008.976 cp và GTGD 282 tỷ/phiên",
+          "shortfall": null
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
           "shortfall": null
         }
       ]
@@ -1210,7 +1392,9 @@
       "lnst_ty": 5595.8,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
-      "ket_luan": "Thiếu dữ liệu",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Trong rổ dự kiến",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -1218,8 +1402,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
           "shortfall": null
         },
         {
@@ -1234,6 +1418,20 @@
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.537%",
+          "shortfall": null
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 4.414.129 cp và GTGD 267 tỷ/phiên",
+          "shortfall": null
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
           "shortfall": null
         }
       ]
@@ -1252,7 +1450,9 @@
       "lnst_ty": 2931.1,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
-      "ket_luan": "Thiếu dữ liệu",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Trong rổ dự kiến",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -1260,8 +1460,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
           "shortfall": null
         },
         {
@@ -1276,6 +1476,20 @@
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.395%",
+          "shortfall": null
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 7.346.836 cp và GTGD 441 tỷ/phiên",
+          "shortfall": null
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
           "shortfall": null
         }
       ]
@@ -1294,7 +1508,9 @@
       "lnst_ty": 6017.0,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
-      "ket_luan": "Thiếu dữ liệu",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Trong rổ dự kiến",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -1302,8 +1518,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
           "shortfall": null
         },
         {
@@ -1318,6 +1534,20 @@
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.543%",
+          "shortfall": null
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 6.012.022 cp và GTGD 476 tỷ/phiên",
+          "shortfall": null
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
           "shortfall": null
         }
       ]
@@ -1336,6 +1566,8 @@
       "lnst_ty": 2839.5,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
+      "niem_yet_nguon": "suy từ ngày giao dịch đầu tiên",
+      "niem_yet_thang": 10,
       "ket_luan": "Thiếu dữ liệu",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
@@ -1344,8 +1576,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã niêm yết 10 tháng",
           "shortfall": null
         },
         {
@@ -1378,7 +1610,9 @@
       "lnst_ty": 4371.0,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
-      "ket_luan": "Thiếu dữ liệu",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Trong rổ dự kiến",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -1386,8 +1620,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
           "shortfall": null
         },
         {
@@ -1402,6 +1636,20 @@
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.678%",
+          "shortfall": null
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 5.893.504 cp và GTGD 454 tỷ/phiên",
+          "shortfall": null
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
           "shortfall": null
         }
       ]
@@ -1420,7 +1668,9 @@
       "lnst_ty": 15930.8,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
-      "ket_luan": "Thiếu dữ liệu",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Trong rổ dự kiến",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -1428,8 +1678,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
           "shortfall": null
         },
         {
@@ -1444,6 +1694,20 @@
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 3.275%",
+          "shortfall": null
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 12.647.391 cp và GTGD 292 tỷ/phiên",
+          "shortfall": null
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
           "shortfall": null
         }
       ]
@@ -1462,6 +1726,8 @@
       "lnst_ty": 4876.2,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
+      "niem_yet_nguon": "suy từ ngày giao dịch đầu tiên",
+      "niem_yet_thang": 1,
       "ket_luan": "Thiếu dữ liệu",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
@@ -1471,8 +1737,8 @@
           "step": "eligibility",
           "rule_ref": "3.2",
           "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
-          "shortfall": null
+          "message": "Mới niêm yết 1 tháng, chưa đủ 6 tháng",
+          "shortfall": 5
         },
         {
           "step": "free_float",
@@ -1504,7 +1770,9 @@
       "lnst_ty": 1347.2,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
-      "ket_luan": "Thiếu dữ liệu",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Trong rổ dự kiến",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -1512,8 +1780,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
           "shortfall": null
         },
         {
@@ -1528,6 +1796,20 @@
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.458%",
+          "shortfall": null
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 1.586.355 cp và GTGD 207 tỷ/phiên",
+          "shortfall": null
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
           "shortfall": null
         }
       ]
@@ -1546,6 +1828,8 @@
       "lnst_ty": 3596.1,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
       "ket_luan": "Thiếu dữ liệu",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
@@ -1554,8 +1838,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
           "shortfall": null
         },
         {
@@ -1588,6 +1872,8 @@
       "lnst_ty": 2339.6,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
+      "niem_yet_nguon": "suy từ ngày giao dịch đầu tiên",
+      "niem_yet_thang": 8,
       "ket_luan": "Thiếu dữ liệu",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
@@ -1596,8 +1882,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã niêm yết 8 tháng",
           "shortfall": null
         },
         {
@@ -1630,7 +1916,9 @@
       "lnst_ty": 7328.5,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
-      "ket_luan": "Thiếu dữ liệu",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Trong rổ dự kiến",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -1638,8 +1926,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
           "shortfall": null
         },
         {
@@ -1654,6 +1942,20 @@
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 1.873%",
+          "shortfall": null
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 62.941.701 cp và GTGD 974 tỷ/phiên",
+          "shortfall": null
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
           "shortfall": null
         }
       ]
@@ -1672,7 +1974,9 @@
       "lnst_ty": 3214.8,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
-      "ket_luan": "Thiếu dữ liệu",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Trong rổ dự kiến",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -1680,8 +1984,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
           "shortfall": null
         },
         {
@@ -1696,6 +2000,20 @@
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.826%",
+          "shortfall": null
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 7.537.435 cp và GTGD 225 tỷ/phiên",
+          "shortfall": null
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
           "shortfall": null
         }
       ]
@@ -1714,7 +2032,9 @@
       "lnst_ty": 292.1,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
-      "ket_luan": "Thiếu dữ liệu",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Không đạt",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -1722,8 +2042,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
           "shortfall": null
         },
         {
@@ -1756,7 +2076,9 @@
       "lnst_ty": 2509.0,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
-      "ket_luan": "Thiếu dữ liệu",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Trong rổ dự kiến",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -1764,8 +2086,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
           "shortfall": null
         },
         {
@@ -1780,6 +2102,20 @@
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 1.569%",
+          "shortfall": null
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 26.484.698 cp và GTGD 656 tỷ/phiên",
+          "shortfall": null
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
           "shortfall": null
         }
       ]
@@ -1798,7 +2134,9 @@
       "lnst_ty": 1289.2,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
-      "ket_luan": "Thiếu dữ liệu",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Trong rổ dự kiến",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -1806,8 +2144,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
           "shortfall": null
         },
         {
@@ -1822,6 +2160,20 @@
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.983%",
+          "shortfall": null
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 838.657 cp và GTGD 75 tỷ/phiên",
+          "shortfall": null
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
           "shortfall": null
         }
       ]
@@ -1840,7 +2192,9 @@
       "lnst_ty": 4146.6,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
-      "ket_luan": "Thiếu dữ liệu",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Trong rổ dự kiến",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -1848,8 +2202,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
           "shortfall": null
         },
         {
@@ -1864,6 +2218,20 @@
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.337%",
+          "shortfall": null
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 7.090.677 cp và GTGD 126 tỷ/phiên",
+          "shortfall": null
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
           "shortfall": null
         }
       ]
@@ -1882,7 +2250,9 @@
       "lnst_ty": 2351.6,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
-      "ket_luan": "Thiếu dữ liệu",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Trong rổ dự kiến",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -1890,8 +2260,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
           "shortfall": null
         },
         {
@@ -1906,6 +2276,20 @@
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.611%",
+          "shortfall": null
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 859.839 cp và GTGD 38 tỷ/phiên",
+          "shortfall": null
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
           "shortfall": null
         }
       ]
@@ -1924,6 +2308,8 @@
       "lnst_ty": 2168.6,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
+      "niem_yet_nguon": "suy từ ngày giao dịch đầu tiên",
+      "niem_yet_thang": 8,
       "ket_luan": "Thiếu dữ liệu",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
@@ -1932,8 +2318,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã niêm yết 8 tháng",
           "shortfall": null
         },
         {
@@ -1966,7 +2352,9 @@
       "lnst_ty": 2101.6,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
-      "ket_luan": "Thiếu dữ liệu",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Trong rổ dự kiến",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -1974,8 +2362,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
           "shortfall": null
         },
         {
@@ -1990,6 +2378,20 @@
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.144%",
+          "shortfall": null
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 2.420.801 cp và GTGD 37 tỷ/phiên",
+          "shortfall": null
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
           "shortfall": null
         }
       ]
@@ -2008,7 +2410,9 @@
       "lnst_ty": 2036.7,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
-      "ket_luan": "Thiếu dữ liệu",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Trong rổ dự kiến",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -2016,8 +2420,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
           "shortfall": null
         },
         {
@@ -2032,6 +2436,20 @@
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 3.311%",
+          "shortfall": null
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 3.886.866 cp và GTGD 165 tỷ/phiên",
+          "shortfall": null
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
           "shortfall": null
         }
       ]
@@ -2050,7 +2468,9 @@
       "lnst_ty": 214.3,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
-      "ket_luan": "Thiếu dữ liệu",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Dự phòng",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -2058,8 +2478,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
           "shortfall": null
         },
         {
@@ -2074,6 +2494,20 @@
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 1.552%",
+          "shortfall": null
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 38.451.701 cp và GTGD 735 tỷ/phiên",
+          "shortfall": null
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
           "shortfall": null
         }
       ]
@@ -2092,6 +2526,8 @@
       "lnst_ty": null,
       "lnst_ky": null,
       "lnst_nguon": null,
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
       "ket_luan": "Thiếu dữ liệu",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
@@ -2100,8 +2536,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
           "shortfall": null
         },
         {
@@ -2116,6 +2552,20 @@
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.842%",
+          "shortfall": null
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 597.500 cp và GTGD 40 tỷ/phiên",
+          "shortfall": null
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": false,
+          "message": "Thiếu dữ liệu lợi nhuận sau thuế — cần xác nhận thủ công",
           "shortfall": null
         }
       ]
@@ -2134,7 +2584,9 @@
       "lnst_ty": 3493.3,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
-      "ket_luan": "Thiếu dữ liệu",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Dự phòng",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -2142,8 +2594,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
           "shortfall": null
         },
         {
@@ -2158,6 +2610,20 @@
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.855%",
+          "shortfall": null
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 12.460.259 cp và GTGD 218 tỷ/phiên",
+          "shortfall": null
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
           "shortfall": null
         }
       ]
@@ -2176,7 +2642,9 @@
       "lnst_ty": 519.7,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
-      "ket_luan": "Thiếu dữ liệu",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Dự phòng",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -2184,8 +2652,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
           "shortfall": null
         },
         {
@@ -2200,6 +2668,20 @@
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.567%",
+          "shortfall": null
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 8.183.589 cp và GTGD 189 tỷ/phiên",
+          "shortfall": null
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
           "shortfall": null
         }
       ]
@@ -2218,7 +2700,9 @@
       "lnst_ty": 4574.9,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
-      "ket_luan": "Thiếu dữ liệu",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Dự phòng",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -2226,8 +2710,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
           "shortfall": null
         },
         {
@@ -2242,6 +2726,20 @@
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 1.393%",
+          "shortfall": null
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 10.536.082 cp và GTGD 141 tỷ/phiên",
+          "shortfall": null
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
           "shortfall": null
         }
       ]
@@ -2260,7 +2758,9 @@
       "lnst_ty": 785.7,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
-      "ket_luan": "Thiếu dữ liệu",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Dự phòng",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -2268,8 +2768,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
           "shortfall": null
         },
         {
@@ -2284,6 +2784,20 @@
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 1.159%",
+          "shortfall": null
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 10.505.508 cp và GTGD 319 tỷ/phiên",
+          "shortfall": null
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
           "shortfall": null
         }
       ]
@@ -2302,6 +2816,8 @@
       "lnst_ty": 574.7,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
+      "niem_yet_nguon": "suy từ ngày giao dịch đầu tiên",
+      "niem_yet_thang": 0,
       "ket_luan": "Thiếu dữ liệu",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
@@ -2311,8 +2827,8 @@
           "step": "eligibility",
           "rule_ref": "3.2",
           "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
-          "shortfall": null
+          "message": "Mới niêm yết 0 tháng, chưa đủ 6 tháng",
+          "shortfall": 6
         },
         {
           "step": "free_float",
@@ -2344,7 +2860,9 @@
       "lnst_ty": 2764.8,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
-      "ket_luan": "Thiếu dữ liệu",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Không đạt",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -2352,8 +2870,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
           "shortfall": null
         },
         {
@@ -2368,6 +2886,20 @@
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.376%",
+          "shortfall": null
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 8.823.247 cp và GTGD 99 tỷ/phiên",
+          "shortfall": null
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
           "shortfall": null
         }
       ]
@@ -2386,7 +2918,9 @@
       "lnst_ty": 1345.5,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
-      "ket_luan": "Thiếu dữ liệu",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Không đạt",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -2394,8 +2928,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
           "shortfall": null
         },
         {
@@ -2410,6 +2944,20 @@
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.281%",
+          "shortfall": null
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 596.206 cp và GTGD 33 tỷ/phiên",
+          "shortfall": null
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
           "shortfall": null
         }
       ]
@@ -2428,7 +2976,9 @@
       "lnst_ty": 1870.0,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
-      "ket_luan": "Thiếu dữ liệu",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Không đạt",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -2436,8 +2986,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
           "shortfall": null
         },
         {
@@ -2452,6 +3002,20 @@
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 1.044%",
+          "shortfall": null
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 15.212.655 cp và GTGD 221 tỷ/phiên",
+          "shortfall": null
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
           "shortfall": null
         }
       ]
@@ -2470,7 +3034,9 @@
       "lnst_ty": 1948.1,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
-      "ket_luan": "Thiếu dữ liệu",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Không đạt",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -2478,8 +3044,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
           "shortfall": null
         },
         {
@@ -2494,6 +3060,20 @@
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.344%",
+          "shortfall": null
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 3.046.368 cp và GTGD 33 tỷ/phiên",
+          "shortfall": null
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
           "shortfall": null
         }
       ]
@@ -2512,7 +3092,9 @@
       "lnst_ty": 728.5,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
-      "ket_luan": "Thiếu dữ liệu",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Không đạt",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -2520,8 +3102,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
           "shortfall": null
         },
         {
@@ -2536,6 +3118,20 @@
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.360%",
+          "shortfall": null
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 2.058.933 cp và GTGD 101 tỷ/phiên",
+          "shortfall": null
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
           "shortfall": null
         }
       ]
@@ -2554,7 +3150,9 @@
       "lnst_ty": 231.3,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
-      "ket_luan": "Thiếu dữ liệu",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Không đạt",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -2562,8 +3160,8 @@
         {
           "step": "eligibility",
           "rule_ref": "3.2",
-          "passed": false,
-          "message": "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
           "shortfall": null
         },
         {
@@ -2579,6 +3177,20 @@
           "passed": true,
           "message": "Turnover 0.767%",
           "shortfall": null
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 3.724.068 cp và GTGD 131 tỷ/phiên",
+          "shortfall": null
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
+          "shortfall": null
         }
       ]
     }
@@ -2586,10 +3198,9 @@
   "xap_xi": [
     "GTGD chưa gồm giao dịch thỏa thuận (nguồn dữ liệu chỉ có khớp lệnh) — turnover ratio là ước tính cận dưới.",
     "GTVH 12 tháng dùng số cổ phiếu lưu hành hiện tại cho toàn chuỗi giá quá khứ — lệch với mã có phát hành thêm hoặc chia thưởng trong kỳ.",
-    "Ý kiến kiểm toán không đọc được tự động — mã chưa xác nhận hiển thị là 'chưa xác nhận', không mặc định là đạt."
+    "Ý kiến kiểm toán không đọc được tự động — mã chưa xác nhận hiển thị là 'chưa xác nhận', không mặc định là đạt.",
+    "Ngày niêm yết cho mã không có xác nhận thủ công trong data/manual.yaml được SUY từ ngày giao dịch đầu tiên trong chuỗi giá 12 tháng — cách này không phân biệt được mã mới niêm yết với mã bị tạm ngừng giao dịch dài rồi giao dịch lại trong cửa sổ dữ liệu."
   ],
-  "canh_bao": [
-    "Chỉ chọn được 5/30 mã cho rổ VN30 — dữ liệu đầu vào (giá, khối lượng, free float, LNST...) có thể chưa đủ để xét đủ số mã theo quy tắc."
-  ],
+  "canh_bao": [],
   "nguon_quy_tac": "HOSE-Index Ground Rules v4.0 (QĐ 747/QĐ-SGDHCM, 30/12/2024)"
 }

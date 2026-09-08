@@ -15,15 +15,26 @@ class StockInput:
     tien phai nhan PRICE_UNIT_VND tu rules.definitions de ra VND; tuyet doi KHONG so sanh truc tiep
     'close' voi cac nguong VND trong thresholds.yaml.
     free_float: None nghia la THIEU DU LIEU, khong duoc doan.
-    listing_date: None nghia la CHUA XAC NHAN ngay niem yet (mã không có trong
-    data/manual.yaml) - TUYET DOI khong duoc hieu la "niem yet tu rat lau roi".
-    Truoc day co bug mac dinh date(1900,1,1) khien he thong bia ra "Da niem yet
-    1500+ thang" cho ma chua co du lieu - da fix, gio phai de None va bao thieu.
+    listing_date: None nghia la CHUA XAC NHAN mot ngay niem yet CU THE - TUYET DOI
+    khong duoc hieu la "niem yet tu rat lau roi". Truoc day co bug mac dinh
+    date(1900,1,1) khien he thong bia ra "Da niem yet 1500+ thang" cho ma chua co
+    du lieu - da fix, gio phai de None va bao thieu.
+    listing_date co the den tu 2 nguon: (1) xac nhan thu cong trong data/manual.yaml
+    (uu tien cao nhat), hoac (2) suy tu ngay giao dich dau tien trong chuoi gia khi
+    ma do ro rang moi niem yet trong cua so du lieu (xem build.py, niem_yet_nguon
+    = "suy từ ngày giao dịch đầu tiên"). Khong duoc bia mot ngay cu the cho truong
+    hop ma da giao dich tu TRUOC cua so du lieu - dung co niem_yet_truoc_cua_so.
+    niem_yet_truoc_cua_so: True nghia la chuoi gia bat dau sat/truoc ngay bat dau
+    cua so yeu cau -> suy ra ma da niem yet it nhat bang do dai cua so (vd 12 thang),
+    du KHONG biet ngay niem yet chinh xac. Khac voi listing_date=None+False (chua
+    xac nhan duoc gi ca) - truong hop nay la CO bang chung (da giao dich) nhung
+    khong co ngay cu the, nen duoc coi la dat dieu kien 6 thang o screen_eligibility.
     """
     symbol: str
     daily: pd.DataFrame
     shares_outstanding: int
     listing_date: Optional[date] = None
+    niem_yet_truoc_cua_so: bool = False
     free_float: Optional[float] = None
     in_previous_basket: bool = False
     warning_status: str = "none"        # none|warning|control|restricted|suspended
@@ -34,6 +45,10 @@ class StockInput:
     lnst_ty: Optional[float] = None      # LNST quy ra ty dong
     lnst_ky: Optional[str] = None        # nhan ky bao cao, vd "Năm 2025"
     lnst_nguon: Optional[str] = None     # "tự động" | "xác nhận thủ công"
+    # Nguon cua listing_date/niem_yet_truoc_cua_so, hien thi de nguoi doc web tu
+    # kiem tra can cu: "xác nhận thủ công" | "suy từ ngày giao dịch đầu tiên" |
+    # "giao dịch từ trước cửa sổ dữ liệu" | None (khong biet gi ca)
+    niem_yet_nguon: Optional[str] = None
 
 
 @dataclass

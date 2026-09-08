@@ -140,6 +140,36 @@ này luôn thắng số tự động). `listing_date` không bắt buộc. `free
 `free_float_source` **không còn được dùng ở đây** — nếu sót lại trong file,
 `load_manual()` báo lỗi ngay để tránh hai nguồn sự thật.
 
+### 4.1.b. Suy ngày niêm yết từ ngày giao dịch đầu tiên trong chuỗi giá
+
+Quyết định 2026-09-08: `listing_date` xác nhận thủ công trong `manual.yaml` chỉ có
+cho một số ít mã (VIC/VHM/VCB/GAS/GVR). Điều 3.2 chỉ cần biết mã đã niêm yết **đủ 6
+tháng** hay chưa (mốc 3 tháng cho ngoại lệ top-5 GTVH) — không cần biết ngày niêm
+yết chính xác. Điều này suy được từ **ngày giao dịch đầu tiên trong chuỗi giá 12
+tháng** mà `build.py` đã có sẵn (qua `fetch_daily_batch`): có dữ liệu giao dịch
+nghĩa là mã đã niêm yết.
+
+`build.py` (hàm `suy_ngay_niem_yet`) so ngày giao dịch đầu tiên với ngày bắt đầu cửa
+sổ dữ liệu yêu cầu:
+
+- Lệch quá `eligibility.inferred_tolerance_business_days` (ngưỡng dung sai KỸ THUẬT
+  của chúng tôi, khai báo ở `rules/thresholds.yaml` — không phải quy tắc HOSE) → mã
+  rõ ràng mới niêm yết trong cửa sổ → **suy ra `listing_date`** = chính ngày giao
+  dịch đầu tiên đó, `niem_yet_nguon = "suy từ ngày giao dịch đầu tiên"`.
+- Lệch trong ngưỡng dung sai → mã đã giao dịch từ trước/sát ngày bắt đầu cửa sổ →
+  suy ra đã niêm yết **ít nhất bằng độ dài cửa sổ** (12 tháng), đủ điều kiện 6 tháng,
+  nhưng **KHÔNG bịa một ngày niêm yết cụ thể** — đánh dấu
+  `StockInput.niem_yet_truoc_cua_so = True`, `niem_yet_nguon = "giao dịch từ trước
+  cửa sổ dữ liệu"`. `screen_eligibility` (Điều 3.2) coi trường hợp này là **đạt**
+  với thông báo nêu rõ căn cứ.
+
+`manual.yaml` (`listing_date` xác nhận thủ công) luôn **thắng** số suy ra — người
+xác nhận thắng máy tính tự động, giống nguyên tắc đã áp dụng cho LNST. JSON xuất ra
+ghi rõ nguồn qua `niem_yet_nguon` ("xác nhận thủ công" | "suy từ ngày giao dịch đầu
+tiên" | "giao dịch từ trước cửa sổ dữ liệu") và `niem_yet_thang` (số tháng nếu biết
+ngày cụ thể, `null` nếu chỉ biết "trước cửa sổ") — để người đọc web thấy được căn
+cứ, không chỉ thấy kết luận đạt/trượt.
+
 Phạm vi gọi BCTC lấy LNST tự động: **top 50 vốn hóa HOSE** (`consideration_list_size`
 trong `rules/thresholds.yaml`), để tránh gọi BCTC cho toàn bộ 700+ mã HOSE. Thứ hạng
 GTVH vẫn tính trên **toàn bộ HOSE** trước (`build.py` chạy `build_vn30` một lượt sơ bộ
@@ -165,6 +195,11 @@ hạn trong top 50.
    cộng LNST cổ đông công ty mẹ của 2 quý này làm số bán niên xấp xỉ — **đây không phải bản
    soát xét bán niên chính thức**, và nhãn `lnst_ky` trên web phải nói rõ điều này (không được
    trình bày như một bản soát xét đã kiểm toán).
+5. **Ngày niêm yết suy từ ngày giao dịch đầu tiên** cho mã không có xác nhận thủ công trong
+   `manual.yaml` (xem mục 4.1.b) — cách này **không phân biệt được mã mới niêm yết với mã bị
+   tạm ngừng giao dịch dài rồi giao dịch lại trong cửa sổ dữ liệu 12 tháng**: cả hai đều có
+   ngày giao dịch đầu tiên nằm trong cửa sổ. Web hiển thị `niem_yet_nguon` cho từng mã để người
+   đọc tự đối chiếu khi nghi ngờ.
 
 ## 5. Kiến trúc
 

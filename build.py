@@ -6,7 +6,10 @@ import json
 import logging
 from datetime import date, timedelta
 from pathlib import Path
+from typing import Optional
 
+import numpy as np
+import pandas as pd
 import yaml
 
 from collectors.manual_data import load_manual
@@ -53,7 +56,43 @@ XAP_XI = [
     "lệch với mã có phát hành thêm hoặc chia thưởng trong kỳ.",
     "Ý kiến kiểm toán không đọc được tự động — mã chưa xác nhận hiển thị là "
     "'chưa xác nhận', không mặc định là đạt.",
+    "Ngày niêm yết cho mã không có xác nhận thủ công trong data/manual.yaml được SUY "
+    "từ ngày giao dịch đầu tiên trong chuỗi giá 12 tháng — cách này không phân biệt "
+    "được mã mới niêm yết với mã bị tạm ngừng giao dịch dài rồi giao dịch lại trong "
+    "cửa sổ dữ liệu.",
 ]
+
+
+def suy_ngay_niem_yet(daily: pd.DataFrame, start: date) -> tuple[Optional[date], bool, Optional[str]]:
+    """Suy 'da du 6 thang niem yet hay chua' tu ngay giao dich DAU TIEN trong chuoi
+    gia, khi khong co listing_date xac nhan thu cong trong manual.yaml.
+
+    Tra ve (listing_date_suy_ra, niem_yet_truoc_cua_so, niem_yet_nguon):
+    - Ngay giao dich dau tien lech qua nguong dung sai ky thuat (thresholds.yaml,
+      eligibility.inferred_tolerance_business_days) so voi ngay bat dau cua so yeu
+      cau -> ro rang ma moi niem yet TRONG cua so -> suy ra listing_date = chinh
+      ngay giao dich dau tien do.
+    - Ngay giao dich dau tien trong nguong dung sai (tuc la ma da co giao dich tu
+      truoc/sat ngay bat dau cua so) -> ma da niem yet it nhat bang do dai cua so
+      (vd 12 thang) -> KHONG bia ngay cu the, chi danh dau niem_yet_truoc_cua_so=True.
+
+    Neu daily rong thi khong suy duoc gi (truong hop nay build.py da loc truoc o
+    lap_stock_inputs, khong con toi day).
+    """
+    if daily is None or daily.empty:
+        return None, False, None
+
+    ngay_dau = pd.to_datetime(daily["time"]).min().date()
+    nguong_bd = load_thresholds()["eligibility"]["inferred_tolerance_business_days"]
+
+    if ngay_dau <= start:
+        lech_bd = 0
+    else:
+        lech_bd = int(np.busday_count(start.isoformat(), ngay_dau.isoformat()))
+
+    if lech_bd > nguong_bd:
+        return ngay_dau, False, "suy từ ngày giao dịch đầu tiên"
+    return None, True, "giao dịch từ trước cửa sổ dữ liệu"
 
 
 def _ghep_lnst(sym: str, m: dict, lnst_auto: dict) -> dict:
@@ -83,7 +122,7 @@ def _ghep_lnst(sym: str, m: dict, lnst_auto: dict) -> dict:
 
 
 def lap_stock_inputs(symbols, daily_map, shares_map, manual, previous_basket, free_float,
-                      lnst_auto: dict | None = None) -> list[StockInput]:
+                      lnst_auto: dict | None = None, start: date | None = None) -> list[StockInput]:
     """Ghep so tu may (daily, SLCP, LNST tu dong) voi so nguoi xac nhan (manual) va free
     float tu cong bo chinh thuc HOSE (free_float dict, xem load_free_float_moi_nhat) thanh
     StockInput.
@@ -95,6 +134,12 @@ def lap_stock_inputs(symbols, daily_map, shares_map, manual, previous_basket, fr
     lnst_auto: dict symbol -> {lnst_vnd, ky, nguon} tu collectors.market_data.fetch_lnst_batch,
     thuong chi co cho top N ma theo GTVH (goi BCTC cho ca vu tru la khong can thiet).
     Neu manual.yaml khai bao lnst_positive cho 1 ma, gia tri do THANG so tu dong (xem _ghep_lnst).
+
+    start: ngay bat dau cua so du lieu gia da yeu cau (tham so `start` truyen cho
+    fetch_daily_batch o main()). Dung de SUY ngay niem yet tu ngay giao dich dau tien
+    trong chuoi gia khi ma KHONG co listing_date xac nhan thu cong (xem suy_ngay_niem_yet).
+    Neu khong truyen start (None), KHONG suy doan - giu nguyen hanh vi cu (listing_date
+    chi lay tu manual.yaml, None neu khong co).
 
     Bo qua ma khong co SLCP hoac khong co du lieu gia (daily rong/thieu) - rules/definitions.py
     se nem ValueError neu dua daily rong vao, nen phai loc truoc o day.
@@ -110,11 +155,22 @@ def lap_stock_inputs(symbols, daily_map, shares_map, manual, previous_basket, fr
             continue
         m = manual.get(sym, {})
         lnst = _ghep_lnst(sym, m, lnst_auto)
+
+        listing_date = m.get("listing_date")
+        niem_yet_truoc_cua_so = False
+        if listing_date is not None:
+            niem_yet_nguon = "xác nhận thủ công"
+        elif start is not None:
+            listing_date, niem_yet_truoc_cua_so, niem_yet_nguon = suy_ngay_niem_yet(daily, start)
+        else:
+            niem_yet_nguon = None
+
         ds.append(StockInput(
             symbol=sym,
             daily=daily,
             shares_outstanding=slcp,
-            listing_date=m.get("listing_date"),
+            listing_date=listing_date,
+            niem_yet_truoc_cua_so=niem_yet_truoc_cua_so,
             free_float=free_float.get(sym),
             in_previous_basket=sym in prev,
             warning_status=m.get("warning_status", "none"),
@@ -123,6 +179,7 @@ def lap_stock_inputs(symbols, daily_map, shares_map, manual, previous_basket, fr
             lnst_ty=lnst["lnst_ty"],
             lnst_ky=lnst["lnst_ky"],
             lnst_nguon=lnst["lnst_nguon"],
+            niem_yet_nguon=niem_yet_nguon,
         ))
     return ds
 
@@ -157,6 +214,9 @@ def xuat_json(r: BasketResult, as_of: date, ky_review: str) -> dict:
             "lnst_ty": m["lnst_ty"],
             "lnst_ky": m["lnst_ky"],
             "lnst_nguon": m["lnst_nguon"],
+            # Can cu ve thoi gian niem yet - de nguoi doc web tu kiem tra, khong chi thay ket luan.
+            "niem_yet_nguon": m["niem_yet_nguon"],
+            "niem_yet_thang": m["niem_yet_thang"],
             "ket_luan": _ket_luan(sym, r),
             # Nhan canh bao rieng cho tung ma - khong duoc am tham bo (spec muc 4.3)
             "canh_bao": ([] if m["audit_opinion"] == "unqualified"
@@ -206,7 +266,7 @@ def main() -> None:
     # --- Vong 1: chua co LNST, chi de xep hang GTVH tren TOAN BO vu tru ---
     # (GTVH khong phu thuoc LNST, nen ket qua xep hang o vong nay da dung; vong 2
     # chi bo sung LNST cho top N ma de sang loc Dieu 4.3.1.d, khong doi xep hang.)
-    ds_so_bo = lap_stock_inputs(symbols, daily_map, shares, manual, prev, free_float)
+    ds_so_bo = lap_stock_inputs(symbols, daily_map, shares, manual, prev, free_float, start=start)
     kq_so_bo = build_vn30(ds_so_bo, as_of)
     top_n = load_thresholds()["vn30"]["consideration_list_size"]
     ma_can_lnst = sorted(
@@ -218,7 +278,7 @@ def main() -> None:
     logger.info("Lấy được LNST tự động cho %d/%d mã", len(lnst_auto), len(ma_can_lnst))
 
     # --- Vong 2: chay lai voi LNST da co, ra ket qua chinh thuc ---
-    ds = lap_stock_inputs(symbols, daily_map, shares, manual, prev, free_float, lnst_auto)
+    ds = lap_stock_inputs(symbols, daily_map, shares, manual, prev, free_float, lnst_auto, start=start)
     logger.info("Chạy bộ quy tắc trên %d mã", len(ds))
     kq = build_vn30(ds, as_of)
 

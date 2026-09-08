@@ -93,7 +93,7 @@ def test_json_ghi_ro_ba_xap_xi():
     """Web phai luon hien canh bao ve gioi han du lieu - khong duoc am tham bo."""
     ds = lap_stock_inputs(["ABC"], {"ABC": _daily()}, {"ABC": 1_000_000}, {}, [], {})
     kq = xuat_json(build_vn30(ds, date(2026, 7, 1)), date(2026, 7, 1), "07/2026")
-    assert len(kq["xap_xi"]) == 3
+    assert len(kq["xap_xi"]) == 4
     assert any("thỏa thuận" in x for x in kq["xap_xi"])
 
 
@@ -192,3 +192,89 @@ def test_ma_khong_co_lnst_nam_trong_missing_data_va_ket_luan_thieu_du_lieu():
     kq = xuat_json(r, date(2026, 7, 1), "07/2026")
     dong = next(d for d in kq["stocks"] if d["symbol"] == "BID")
     assert dong["ket_luan"] == "Thiếu dữ liệu"
+
+
+# ---------------------------------------------------------------------------
+# Suy ngay niem yet tu chuoi gia (khong co listing_date xac nhan trong manual.yaml)
+# ---------------------------------------------------------------------------
+
+def _daily_tu(ngay_dau: str, so_phien: int = 2):
+    times = pd.date_range(ngay_dau, periods=so_phien, freq="D")
+    return pd.DataFrame({"time": times, "close": [50.0] * so_phien, "volume": [1_000_000] * so_phien})
+
+
+def test_chuoi_gia_bat_dau_sat_dau_cua_so_thi_suy_ra_niem_yet_truoc_cua_so():
+    """Ngay giao dich dau tien chi sau ngay bat dau cua so 1 ngay (trong dung sai 5 ngay
+    lam viec) -> coi la da giao dich tu truoc cua so, KHONG duoc bia ngay niem yet cu the."""
+    start = date(2025, 7, 1)
+    free_float = {"ABC": 0.30}
+    lnst_auto = {"ABC": {"lnst_vnd": 1_000_000_000, "ky": "Năm 2025", "nguon": "x"}}
+    ds = lap_stock_inputs(["ABC"], {"ABC": _daily_tu("2025-07-02")}, {"ABC": 1_000_000},
+                          {}, [], free_float, lnst_auto, start=start)
+    assert ds[0].listing_date is None, "khong duoc bia ngay niem yet cu the"
+    assert ds[0].niem_yet_truoc_cua_so is True
+    assert ds[0].niem_yet_nguon == "giao dịch từ trước cửa sổ dữ liệu"
+
+    r = build_vn30(ds, date(2026, 7, 1))
+    assert "ABC" not in r.missing_data, "niem_yet_truoc_cua_so la bang chung hop le, khong phai thieu du lieu"
+    assert r.screens["ABC"][0].passed
+    assert "trước cửa sổ dữ liệu" in r.screens["ABC"][0].message
+
+
+def test_chuoi_gia_bat_dau_muon_hon_nhieu_thi_suy_ra_ngay_niem_yet_va_truot_6_thang():
+    """Ma len san 2 thang truoc ngay chot -> suy ra listing_date, screen_eligibility
+    phai TRUOT vi chua du 6 thang, va shortfall dung so thang con thieu."""
+    as_of = date(2026, 7, 1)
+    start = date(2025, 7, 1)
+    ds = lap_stock_inputs(["ABC"], {"ABC": _daily_tu("2026-05-01")}, {"ABC": 1_000_000},
+                          {}, [], {}, start=start)
+    assert ds[0].listing_date == date(2026, 5, 1)
+    assert ds[0].niem_yet_truoc_cua_so is False
+    assert ds[0].niem_yet_nguon == "suy từ ngày giao dịch đầu tiên"
+
+    r = build_vn30(ds, as_of)
+    eligibility = r.screens["ABC"][0]
+    assert not eligibility.passed
+    assert eligibility.shortfall == 4
+
+
+def test_chuoi_gia_bat_dau_8_thang_truoc_thi_dat():
+    """Ma len san 8 thang truoc ngay chot -> suy ra listing_date, du 6 thang nen dat."""
+    as_of = date(2026, 7, 1)
+    start = date(2025, 7, 1)
+    ds = lap_stock_inputs(["ABC"], {"ABC": _daily_tu("2025-11-01")}, {"ABC": 1_000_000},
+                          {}, [], {}, start=start)
+    assert ds[0].listing_date == date(2025, 11, 1)
+
+    r = build_vn30(ds, as_of)
+    eligibility = r.screens["ABC"][0]
+    assert eligibility.passed
+    assert "8 tháng" in eligibility.message
+
+
+def test_manual_listing_date_thang_so_suy_ra():
+    """manual.yaml co listing_date thi PHAI thang so suy tu chuoi gia."""
+    manual = {"VIC": {"listing_date": date(2018, 5, 1), "warning_status": "none"}}
+    start = date(2025, 7, 1)
+    ds = lap_stock_inputs(["VIC"], {"VIC": _daily_tu("2026-05-01")}, {"VIC": 1_000_000},
+                          manual, [], {}, start=start)
+    assert ds[0].listing_date == date(2018, 5, 1)
+    assert ds[0].niem_yet_truoc_cua_so is False
+    assert ds[0].niem_yet_nguon == "xác nhận thủ công"
+
+
+def test_khong_truyen_start_thi_giu_hanh_vi_cu_khong_suy_doan():
+    """Neu khong truyen start (goi cu, vd test cu), khong duoc tu y suy doan - giu
+    hanh vi cu: khong co manual thi listing_date la None."""
+    ds = lap_stock_inputs(["ABC"], {"ABC": _daily()}, {"ABC": 1_000_000}, {}, [], {})
+    assert ds[0].listing_date is None
+    assert ds[0].niem_yet_truoc_cua_so is False
+
+
+def test_ma_khong_co_du_lieu_gia_van_bi_loc_khoi_vu_tru():
+    """Hanh vi cu khong doi: ma khong co gia (df rong) bi bo qua hoan toan, du co start."""
+    import pandas as pd
+    rong = pd.DataFrame(columns=["time", "close", "volume"])
+    ds = lap_stock_inputs(["ABC"], {"ABC": rong}, {"ABC": 1_000_000}, {}, [], {},
+                          start=date(2025, 7, 1))
+    assert ds == []

@@ -1,7 +1,9 @@
 """Ghep 7 buoc sang loc thanh mot lan chay hoan chinh (Dieu 4.3.1)."""
 from datetime import date
 
-from rules.definitions import gtgd_kl, gtvh, gtvh_f, klgd_kl, round_free_float, turnover_ratio, ty
+from rules.definitions import (
+    gtgd_kl, gtvh, gtvh_f, klgd_kl, listing_months, round_free_float, turnover_ratio, ty,
+)
 from rules.models import BasketResult, ScreenResult, StockInput
 from rules.screens import (
     screen_eligibility,
@@ -32,8 +34,15 @@ def build_vn30(stocks: list[StockInput], as_of: date) -> BasketResult:
             "lnst_ty": s.lnst_ty,
             "lnst_ky": s.lnst_ky,
             "lnst_nguon": s.lnst_nguon,
+            "niem_yet_nguon": s.niem_yet_nguon,
+            # So thang chi tinh duoc khi co listing_date cu the; ma "truoc cua so"
+            # chi biet la du 6 thang, khong biet chinh xac bao nhieu thang -> None.
+            "niem_yet_thang": None if s.listing_date is None else listing_months(s, as_of),
         }
-        if s.free_float is None or s.lnst_positive is None or s.listing_date is None:
+        # Thieu ca listing_date CU THE lan bang chung "truoc cua so" moi la thieu du lieu -
+        # niem_yet_truoc_cua_so=True la bang chung hop le, khong duoc coi la thieu.
+        thieu_niem_yet = s.listing_date is None and not s.niem_yet_truoc_cua_so
+        if s.free_float is None or s.lnst_positive is None or thieu_niem_yet:
             result.missing_data.append(s.symbol)
 
     # Xep hang GTVH giam dan; dong hang uu tien GTGD_KL lon hon (Dieu 4.3.1.e)

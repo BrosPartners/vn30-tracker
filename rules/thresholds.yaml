@@ -7,6 +7,13 @@ eligibility:
   top_gtvh_exemption_rank: 5      # ma GTVH top-5 duoc mien neu da niem yet > 3 thang
   top_gtvh_exemption_months: 3
   warning_lookback_months: 3
+  # BIEN DUNG SAI KY THUAT CUA CHUNG TOI - KHONG PHAI QUY TAC HOSE. Dung de suy ngay
+  # niem yet tu ngay giao dich dau tien trong chuoi gia (build.py) khi khong co
+  # listing_date xac nhan trong manual.yaml: neu ngay giao dich dau tien lech qua
+  # nguong nay (so ngay lam viec) so voi ngay bat dau cua so du lieu yeu cau, coi la
+  # ma moi niem yet trong cua so (suy ra listing_date); neu lech trong nguong, coi la
+  # da giao dich tu truoc cua so (it nhat du do dai cua so, vd 12 thang).
+  inferred_tolerance_business_days: 5
 
 free_float:
   rule_ref: "3.3.3"

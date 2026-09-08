@@ -57,6 +57,15 @@ def test_thieu_ngay_niem_yet_thi_truot_khong_duoc_bia_ngay():
     assert "ngày niêm yết" in r.message.lower()
 
 
+def test_niem_yet_truoc_cua_so_du_lieu_thi_dat_khong_bia_ngay():
+    """Chuoi gia bat dau sat ngay dau cua so (suy ra da giao dich tu truoc do >= 12
+    thang) - phai DAT nhung KHONG duoc bia ra mot listing_date cu the."""
+    r = screen_eligibility(
+        _stock(listing_date=None, niem_yet_truoc_cua_so=True), AS_OF, gtvh_rank=100)
+    assert r.passed
+    assert "trước cửa sổ dữ liệu" in r.message
+
+
 def test_free_float_tu_10_phan_tram_tro_len_thi_dat():
     r = screen_free_float(_stock(free_float=0.10), gtvh_f_value=1e9)
     assert r.passed

@@ -37,6 +37,15 @@ def screen_eligibility(stock: StockInput, as_of: date, gtvh_rank: int) -> Screen
             f"{t['warning_lookback_months']} tháng gần nhất",
         )
 
+    # Da giao dich lien tuc tu TRUOC cua so du lieu (suy tu chuoi gia, xem build.py)
+    # - co bang chung du 6 thang niem yet, du khong biet ngay chinh xac. KHONG bia
+    # ngay cu the o day.
+    if stock.niem_yet_truoc_cua_so:
+        return ScreenResult(
+            stock.symbol, "eligibility", ref, True,
+            "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
+        )
+
     # Thiếu ngày niêm yết - KHÔNG được đoán là "niêm yết từ lâu"
     if stock.listing_date is None:
         return ScreenResult(

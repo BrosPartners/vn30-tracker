@@ -29,6 +29,9 @@ def build_vn30(stocks: list[StockInput], as_of: date) -> BasketResult:
             "free_float_rounded": None if s.free_float is None else round_free_float(s.free_float),
             "in_previous_basket": s.in_previous_basket,
             "audit_opinion": s.audit_opinion,
+            "lnst_ty": s.lnst_ty,
+            "lnst_ky": s.lnst_ky,
+            "lnst_nguon": s.lnst_nguon,
         }
         if s.free_float is None or s.lnst_positive is None or s.listing_date is None:
             result.missing_data.append(s.symbol)

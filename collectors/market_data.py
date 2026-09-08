@@ -11,7 +11,7 @@ import os
 import time
 from datetime import date
 from pathlib import Path
-from typing import Any, Callable
+from typing import Any, Callable, Optional
 
 import pandas as pd
 
@@ -270,3 +270,125 @@ def fetch_shares_outstanding(symbols: list[str]) -> dict[str, int]:
         return out
 
     return cached(goi_that, key, CACHE_DIR)
+
+
+# ---------------------------------------------------------------------------
+# LNST cua dong cong ty me (Dieu 3.1) - dung cho sang loc loi nhuan 4.3.1.d
+# ---------------------------------------------------------------------------
+
+CHI_TIEU_LNST_CTY_ME = "attributable_to_parent_company"
+
+
+def _lay_dong_lnst(df: Optional[pd.DataFrame], cot: str) -> Optional[float]:
+    """Boc gia tri chi tieu LNST cua dong cong ty me tai 1 cot (nam hoac quy).
+
+    Tra None neu thieu cot, thieu dong chi tieu, hoac gia tri khong doc duoc so -
+    KHONG DUOC DOAN (vd tra 0).
+    """
+    if df is None or df.empty or "item_id" not in df.columns or cot not in df.columns:
+        return None
+    dong = df[df["item_id"] == CHI_TIEU_LNST_CTY_ME]
+    if dong.empty:
+        return None
+    try:
+        return float(dong.iloc[0][cot])
+    except (TypeError, ValueError):
+        return None
+
+
+def _cot_quy(nam: int, quy: int) -> str:
+    """Ten cot ky quy trong DataFrame income_statement(period='quarter') cua vnstock."""
+    return f"{nam}-Q{quy}"
+
+
+def fetch_lnst(symbol: str, as_of: Optional[date] = None) -> Optional[dict]:
+    """LNST cua dong cong ty me tai ky bao cao gan nhat (Dieu 3.1).
+
+    Uu tien ban nien nam hien tai (cong tu 2 bao cao quy Q1+Q2, vi vnstock khong co
+    ban soat xet ban nien rieng) - neu chua du 2 quy thi roi ve nam gan nhat (cot dau
+    tien cua DataFrame nam, vnstock tra giam dan theo nam). Neu ca hai deu khong lay
+    duoc (thieu chi tieu, loi mang, mã khong co BCTC) thi tra None - KHONG DUOC DOAN.
+    """
+    as_of = as_of or date.today()
+    nam_hien_tai = as_of.year
+    key = f"lnst-{symbol}"
+
+    def goi_that() -> Optional[dict]:
+        from vnstock import Finance
+
+        # --- Uu tien: ban nien = Q1 + Q2 nam hien tai, tu bao cao quy ---
+        _throttle.cho_phep()
+        try:
+            df_quy = Finance(symbol=symbol, source=VNSTOCK_SOURCE).income_statement(
+                period="quarter", lang="vi")
+        except Exception as e:
+            logger.warning("Không lấy được BCTC quý %s: %s", symbol, e)
+            df_quy = None
+
+        q1 = _lay_dong_lnst(df_quy, _cot_quy(nam_hien_tai, 1))
+        q2 = _lay_dong_lnst(df_quy, _cot_quy(nam_hien_tai, 2))
+        if q1 is not None and q2 is not None:
+            return {
+                "lnst_vnd": q1 + q2,
+                "ky": f"Bán niên {nam_hien_tai} (cộng từ báo cáo quý 1+2, "
+                      f"không phải bản soát xét bán niên chính thức)",
+                "nguon": "vnstock BCTC quý (Q1+Q2), attributable_to_parent_company",
+            }
+
+        # --- Roi ve: nam gan nhat, tu bao cao nam ---
+        _throttle.cho_phep()
+        try:
+            df_nam = Finance(symbol=symbol, source=VNSTOCK_SOURCE).income_statement(
+                period="year", lang="vi")
+        except Exception as e:
+            logger.warning("Không lấy được BCTC năm %s: %s", symbol, e)
+            df_nam = None
+
+        if df_nam is None or df_nam.empty or "item_id" not in df_nam.columns:
+            return None
+        cot_nam = [c for c in df_nam.columns if c not in ("item", "item_en", "item_id")]
+        if not cot_nam:
+            return None
+        cot_moi_nhat = cot_nam[0]  # vnstock tra cot giam dan theo nam, cot dau la moi nhat
+        gia_tri = _lay_dong_lnst(df_nam, cot_moi_nhat)
+        if gia_tri is None:
+            return None
+        return {
+            "lnst_vnd": gia_tri,
+            "ky": f"Năm {cot_moi_nhat}",
+            "nguon": "vnstock BCTC năm, attributable_to_parent_company",
+        }
+
+    return cached(goi_that, key, CACHE_DIR)
+
+
+def fetch_lnst_batch(
+    symbols: list[str],
+    nguong_loi: float = 0.5,
+    fetch_fn: Callable[[str], Optional[dict]] = fetch_lnst,
+) -> dict[str, dict]:
+    """Lay LNST cho ca danh sach ma (thuong la top N theo GTVH, khong phai toan vu tru).
+
+    Nguong loi mac dinh cao hon fetch_daily_batch (0.5 vs 0.3) vi nhieu ma nho tren
+    HOSE von di khong co BCTC day du bang vnstock, ty le thieu tu nhien da cao hon
+    la dau hieu ha tang sap.
+    """
+    ket_qua: dict[str, dict] = {}
+    ma_loi: list[str] = []
+    for sym in symbols:
+        kq = fetch_fn(sym)
+        if kq is None:
+            ma_loi.append(sym)
+        else:
+            ket_qua[sym] = kq
+
+    ty_le_loi = len(ma_loi) / len(symbols) if symbols else 0.0
+    if ty_le_loi > nguong_loi:
+        raise RuntimeError(
+            f"Tỷ lệ mã lỗi LNST ({len(ma_loi)}/{len(symbols)} = {ty_le_loi:.0%}) vượt "
+            f"ngưỡng {nguong_loi:.0%} — nghi ngờ lỗi hạ tầng (mất mạng/API sập), "
+            f"không tiếp tục để tránh hiểu nhầm là không có dữ liệu LNST."
+        )
+    if ma_loi:
+        logger.warning("Không lấy được LNST cho %d mã: %s", len(ma_loi), _mo_ta_danh_sach_ma(ma_loi))
+    return ket_qua

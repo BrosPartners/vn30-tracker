@@ -291,3 +291,158 @@ def test_hang_so_da_duoc_khai_bao():
     assert md.BATCH_SIZE_SHARES == 50
     assert md.HOSE_EXCHANGES == ["HOSE", "HSX"]
     assert isinstance(md.VNSTOCK_SOURCE, str) and md.VNSTOCK_SOURCE
+
+
+# ---------------------------------------------------------------------------
+# LNST tu dong (attributable_to_parent_company) - Dieu 3.1 + 4.3.1.d
+# ---------------------------------------------------------------------------
+
+def _df_bctc(item_ids, **cot_gia_tri):
+    """Dung DataFrame gia lap dang vnstock: dong = chi tieu, cot = ky bao cao."""
+    cols = {"item": item_ids, "item_en": item_ids, "item_id": item_ids}
+    n = len(item_ids)
+    for cot, gia_tri in cot_gia_tri.items():
+        cols[cot] = gia_tri if isinstance(gia_tri, list) else [gia_tri] * n
+    return pd.DataFrame(cols)
+
+
+def test_fetch_lnst_boc_dung_chi_tieu_attributable_to_parent_va_uu_tien_ban_nien(tmp_path, monkeypatch):
+    monkeypatch.setattr(md, "CACHE_DIR", tmp_path)
+    monkeypatch.setattr(md, "date", SimpleNamespace(today=lambda: date(2026, 9, 8)))
+
+    df_quy = _df_bctc(
+        ["net_profit", "attributable_to_parent_company"],
+        **{"2026-Q2": [100, 50], "2026-Q1": [80, 40], "2025-Q4": [70, 30]},
+    )
+
+    class FakeFinance:
+        def __init__(self, symbol, source):
+            self.symbol = symbol
+
+        def income_statement(self, period, lang):
+            assert period == "quarter"
+            return df_quy
+
+    fake_vnstock = SimpleNamespace(Finance=FakeFinance)
+    monkeypatch.setitem(__import__("sys").modules, "vnstock", fake_vnstock)
+
+    kq = md.fetch_lnst("FPT")
+    assert kq is not None
+    assert kq["lnst_vnd"] == 90  # 50 + 40 (Q1+Q2 2026)
+    assert "bán niên" in kq["ky"].lower() or "Bán niên" in kq["ky"]
+    assert "quý" in kq["ky"].lower() or "quy" in kq["nguon"].lower() or "quý" in kq["nguon"].lower()
+
+
+def test_fetch_lnst_roi_ve_nam_gan_nhat_khi_thieu_du_ca_hai_quy(tmp_path, monkeypatch):
+    monkeypatch.setattr(md, "CACHE_DIR", tmp_path)
+    monkeypatch.setattr(md, "date", SimpleNamespace(today=lambda: date(2026, 9, 8)))
+
+    df_quy = _df_bctc(
+        ["attributable_to_parent_company"],
+        **{"2026-Q1": [40], "2025-Q4": [30]},  # thieu Q2/2026
+    )
+    df_nam = _df_bctc(
+        ["attributable_to_parent_company"],
+        **{"2025": [9_376_127_629_501], "2024": [8_000_000_000_000]},
+    )
+
+    class FakeFinance:
+        def __init__(self, symbol, source):
+            pass
+
+        def income_statement(self, period, lang):
+            return df_quy if period == "quarter" else df_nam
+
+    fake_vnstock = SimpleNamespace(Finance=FakeFinance)
+    monkeypatch.setitem(__import__("sys").modules, "vnstock", fake_vnstock)
+
+    kq = md.fetch_lnst("FPT")
+    assert kq["lnst_vnd"] == 9_376_127_629_501
+    assert kq["ky"] == "Năm 2025"
+
+
+def test_fetch_lnst_thieu_chi_tieu_thi_tra_none(tmp_path, monkeypatch):
+    monkeypatch.setattr(md, "CACHE_DIR", tmp_path)
+    monkeypatch.setattr(md, "date", SimpleNamespace(today=lambda: date(2026, 9, 8)))
+
+    df_rong = _df_bctc(["net_profit"], **{"2026-Q1": [1], "2026-Q2": [1], "2025": [1]})
+
+    class FakeFinance:
+        def __init__(self, symbol, source):
+            pass
+
+        def income_statement(self, period, lang):
+            return df_rong
+
+    fake_vnstock = SimpleNamespace(Finance=FakeFinance)
+    monkeypatch.setitem(__import__("sys").modules, "vnstock", fake_vnstock)
+
+    assert md.fetch_lnst("XYZ") is None
+
+
+def test_fetch_lnst_loi_mang_thi_tra_none_khong_doan(tmp_path, monkeypatch):
+    monkeypatch.setattr(md, "CACHE_DIR", tmp_path)
+    monkeypatch.setattr(md, "date", SimpleNamespace(today=lambda: date(2026, 9, 8)))
+
+    class FakeFinance:
+        def __init__(self, symbol, source):
+            pass
+
+        def income_statement(self, period, lang):
+            raise RuntimeError("mất mạng")
+
+    fake_vnstock = SimpleNamespace(Finance=FakeFinance)
+    monkeypatch.setitem(__import__("sys").modules, "vnstock", fake_vnstock)
+
+    assert md.fetch_lnst("XYZ") is None
+
+
+def test_fetch_lnst_dung_cache_lan_hai_khong_goi_lai(tmp_path, monkeypatch):
+    monkeypatch.setattr(md, "CACHE_DIR", tmp_path)
+    monkeypatch.setattr(md, "date", SimpleNamespace(today=lambda: date(2026, 9, 8)))
+    dem = {"n": 0}
+
+    df_nam = _df_bctc(["attributable_to_parent_company"], **{"2025": [123]})
+    df_quy_rong = _df_bctc(["attributable_to_parent_company"], **{"2026-Q1": [1]})
+
+    class FakeFinance:
+        def __init__(self, symbol, source):
+            pass
+
+        def income_statement(self, period, lang):
+            dem["n"] += 1
+            return df_quy_rong if period == "quarter" else df_nam
+
+    fake_vnstock = SimpleNamespace(Finance=FakeFinance)
+    monkeypatch.setitem(__import__("sys").modules, "vnstock", fake_vnstock)
+
+    kq1 = md.fetch_lnst("FPT")
+    kq2 = md.fetch_lnst("FPT")
+    assert kq1 == kq2 == {"lnst_vnd": 123, "ky": "Năm 2025",
+                          "nguon": "vnstock BCTC năm, attributable_to_parent_company"}
+    assert dem["n"] == 2, "Lan hai phai lay tu cache (khong goi lai ca quarter lan year)"
+
+
+def test_fetch_lnst_batch_duoi_nguong_tra_ket_qua():
+    def fetch_gia(symbol):
+        if symbol == "LOI":
+            return None
+        return {"lnst_vnd": 100, "ky": "Năm 2025", "nguon": "test"}
+
+    kq = md.fetch_lnst_batch(["A", "B", "C", "LOI"], nguong_loi=0.3, fetch_fn=fetch_gia)
+    assert set(kq.keys()) == {"A", "B", "C"}
+
+
+def test_fetch_lnst_batch_tren_nguong_nem_loi():
+    def fetch_gia_loi_het(symbol):
+        return None
+
+    with pytest.raises(RuntimeError, match="lỗi"):
+        md.fetch_lnst_batch(["A", "B", "C", "D"], nguong_loi=0.3, fetch_fn=fetch_gia_loi_het)
+
+
+def test_fetch_lnst_batch_nguong_mac_dinh_cao_hon_fetch_daily_batch():
+    """LNST vien duoc it ma nho HOSE khong co BCTC day du, nen nguong loi phai cao hon 0.3 mac dinh cua gia."""
+    import inspect
+    sig = inspect.signature(md.fetch_lnst_batch)
+    assert sig.parameters["nguong_loi"].default == 0.5

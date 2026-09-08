@@ -123,3 +123,72 @@ def test_load_free_float_moi_nhat_khong_co_file_tra_ve_rong(tmp_path):
     ff, ky = load_free_float_moi_nhat(tmp_path)
     assert ff == {}
     assert ky is None
+
+
+# ---------------------------------------------------------------------------
+# LNST tu dong + lop ghi de manual.yaml
+# ---------------------------------------------------------------------------
+
+def test_lnst_tu_dong_duoc_dung_khi_khong_co_trong_manual():
+    lnst_auto = {"FPT": {"lnst_vnd": 9_376_127_629_501, "ky": "Năm 2025", "nguon": "vnstock BCTC năm"}}
+    ds = lap_stock_inputs(["FPT"], {"FPT": _daily()}, {"FPT": 1_000_000}, {}, [], {}, lnst_auto)
+    assert ds[0].lnst_positive is True
+    assert ds[0].lnst_ty == round(9_376_127_629_501 / 1e9, 1)
+    assert ds[0].lnst_ky == "Năm 2025"
+    assert ds[0].lnst_nguon == "tự động"
+
+
+def test_lnst_am_tu_dong_ra_lnst_positive_false():
+    lnst_auto = {"ABC": {"lnst_vnd": -1_000_000_000, "ky": "Năm 2025", "nguon": "x"}}
+    ds = lap_stock_inputs(["ABC"], {"ABC": _daily()}, {"ABC": 1_000_000}, {}, [], {}, lnst_auto)
+    assert ds[0].lnst_positive is False
+
+
+def test_manual_ghi_de_thang_so_tu_dong():
+    """Neu manual.yaml co khai bao lnst_positive cho ma, gia tri do THANG so tu dong."""
+    manual = {"FPT": {"warning_status": "none", "lnst_positive": False, "audit_opinion": "unknown"}}
+    lnst_auto = {"FPT": {"lnst_vnd": 9_376_127_629_501, "ky": "Năm 2025", "nguon": "vnstock BCTC năm"}}
+    ds = lap_stock_inputs(["FPT"], {"FPT": _daily()}, {"FPT": 1_000_000}, manual, [], {}, lnst_auto)
+    assert ds[0].lnst_positive is False, "manual.yaml phai thang so tu dong (nguoi xac nhan cao hon may)"
+    assert ds[0].lnst_nguon == "xác nhận thủ công"
+
+
+def test_ma_khong_co_ca_manual_lan_tu_dong_thi_lnst_positive_none():
+    ds = lap_stock_inputs(["ABC"], {"ABC": _daily()}, {"ABC": 1_000_000}, {}, [], {}, {})
+    assert ds[0].lnst_positive is None
+    assert ds[0].lnst_ty is None
+    assert ds[0].lnst_nguon is None
+
+
+def test_json_co_lnst_ty_ky_nguon_va_lay_dung_gia_tri_tu_dong():
+    lnst_auto = {"VIC": {"lnst_vnd": 9_376_127_629_501, "ky": "Năm 2025", "nguon": "vnstock BCTC năm"}}
+    manual = {"VIC": {"listing_date": date(2018, 5, 1), "warning_status": "none"}}
+    free_float = {"VIC": 0.30}
+    ds = lap_stock_inputs(["VIC"], {"VIC": _daily()}, {"VIC": 7_762_186_000}, manual, ["VIC"],
+                          free_float, lnst_auto)
+    kq = xuat_json(build_vn30(ds, date(2026, 7, 1)), date(2026, 7, 1), "07/2026")
+    dong = kq["stocks"][0]
+    assert dong["lnst_ty"] == round(9_376_127_629_501 / 1e9, 1)
+    assert dong["lnst_ky"] == "Năm 2025"
+    assert dong["lnst_nguon"] == "tự động"
+
+
+def test_json_lnst_nguon_xac_nhan_thu_cong_khi_manual_ghi_de():
+    manual = {"VIC": {"listing_date": date(2018, 5, 1), "warning_status": "none",
+                      "lnst_positive": True, "audit_opinion": "unqualified"}}
+    free_float = {"VIC": 0.30}
+    ds = lap_stock_inputs(["VIC"], {"VIC": _daily()}, {"VIC": 7_762_186_000}, manual, ["VIC"], free_float, {})
+    kq = xuat_json(build_vn30(ds, date(2026, 7, 1)), date(2026, 7, 1), "07/2026")
+    dong = kq["stocks"][0]
+    assert dong["lnst_nguon"] == "xác nhận thủ công"
+
+
+def test_ma_khong_co_lnst_nam_trong_missing_data_va_ket_luan_thieu_du_lieu():
+    manual = {"BID": {"listing_date": date(2016, 1, 1), "warning_status": "none"}}
+    free_float = {"BID": 0.30}
+    ds = lap_stock_inputs(["BID"], {"BID": _daily()}, {"BID": 1_000_000}, manual, [], free_float, {})
+    r = build_vn30(ds, date(2026, 7, 1))
+    assert "BID" in r.missing_data
+    kq = xuat_json(r, date(2026, 7, 1), "07/2026")
+    dong = next(d for d in kq["stocks"] if d["symbol"] == "BID")
+    assert dong["ket_luan"] == "Thiếu dữ liệu"

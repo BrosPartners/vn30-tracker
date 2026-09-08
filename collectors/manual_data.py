@@ -1,9 +1,12 @@
-"""Doc data/manual.yaml - phan du lieu BAT BUOC do nguoi xac nhan.
+"""Doc data/manual.yaml - phan du lieu do nguoi xac nhan de GHI DE len so tu dong.
 
 Free float KHONG con nam o day - da chuyen sang nguon cong bo chinh thuc cua HOSE
 (collectors/hose_disclosure.py, doc tu PDF CBTT, ket qua o data/hose_index/*.yaml).
-manual.yaml chi con giu nhung gi HOSE khong cong bo o dang may doc duoc:
-lnst_positive, audit_opinion, warning_status (bat buoc), va listing_date (khong bat buoc).
+
+LNST gio da lay tu dong tu vnstock (collectors/market_data.fetch_lnst), nen
+lnst_positive/audit_opinion KHONG CON BAT BUOC o day nua - chi con warning_status
+bat buoc cho MOI MA CO MAT trong file. Mot ma KHONG co mat trong file la chuyen
+binh thuong (khong loi) - build.py se dung so tu dong cho ma do.
 
 Nguyen tac: tha bao loi con hon doan. Neu file con sot truong free_float (tu thoi
 truoc khi chuyen nguon), bao loi ro rang de tranh hai nguon su that thay vi am
@@ -17,7 +20,7 @@ import yaml
 
 TRANG_THAI_HOP_LE = {"none", "warning", "control", "restricted", "suspended"}
 Y_KIEN_HOP_LE = {"unqualified", "qualified", "unknown"}
-BAT_BUOC = ("lnst_positive", "audit_opinion", "warning_status")
+BAT_BUOC = ("warning_status",)
 # free_float/free_float_source da chuyen nguon - neu con sot trong file thi bao loi
 # thay vi am tham dung, tranh hai nguon su that (xem hose_disclosure.py)
 KHOA_DA_BO = ("free_float", "free_float_source")

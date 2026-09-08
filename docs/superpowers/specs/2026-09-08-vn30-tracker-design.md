@@ -92,7 +92,7 @@ Trang web hiển thị đếm ngược tới ngày chốt dữ liệu và ngày 
 | Vũ trụ HOSE | `Listing().symbols_by_exchange()`, lọc `exchange=HOSE`, `type=stock` | 715 mã |
 | Giá & khối lượng ngày | `Quote(symbol).history(interval='1D')` → `close`, `volume` | OK, 12 tháng |
 | SLCP lưu hành | `shares_data.fetch_listed_shares_batch` (mượn từ `my-stock-dashboard`) | có sẵn |
-| LNST (số liệu thô) | vnstock BCTC | cần xác nhận cờ kiểm toán bằng tay |
+| LNST của cổ đông công ty mẹ | `Finance(symbol, source='VCI').income_statement(period, lang='vi')`, chỉ tiêu `item_id == 'attributable_to_parent_company'` — ưu tiên bán niên năm hiện tại (cộng Q1+Q2 từ `period='quarter'`), rơi về năm gần nhất (`period='year'`) nếu chưa đủ 2 quý | đã kiểm chứng (FPT, BID năm 2025) — chỉ gọi cho top 50 GTVH, không phải toàn vũ trụ; cần xác nhận cờ kiểm toán bằng tay |
 
 ### 4.2. Free float từ công bố chính thức HOSE + nhập tay phần còn lại
 
@@ -127,16 +127,25 @@ dạng máy đọc được:
 VIC:
   listing_date: 2018-05     # không bắt buộc
   warning_status: none      # none | warning | control | restricted | suspended
-  lnst_positive: true
-  audit_opinion: unqualified
 ```
 
-Trường bắt buộc: `lnst_positive`, `audit_opinion`, `warning_status`. `listing_date`
-không bắt buộc. `free_float`/`free_float_source` **không còn được dùng ở đây** — nếu
-sót lại trong file, `load_manual()` báo lỗi ngay để tránh hai nguồn sự thật.
+Quyết định 2026-09-08: **LNST giờ lấy tự động từ vnstock** (chỉ tiêu
+`attributable_to_parent_company`, xem mục 4.1) nên `lnst_positive`/`audit_opinion`
+**không còn bắt buộc** trong `manual.yaml`. Trường bắt buộc duy nhất cho một mã **có
+mặt** trong file là `warning_status`; một mã **không có mặt** trong file là chuyện
+bình thường (không lỗi) — LNST/free float của nó vẫn lấy từ nguồn tự động.
+`manual.yaml` chỉ còn dùng để **ghi đè** khi người xác nhận cần thắng số máy tính
+tự động (khai báo `lnst_positive`/`audit_opinion` tường minh cho mã đó — giá trị
+này luôn thắng số tự động). `listing_date` không bắt buộc. `free_float`/
+`free_float_source` **không còn được dùng ở đây** — nếu sót lại trong file,
+`load_manual()` báo lỗi ngay để tránh hai nguồn sự thật.
 
-Phạm vi bảo trì của `manual.yaml`: **top 50 vốn hóa HOSE**. Thứ hạng GTVH vẫn tính trên
-**toàn bộ HOSE**; chỉ kết luận (LNST, ý kiến kiểm toán, cảnh báo) giới hạn trong top 50.
+Phạm vi gọi BCTC lấy LNST tự động: **top 50 vốn hóa HOSE** (`consideration_list_size`
+trong `rules/thresholds.yaml`), để tránh gọi BCTC cho toàn bộ 700+ mã HOSE. Thứ hạng
+GTVH vẫn tính trên **toàn bộ HOSE** trước (`build.py` chạy `build_vn30` một lượt sơ bộ
+không có LNST chỉ để lấy `gtvh_rank`), rồi mới chọn top 50 để gọi BCTC và chạy lại lần
+hai lấy kết quả chính thức — kết luận (LNST, ý kiến kiểm toán, cảnh báo) vì vậy giới
+hạn trong top 50.
 
 ### 4.3. Xấp xỉ phải công bố rõ trên web
 
@@ -150,6 +159,12 @@ Phạm vi bảo trì của `manual.yaml`: **top 50 vốn hóa HOSE**. Thứ hạ
    còn câu "chỉ xét BCTC có ý kiến chấp nhận toàn phần" là quy định chọn báo cáo lấy số, không
    phải tiêu chí loại độc lập. Mã như vậy vẫn vào rổ dự kiến nhưng **mang nhãn "chưa xác nhận
    ý kiến kiểm toán"** hiện rõ trên web. Mã có LNST âm, hoặc thiếu hẳn dữ liệu LNST, vẫn bị loại.
+4. **LNST bán niên có thể là số tự cộng từ 2 báo cáo quý** — Điều 3.1 gọi "BCTC soát xét bán
+   niên hoặc kiểm toán năm gần nhất", nhưng vnstock không có bản soát xét bán niên riêng, chỉ
+   có BCTC quý. Khi chưa có báo cáo năm gần nhất mà đã có đủ Q1+Q2 của năm hiện tại, adapter
+   cộng LNST cổ đông công ty mẹ của 2 quý này làm số bán niên xấp xỉ — **đây không phải bản
+   soát xét bán niên chính thức**, và nhãn `lnst_ky` trên web phải nói rõ điều này (không được
+   trình bày như một bản soát xét đã kiểm toán).
 
 ## 5. Kiến trúc
 

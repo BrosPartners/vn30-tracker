@@ -10,7 +10,12 @@ from pathlib import Path
 import yaml
 
 from collectors.manual_data import load_manual
-from collectors.market_data import fetch_daily_batch, fetch_hose_universe, fetch_shares_outstanding
+from collectors.market_data import (
+    fetch_daily_batch,
+    fetch_hose_universe,
+    fetch_lnst_batch,
+    fetch_shares_outstanding,
+)
 from rules.basket import build_vn30
 from rules.models import BasketResult, StockInput
 from rules.thresholds import load_thresholds
@@ -51,17 +56,50 @@ XAP_XI = [
 ]
 
 
-def lap_stock_inputs(symbols, daily_map, shares_map, manual, previous_basket, free_float) -> list[StockInput]:
-    """Ghep so tu may (daily, SLCP) voi so nguoi xac nhan (manual) va free float tu
-    cong bo chinh thuc HOSE (free_float dict, xem load_free_float_moi_nhat) thanh StockInput.
+def _ghep_lnst(sym: str, m: dict, lnst_auto: dict) -> dict:
+    """Ghep LNST cho 1 ma: manual.yaml (neu co khai bao lnst_positive) THANG so tu dong.
+
+    Tra dict {lnst_positive, lnst_ty, lnst_ky, lnst_nguon} - dung ca cho logic sang loc
+    (lnst_positive) lan hien thi web (lnst_ty/ky/nguon) de nguoi doc tu kiem tra duoc.
+    Manual thang vi nguoi xac nhan dang tin cay hon so tu dong; nhung manual chi co
+    co lnst_positive (bool) chu khong co so VND, nen lnst_ty/ky la None trong truong hop nay.
+    """
+    if m.get("lnst_positive") is not None:
+        return {
+            "lnst_positive": m["lnst_positive"],
+            "lnst_ty": None,
+            "lnst_ky": None,
+            "lnst_nguon": "xác nhận thủ công",
+        }
+    auto = lnst_auto.get(sym)
+    if auto is None:
+        return {"lnst_positive": None, "lnst_ty": None, "lnst_ky": None, "lnst_nguon": None}
+    return {
+        "lnst_positive": auto["lnst_vnd"] > 0,
+        "lnst_ty": round(auto["lnst_vnd"] / 1e9, 1),
+        "lnst_ky": auto["ky"],
+        "lnst_nguon": "tự động",
+    }
+
+
+def lap_stock_inputs(symbols, daily_map, shares_map, manual, previous_basket, free_float,
+                      lnst_auto: dict | None = None) -> list[StockInput]:
+    """Ghep so tu may (daily, SLCP, LNST tu dong) voi so nguoi xac nhan (manual) va free
+    float tu cong bo chinh thuc HOSE (free_float dict, xem load_free_float_moi_nhat) thanh
+    StockInput.
 
     free_float la nguon RIENG voi manual - HOSE cong bo moi quy cho toan bo VNAllshare,
     manual.yaml khong con giu truong nay (tranh hai nguon su that). Ma khong co trong
     cong bo HOSE (vd chua vao VNAllshare) se la None - khong doan.
 
+    lnst_auto: dict symbol -> {lnst_vnd, ky, nguon} tu collectors.market_data.fetch_lnst_batch,
+    thuong chi co cho top N ma theo GTVH (goi BCTC cho ca vu tru la khong can thiet).
+    Neu manual.yaml khai bao lnst_positive cho 1 ma, gia tri do THANG so tu dong (xem _ghep_lnst).
+
     Bo qua ma khong co SLCP hoac khong co du lieu gia (daily rong/thieu) - rules/definitions.py
     se nem ValueError neu dua daily rong vao, nen phai loc truoc o day.
     """
+    lnst_auto = lnst_auto or {}
     prev = {s.upper() for s in previous_basket}
     ds: list[StockInput] = []
     for sym in symbols:
@@ -71,6 +109,7 @@ def lap_stock_inputs(symbols, daily_map, shares_map, manual, previous_basket, fr
         if not slcp or daily is None or daily.empty:
             continue
         m = manual.get(sym, {})
+        lnst = _ghep_lnst(sym, m, lnst_auto)
         ds.append(StockInput(
             symbol=sym,
             daily=daily,
@@ -79,8 +118,11 @@ def lap_stock_inputs(symbols, daily_map, shares_map, manual, previous_basket, fr
             free_float=free_float.get(sym),
             in_previous_basket=sym in prev,
             warning_status=m.get("warning_status", "none"),
-            lnst_positive=m.get("lnst_positive"),
+            lnst_positive=lnst["lnst_positive"],
             audit_opinion=m.get("audit_opinion", "unknown"),
+            lnst_ty=lnst["lnst_ty"],
+            lnst_ky=lnst["lnst_ky"],
+            lnst_nguon=lnst["lnst_nguon"],
         ))
     return ds
 
@@ -112,6 +154,9 @@ def xuat_json(r: BasketResult, as_of: date, ky_review: str) -> dict:
             "free_float": m["free_float"],
             "free_float_rounded": m["free_float_rounded"],
             "in_previous_basket": m["in_previous_basket"],
+            "lnst_ty": m["lnst_ty"],
+            "lnst_ky": m["lnst_ky"],
+            "lnst_nguon": m["lnst_nguon"],
             "ket_luan": _ket_luan(sym, r),
             # Nhan canh bao rieng cho tung ma - khong duoc am tham bo (spec muc 4.3)
             "canh_bao": ([] if m["audit_opinion"] == "unqualified"
@@ -158,7 +203,22 @@ def main() -> None:
     # loi ha tang (mat mang/API sap) thay vi am tham hieu nham la ca san khong giao dich.
     daily_map = fetch_daily_batch(symbols, start, as_of)
 
-    ds = lap_stock_inputs(symbols, daily_map, shares, manual, prev, free_float)
+    # --- Vong 1: chua co LNST, chi de xep hang GTVH tren TOAN BO vu tru ---
+    # (GTVH khong phu thuoc LNST, nen ket qua xep hang o vong nay da dung; vong 2
+    # chi bo sung LNST cho top N ma de sang loc Dieu 4.3.1.d, khong doi xep hang.)
+    ds_so_bo = lap_stock_inputs(symbols, daily_map, shares, manual, prev, free_float)
+    kq_so_bo = build_vn30(ds_so_bo, as_of)
+    top_n = load_thresholds()["vn30"]["consideration_list_size"]
+    ma_can_lnst = sorted(
+        kq_so_bo.metrics, key=lambda s: kq_so_bo.metrics[s]["gtvh_rank"]
+    )[:top_n]
+    logger.info("Gọi BCTC lấy LNST cho %d mã (top %d theo GTVH)", len(ma_can_lnst), top_n)
+
+    lnst_auto = fetch_lnst_batch(ma_can_lnst)
+    logger.info("Lấy được LNST tự động cho %d/%d mã", len(lnst_auto), len(ma_can_lnst))
+
+    # --- Vong 2: chay lai voi LNST da co, ra ket qua chinh thuc ---
+    ds = lap_stock_inputs(symbols, daily_map, shares, manual, prev, free_float, lnst_auto)
     logger.info("Chạy bộ quy tắc trên %d mã", len(ds))
     kq = build_vn30(ds, as_of)
 

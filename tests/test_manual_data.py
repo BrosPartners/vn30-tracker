@@ -69,3 +69,24 @@ def test_listing_date_nhieu_dash_thi_bao_loi(tmp_path):
     xau = HOP_LE.replace("listing_date: 2018-05", "listing_date: '2018-05-05-rac'")
     with pytest.raises(ManualDataError, match="listing_date"):
         load_manual(_viet(tmp_path, xau))
+
+
+def test_lnst_positive_khong_bat_buoc(tmp_path):
+    """LNST gio lay tu dong tu vnstock - manual.yaml chi con dung de GHI DE khi can."""
+    xau = "VIC:\n  warning_status: none\n"
+    d = load_manual(_viet(tmp_path, xau))
+    assert d["VIC"]["lnst_positive"] is None
+    assert d["VIC"]["audit_opinion"] == "unknown"
+
+
+def test_audit_opinion_khong_bat_buoc(tmp_path):
+    xau = HOP_LE.replace("  audit_opinion: unqualified\n", "")
+    d = load_manual(_viet(tmp_path, xau))
+    assert d["VIC"]["audit_opinion"] == "unknown"
+
+
+def test_ma_khong_co_mat_trong_file_la_binh_thuong(tmp_path):
+    """Mot ma khong duoc khai bao trong manual.yaml khong duoc coi la loi -
+    LNST/free float cua no se lay tu nguon tu dong (vnstock/HOSE)."""
+    d = load_manual(_viet(tmp_path, HOP_LE))
+    assert "VCB" not in d

@@ -29,6 +29,11 @@ class StockInput:
     warning_status: str = "none"        # none|warning|control|restricted|suspended
     lnst_positive: Optional[bool] = None
     audit_opinion: str = "unknown"      # unqualified|qualified|unknown
+    # 3 truong hien thi (khong dung trong logic sang loc) de web tu kiem tra duoc
+    # nguon LNST: tu dong (vnstock) hay xac nhan thu cong (manual.yaml de) thang.
+    lnst_ty: Optional[float] = None      # LNST quy ra ty dong
+    lnst_ky: Optional[str] = None        # nhan ky bao cao, vd "Năm 2025"
+    lnst_nguon: Optional[str] = None     # "tự động" | "xác nhận thủ công"
 
 
 @dataclass

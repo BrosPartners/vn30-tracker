@@ -119,8 +119,11 @@ bot **cảnh báo trong output và trên web** ("thiếu dữ liệu free float"
    thỏa thuận để cắm nguồn khác sau mà không đụng bộ quy tắc.
 2. **GTVH 12 tháng dùng SLCP hiện tại** cho toàn bộ chuỗi giá quá khứ (không có chuỗi SLCP lịch sử)
    → lệch với mã có phát hành thêm/chia thưởng trong 12 tháng qua. Ghi chú trên từng mã bị ảnh hưởng.
-3. **Ý kiến kiểm toán** không đọc được bằng máy → cờ nhập tay, mặc định là "chưa xác nhận" và
-   hiển thị như vậy chứ không mặc định là đạt.
+3. **Ý kiến kiểm toán** không đọc được bằng máy → cờ nhập tay, mặc định `unknown`.
+   Quyết định 2026-09-08: `unknown` **không tự loại mã** — Điều 4.3.1.d chỉ loại mã có LNST âm,
+   còn câu "chỉ xét BCTC có ý kiến chấp nhận toàn phần" là quy định chọn báo cáo lấy số, không
+   phải tiêu chí loại độc lập. Mã như vậy vẫn vào rổ dự kiến nhưng **mang nhãn "chưa xác nhận
+   ý kiến kiểm toán"** hiện rõ trên web. Mã có LNST âm, hoặc thiếu hẳn dữ liệu LNST, vẫn bị loại.
 
 ## 5. Kiến trúc
 

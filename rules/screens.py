@@ -6,7 +6,7 @@ thẳng lên web ("vượt tiêu chí nào"), nên phải viết cho người đ
 from datetime import date
 from typing import Optional
 
-from rules.definitions import listing_months
+from rules.definitions import gtvh_f, listing_months
 from rules.models import ScreenResult, StockInput
 from rules.thresholds import load_thresholds
 
@@ -24,7 +24,13 @@ def _ty(x: float) -> str:
 
 
 def screen_eligibility(stock: StockInput, as_of: date, gtvh_rank: int) -> ScreenResult:
-    """Điều 3.2: trạng thái giao dịch và thời gian niêm yết."""
+    """Điều 3.2: trạng thái giao dịch và thời gian niêm yết.
+
+    Lưu ý về giới hạn: Điều 3.2 quy định cảnh báo/kiểm soát trong vòng 3 tháng gần nhất,
+    nhưng kiểm tra này chỉ xem TRẠNG THÁI HIỆN TẠI từ dữ liệu đầu vào (StockInput không
+    có trường ngày bắt đầu cảnh báo). Người nhập warning_status trong data/manual.yaml
+    chịu trách nhiệm phản ánh toàn bộ giai đoạn 3 tháng.
+    """
     t = load_thresholds()["eligibility"]
     ref = t["rule_ref"]
 
@@ -82,7 +88,15 @@ def screen_free_float(stock: StockInput, gtvh_f_value: Optional[float]) -> Scree
               else t["exception_gtvh_f_new_vnd"])
     loai = "đang trong rổ" if stock.in_previous_basket else "ngoài rổ"
 
-    if gtvh_f_value is not None and gtvh_f_value >= nguong:
+    # Kiểm tra dữ liệu gtvh_f_value một cách tường minh
+    if gtvh_f_value is None:
+        # Nếu free_float không None nhưng gtvh_f_value None -> lỗi lập trình (dữ liệu không nhất quán)
+        return ScreenResult(
+            stock.symbol, "free_float", ref, False,
+            f"Lỗi dữ liệu: không có giá trị vốn hóa free-float để đối chiếu ngoại lệ (free float {stock.free_float:.0%})",
+        )
+
+    if gtvh_f_value >= nguong:
         return ScreenResult(
             stock.symbol, "free_float", ref, True,
             f"Free float {stock.free_float:.0%} dưới 10% nhưng đạt ngoại lệ: "
@@ -90,12 +104,11 @@ def screen_free_float(stock: StockInput, gtvh_f_value: Optional[float]) -> Scree
         )
 
     # Không đạt điều kiện và không đủ ngoại lệ
-    thuc = gtvh_f_value or 0.0
     return ScreenResult(
         stock.symbol, "free_float", ref, False,
         f"Free float {stock.free_float:.0%} dưới 10% và vốn hóa free-float "
-        f"{_ty(thuc)} chưa đạt ngoại lệ {_ty(nguong)} (mã {loai})",
-        shortfall=nguong - thuc,
+        f"{_ty(gtvh_f_value)} chưa đạt ngoại lệ {_ty(nguong)} (mã {loai})",
+        shortfall=nguong - gtvh_f_value,
     )
 
 
@@ -105,8 +118,17 @@ def screen_liquidity(stock: StockInput, turnover: Optional[float]) -> ScreenResu
     ref = t["rule_ref"]
 
     if turnover is None:
-        return ScreenResult(stock.symbol, "liquidity", ref, False,
-                            "Không tính được turnover do thiếu free float")
+        # Phân biệt hai trường hợp khác nhau khi turnover không tính được
+        gtvh_f_val = gtvh_f(stock)
+
+        if gtvh_f_val is None:
+            # Thiếu dữ liệu free float - không thể tính gtvh_f
+            return ScreenResult(stock.symbol, "liquidity", ref, False,
+                                "Không tính được turnover do thiếu dữ liệu free float — cần cập nhật thủ công")
+        elif gtvh_f_val == 0:
+            # Free float = 0% - không xác định được (chia cho 0)
+            return ScreenResult(stock.symbol, "liquidity", ref, False,
+                                "Không tính được turnover vì free float bằng 0%")
 
     # Ngưỡng khác nhau giữa mã mới và mã cũ
     nguong = (t["min_turnover_existing"] if stock.in_previous_basket

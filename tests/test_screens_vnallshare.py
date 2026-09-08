@@ -88,3 +88,25 @@ def test_turnover_ma_trong_ro_chi_can_004_phan_tram():
     """Cung 0,045%: ma trong ro DAT, ma ngoai ro TRUOT."""
     assert screen_liquidity(_stock(in_previous_basket=True), 0.00045).passed
     assert not screen_liquidity(_stock(in_previous_basket=False), 0.00045).passed
+
+
+def test_turnover_khong_tinh_duoc_vi_thieu_free_float():
+    """Khi free_float is None -> khong the tinh turnover, thieu du lieu."""
+    r = screen_liquidity(_stock(free_float=None), None)
+    assert not r.passed
+    assert "thiếu dữ liệu free float" in r.message
+    assert "cần cập nhật thủ công" in r.message
+
+
+def test_turnover_khong_tinh_duoc_vi_free_float_bang_0():
+    """Khi free_float == 0% -> turnover khong xac dinh vi chia cho 0."""
+    r = screen_liquidity(_stock(free_float=0.0), None)
+    assert not r.passed
+    assert "free float bằng 0%" in r.message
+
+
+def test_free_float_trang_thai_dung_nhung_gtvh_f_value_none_la_loi():
+    """Khi free_float khong None nhung gtvh_f_value la None -> loi lap trinh."""
+    r = screen_free_float(_stock(free_float=0.05), gtvh_f_value=None)
+    assert not r.passed
+    assert "không có giá trị vốn hóa free-float" in r.message

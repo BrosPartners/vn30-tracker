@@ -7,6 +7,8 @@ tu day du tham so cua no, nguoi goi khong phai nghi ve khoa.
 import hashlib
 import json
 import logging
+import os
+import time
 from datetime import date
 from pathlib import Path
 from typing import Any, Callable
@@ -22,6 +24,67 @@ COT_CAN = ("time", "close", "volume")
 BATCH_SIZE_SHARES = 50  # so ma moi lo khi goi price_board, tranh timeout
 HOSE_EXCHANGES = ["HOSE", "HSX"]  # ten san duoc coi la HOSE (vnstock tra ca 2 dang)
 VNSTOCK_SOURCE = "VCI"  # nguon du lieu vnstock, dung thong nhat 1 cach viet
+
+# vnstock ban cong dong gioi han ~60 request/phut, va khi vuot nguong no THOAT
+# TIEN TRINH CUNG (os._exit) chu khong nem exception de try/except bat duoc.
+# Vi vay phai TU DIEU TIET truoc khi goi, chu khong the "xu ly loi sau" duoc.
+# Dat duoi 60 de co bien an toan (jitter, dem sai lech, request khac dang chay).
+GIOI_HAN_REQUEST_MOI_PHUT = 55
+CUA_SO_DIEU_TIET_GIAY = 60.0
+
+# Bien moi truong de tat han che trong test (test khong duoc ngu that)
+ENV_TAT_THROTTLE = "VN30_TRACKER_KHONG_THROTTLE"
+
+
+class DieuTietRequest:
+    """Dieu tiet nhip goi mang bang cua so truot (sliding window).
+
+    Ghi lai moc thoi gian cac request THAT SU da di ra mang (khong tinh cache
+    hit). Truoc moi request moi, neu so request trong `cua_so` giay gan nhat
+    da dat `gioi_han`, ngu vua du de moc cu nhat roi khoi cua so roi moi cho
+    request tiep tuc.
+    """
+
+    def __init__(
+        self,
+        gioi_han: int = GIOI_HAN_REQUEST_MOI_PHUT,
+        cua_so: float = CUA_SO_DIEU_TIET_GIAY,
+        time_fn: Callable[[], float] = time.monotonic,
+        sleep_fn: Callable[[float], None] = time.sleep,
+    ) -> None:
+        self.gioi_han = gioi_han
+        self.cua_so = cua_so
+        self.time_fn = time_fn
+        self.sleep_fn = sleep_fn
+        self._moc_thoi_gian: list[float] = []
+
+    def _loai_moc_qua_cu(self, now: float) -> None:
+        self._moc_thoi_gian = [t for t in self._moc_thoi_gian if now - t < self.cua_so]
+
+    def cho_phep(self) -> None:
+        """Goi truoc MOI request that ra mang. Co the ngu ben trong ham nay."""
+        if os.environ.get(ENV_TAT_THROTTLE) == "1":
+            return
+        now = self.time_fn()
+        self._loai_moc_qua_cu(now)
+        if len(self._moc_thoi_gian) >= self.gioi_han:
+            moc_cu_nhat = self._moc_thoi_gian[0]
+            thoi_gian_ngu = self.cua_so - (now - moc_cu_nhat)
+            if thoi_gian_ngu > 0:
+                logger.info(
+                    "Đã đạt %d request/%.0fs, tạm ngủ %.1f giây để tránh vnstock "
+                    "thoát tiến trình do vượt giới hạn tốc độ (không phải bị treo)",
+                    self.gioi_han, self.cua_so, thoi_gian_ngu,
+                )
+                self.sleep_fn(thoi_gian_ngu)
+                now = self.time_fn()
+                self._loai_moc_qua_cu(now)
+        self._moc_thoi_gian.append(now)
+
+
+# Doi tuong dieu tiet dung chung cho ca file - moi lan chay build.py la 1 tien
+# trinh, dung chung 1 cua so truot cho tat ca lenh goi mang trong tien trinh do.
+_throttle = DieuTietRequest()
 
 
 def cached(fn: Callable[[], Any], key: str, cache_dir: Path = CACHE_DIR) -> Any:
@@ -81,6 +144,7 @@ def fetch_hose_universe() -> list[str]:
     def goi_that() -> list[str]:
         from vnstock import Listing
 
+        _throttle.cho_phep()
         df = Listing().symbols_by_exchange()
         hose = df[
             df["exchange"].astype(str).str.upper().isin(HOSE_EXCHANGES)
@@ -98,6 +162,7 @@ def fetch_daily(symbol: str, start: date, end: date) -> pd.DataFrame:
     def goi_that() -> dict:
         from vnstock import Quote
 
+        _throttle.cho_phep()
         try:
             raw = Quote(symbol=symbol, source=VNSTOCK_SOURCE).history(
                 start=start.isoformat(), end=end.isoformat(), interval="1D"
@@ -168,6 +233,7 @@ def fetch_shares_outstanding(symbols: list[str]) -> dict[str, int]:
         out: dict[str, int] = {}
         for i in range(0, len(symbols), BATCH_SIZE_SHARES):
             lo = symbols[i:i + BATCH_SIZE_SHARES]
+            _throttle.cho_phep()
             try:
                 df = Trading(source=VNSTOCK_SOURCE.lower(), show_log=False).price_board(symbols_list=lo)
             except Exception as e:

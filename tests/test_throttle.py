@@ -99,3 +99,18 @@ def test_log_info_khi_ngu(monkeypatch, caplog):
 
     assert "INFO" in caplog.text or any(r.levelname == "INFO" for r in caplog.records)
     assert any("giây" in r.message or "giay" in r.message for r in caplog.records)
+
+
+def test_doc_gioi_han_request_tu_env_mac_dinh_khi_khong_set(monkeypatch):
+    monkeypatch.delenv(md.ENV_GIOI_HAN_REQUEST, raising=False)
+    assert md._doc_gioi_han_request_tu_env() == 55
+
+
+def test_doc_gioi_han_request_tu_env_doc_duoc_gia_tri_set(monkeypatch):
+    monkeypatch.setenv(md.ENV_GIOI_HAN_REQUEST, "15")
+    assert md._doc_gioi_han_request_tu_env() == 15
+
+
+def test_doc_gioi_han_request_tu_env_gia_tri_khong_hop_le_roi_ve_mac_dinh(monkeypatch):
+    monkeypatch.setenv(md.ENV_GIOI_HAN_REQUEST, "abc")
+    assert md._doc_gioi_han_request_tu_env() == 55

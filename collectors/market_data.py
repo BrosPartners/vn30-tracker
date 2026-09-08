@@ -29,7 +29,29 @@ VNSTOCK_SOURCE = "VCI"  # nguon du lieu vnstock, dung thong nhat 1 cach viet
 # TIEN TRINH CUNG (os._exit) chu khong nem exception de try/except bat duoc.
 # Vi vay phai TU DIEU TIET truoc khi goi, chu khong the "xu ly loi sau" duoc.
 # Dat duoi 60 de co bien an toan (jitter, dem sai lech, request khac dang chay).
-GIOI_HAN_REQUEST_MOI_PHUT = 55
+#
+# Tren runner GitHub Actions, goi "Khach" cua vnstock chi cho ~20 request/phut
+# (thap hon nhieu so voi may local) - vi vay cho phep chinh qua bien moi
+# truong VN30_TRACKER_GIOI_HAN_REQUEST, mac dinh giu 55 khi khong set.
+ENV_GIOI_HAN_REQUEST = "VN30_TRACKER_GIOI_HAN_REQUEST"
+
+
+def _doc_gioi_han_request_tu_env(mac_dinh: int = 55) -> int:
+    """Doc gioi han request/phut tu bien moi truong, roi ve mac dinh neu khong set/khong hop le."""
+    gia_tri = os.environ.get(ENV_GIOI_HAN_REQUEST)
+    if gia_tri is None:
+        return mac_dinh
+    try:
+        return int(gia_tri)
+    except ValueError:
+        logger.warning(
+            "Giá trị %s=%r không phải số nguyên hợp lệ, dùng mặc định %d",
+            ENV_GIOI_HAN_REQUEST, gia_tri, mac_dinh,
+        )
+        return mac_dinh
+
+
+GIOI_HAN_REQUEST_MOI_PHUT = _doc_gioi_han_request_tu_env()
 CUA_SO_DIEU_TIET_GIAY = 60.0
 
 # Bien moi truong de tat han che trong test (test khong duoc ngu that)

@@ -11,10 +11,18 @@ permissions:
 env:
   PYTHONIOENCODING: utf-8
   PYTHONUTF8: "1"
+  # Goi "Khach" cua vnstock tren runner GitHub Actions chi cho ~20 request/phut
+  # (thap hon nhieu so voi may local, noi 55 la an toan). Dat 15 de co bien an
+  # toan duoi nguong 20. He qua: lay gia ~405 ma se mat khoang 27 phut.
+  VN30_TRACKER_GIOI_HAN_REQUEST: "15"
 
 jobs:
   refresh:
     runs-on: ubuntu-latest
+    # Voi gioi han 15 request/phut, lay gia toan bo universe mat ~27 phut.
+    # Dat tuong minh de neu treo thi job tu chet som, khong dot het quota
+    # thay vi cho den mac dinh 360 phut cua GitHub.
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
 
@@ -27,6 +35,18 @@ jobs:
 
       - name: Chay test truoc khi build
         run: python -m pytest tests/ -q
+
+      - name: Tinh khoa cache theo ngay
+        id: cache-key
+        run: echo "key=vnstock-cache-$(date -u +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+
+      - name: Khoi phuc cache du lieu vnstock (de tiep tuc neu chay truoc bi dut giua chung)
+        uses: actions/cache@v4
+        with:
+          path: .cache/
+          key: ${{ steps.cache-key.outputs.key }}
+          restore-keys: |
+            vnstock-cache-
 
       - name: Cap nhat free-float tu PDF cong bo HOSE
         run: python scripts/cap_nhat_cbtt.py

@@ -1,0 +1,34 @@
+:root{
+  --teal:#008EB0;        /* chi dung cho mang khong chua chu */
+  --teal-text:#00728d;   /* chu/nut - do tuong phan 5,54:1 dat chuan AA */
+  --nen:#FAFAFA; --vien:#e3e6e8; --do:#b3261e; --xanh:#1a7f37;
+}
+*{box-sizing:border-box}
+img{max-width:100%}
+body{margin:0;background:var(--nen);color:#1c1f21;
+     font:400 15px/1.5 "Open Sans",system-ui,sans-serif;
+     overflow-x:hidden}
+header,main,footer{max-width:1180px;margin:0 auto;padding:16px 20px}
+header{border-bottom:3px solid var(--teal)}
+h1{font-size:22px;margin:0 0 4px}
+h2{font-size:17px;color:var(--teal-text);margin:24px 0 8px}
+#canh-bao-goc{background:#fdecea;border:1px solid var(--do);color:var(--do);
+  border-radius:6px;padding:10px 14px;margin-top:10px;font-weight:600}
+.cot-doi{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px}
+.the{background:#fff;border:1px solid var(--vien);border-left:4px solid var(--teal);
+     border-radius:6px;padding:12px;margin-bottom:10px}
+.the.canh-bao{border-left-color:var(--do)}
+.the b{font-size:16px}
+.the ul{margin:6px 0 0;padding-left:18px;font-size:13px;color:#4a5054}
+.dat{color:var(--xanh)} .truot{color:var(--do)}
+.rong{color:#6a7075;font-style:italic}
+.cuon{overflow-x:auto;max-width:100%}
+table{border-collapse:collapse;width:100%;background:#fff;font-size:13px}
+th,td{border:1px solid var(--vien);padding:6px 8px;text-align:right;white-space:nowrap}
+th{background:#f0f4f6;color:var(--teal-text);text-align:right;position:sticky;top:0}
+th:first-child,td:first-child{text-align:left}
+input#loc{padding:7px 10px;border:1px solid var(--vien);border-radius:4px;
+          margin-bottom:8px;width:220px;max-width:100%;font:inherit}
+footer{border-top:1px solid var(--vien);margin-top:32px;font-size:13px;color:#4a5054}
+footer ul{padding-left:18px}
+details summary{cursor:pointer;color:var(--teal-text);font-weight:600}

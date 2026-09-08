@@ -1,0 +1,118 @@
+/* Doc data/latest.json va dung giao dien. Khong thu vien ngoai. */
+const $ = (id) => document.getElementById(id);
+
+const soTy = (v) => (v === null || v === undefined) ? "—" :
+  Number(v).toLocaleString("vi-VN", { maximumFractionDigits: 1 });
+const soNguyen = (v) => (v === null || v === undefined) ? "—" :
+  Number(v).toLocaleString("vi-VN");
+const phanTram = (v) => (v === null || v === undefined) ? "—" :
+  (v * 100).toFixed(3) + "%";
+const phanTramTron = (v) => (v === null || v === undefined) ? "—" :
+  Math.round(v * 100) + "%";
+
+const COT = [
+  ["symbol", "Mã"], ["gtvh_rank", "Hạng"], ["gtvh_ty", "GTVH (tỷ)"],
+  ["gtvh_f_ty", "GTVH free-float (tỷ)"], ["gtgd_kl_ty", "GTGD khớp lệnh (tỷ)"],
+  ["klgd_kl", "KLGD khớp lệnh"], ["turnover", "Turnover"],
+  ["free_float", "Free float"], ["ket_luan", "Kết luận"],
+];
+
+function the(s, canhBaoNoiBat) {
+  const el = document.createElement("div");
+  el.className = "the" + (canhBaoNoiBat ? " canh-bao" : "");
+  const truot = (s.screens || []).filter((x) => !x.passed);
+  const dsHien = truot.length ? truot : (s.screens || []);
+  const lyDo = dsHien.map((x) => {
+    const shortfall = (x.shortfall === null || x.shortfall === undefined)
+      ? "" : ` — còn thiếu ${soTy(x.shortfall)}`;
+    return `<li class="${x.passed ? "dat" : "truot"}">${x.message}${shortfall}
+             <small>(Điều ${x.rule_ref})</small></li>`;
+  }).join("");
+  const canhBaoRieng = (s.canh_bao || [])
+    .map((c) => `<li class="truot">${c}</li>`).join("");
+  el.innerHTML = `<b>${s.symbol}</b> — hạng ${s.gtvh_rank} vốn hóa,
+                  GTVH ${soTy(s.gtvh_ty)} tỷ
+                  <ul>${lyDo}${canhBaoRieng}</ul>`;
+  return el;
+}
+
+function dungBang(stocks) {
+  $("bang").querySelector("thead").innerHTML =
+    "<tr>" + COT.map(([, ten]) => `<th>${ten}</th>`).join("") + "</tr>";
+  const top50 = stocks.slice().sort((a, b) => (a.gtvh_rank ?? 9999) - (b.gtvh_rank ?? 9999)).slice(0, 50);
+  const ve = (loc) => {
+    const tbody = $("bang").querySelector("tbody");
+    tbody.innerHTML = "";
+    top50.filter((s) => s.symbol.includes(loc.toUpperCase())).forEach((s) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = COT.map(([khoa]) => {
+        let v = s[khoa];
+        if (khoa === "turnover") v = phanTram(v);
+        else if (khoa === "free_float") v = phanTramTron(v);
+        else if (khoa === "klgd_kl") v = soNguyen(v);
+        else if (typeof v === "number") v = soTy(v);
+        return `<td>${v ?? "—"}</td>`;
+      }).join("");
+      tbody.appendChild(tr);
+    });
+  };
+  $("loc").addEventListener("input", (e) => ve(e.target.value));
+  ve("");
+}
+
+fetch("./data/latest.json")
+  .then((r) => {
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    return r.json();
+  })
+  .then((d) => {
+    $("meta").textContent =
+      `Kỳ review ${d.ky_review} · Dữ liệu tới ${d.as_of} · ${d.constituents.length} mã trong rổ dự kiến`;
+
+    if (d.canh_bao && d.canh_bao.length) {
+      const cb = $("canh-bao-goc");
+      cb.hidden = false;
+      cb.innerHTML = d.canh_bao.map((c) => `<p>⚠ ${c}</p>`).join("");
+    }
+
+    const trongRo = new Set(d.constituents);
+
+    const ungVien = d.stocks.filter((s) => !s.in_previous_basket && trongRo.has(s.symbol));
+    const nguyCo = d.stocks.filter((s) => s.in_previous_basket && !trongRo.has(s.symbol));
+
+    if (ungVien.length) {
+      ungVien.forEach((s) => $("vao").appendChild(the(s, false)));
+    } else {
+      $("vao").innerHTML = '<p class="rong">Chưa có mã nào đủ điều kiện thêm mới trong kỳ này.</p>';
+    }
+
+    if (nguyCo.length) {
+      nguyCo.forEach((s) => $("ra").appendChild(the(s, true)));
+    } else {
+      $("ra").innerHTML = '<p class="rong">Chưa có mã nào trong rổ hiện tại bị đe dọa loại.</p>';
+    }
+
+    dungBang(d.stocks);
+
+    const md = d.missing_data || [];
+    if (md.length) {
+      $("thieu-du-lieu").innerHTML =
+        `<h2>Thiếu dữ liệu</h2>
+         <details>
+           <summary>${md.length} mã chưa đủ dữ liệu để kết luận (bấm để xem danh sách)</summary>
+           <p>Các mã sau chưa có free float, lợi nhuận đã xác nhận, hoặc dữ liệu giao dịch đầy đủ,
+              nên không thể kết luận có đủ điều kiện vào rổ hay không:</p>
+           <p>${md.join(", ")}</p>
+         </details>`;
+    } else {
+      $("thieu-du-lieu").innerHTML = "<h2>Thiếu dữ liệu</h2><p>Không có mã nào thiếu dữ liệu.</p>";
+    }
+
+    $("xap-xi").innerHTML = (d.xap_xi || []).map((x) => `<li>${x}</li>`).join("")
+      || "<li>Không có ghi chú xấp xỉ nào cho kỳ này.</li>";
+    $("nguon").textContent = "Nguồn quy tắc: " + d.nguon_quy_tac;
+  })
+  .catch((e) => {
+    $("meta").textContent = "Không tải được dữ liệu: " + e.message +
+      ". Vui lòng tải lại trang hoặc liên hệ quản trị hệ thống.";
+  });

@@ -1,25 +1,36 @@
 """Doc data/manual.yaml - phan du lieu BAT BUOC do nguoi xac nhan.
 
-Nguyen tac: tha bao loi con hon doan. Thieu free float thi de None va bao ra ngoai,
-tuyet doi khong suy dien.
+Free float KHONG con nam o day - da chuyen sang nguon cong bo chinh thuc cua HOSE
+(collectors/hose_disclosure.py, doc tu PDF CBTT, ket qua o data/hose_index/*.yaml).
+manual.yaml chi con giu nhung gi HOSE khong cong bo o dang may doc duoc:
+lnst_positive, audit_opinion, warning_status (bat buoc), va listing_date (khong bat buoc).
+
+Nguyen tac: tha bao loi con hon doan. Neu file con sot truong free_float (tu thoi
+truoc khi chuyen nguon), bao loi ro rang de tranh hai nguon su that thay vi am
+tham bo qua.
 """
 from datetime import date
 from pathlib import Path
+from typing import Optional
 
 import yaml
 
 TRANG_THAI_HOP_LE = {"none", "warning", "control", "restricted", "suspended"}
 Y_KIEN_HOP_LE = {"unqualified", "qualified", "unknown"}
-# Sửa 2 (Important): thêm warning_status vào danh sách bắt buộc
-BAT_BUOC = ("free_float", "free_float_source", "listing_date", "warning_status")
+BAT_BUOC = ("lnst_positive", "audit_opinion", "warning_status")
+# free_float/free_float_source da chuyen nguon - neu con sot trong file thi bao loi
+# thay vi am tham dung, tranh hai nguon su that (xem hose_disclosure.py)
+KHOA_DA_BO = ("free_float", "free_float_source")
 
 
 class ManualDataError(ValueError):
     """File manual.yaml sai dinh dang hoac gia tri vo ly."""
 
 
-def _doc_thang(gia_tri, symbol: str) -> date:
-    """Chap nhan '2018-05' (YYYY-MM) hoac ngay day du. Sửa 3 (Minor): siết lại validation định dạng."""
+def _doc_thang(gia_tri, symbol: str) -> Optional[date]:
+    """Chap nhan '2018-05' (YYYY-MM) hoac ngay day du, hoac None neu khong co."""
+    if gia_tri is None:
+        return None
     if isinstance(gia_tri, date):
         return gia_tri
     try:
@@ -47,19 +58,18 @@ def load_manual(path: Path) -> dict[str, dict]:
         if not isinstance(ban_ghi, dict):
             raise ManualDataError(f"{symbol}: bản ghi phải là một khối key: value")
 
+        for khoa in KHOA_DA_BO:
+            if khoa in ban_ghi:
+                raise ManualDataError(
+                    f"{symbol}: trường '{khoa}' không còn dùng ở manual.yaml — "
+                    f"free float nay lay tu công bố chính thức HOSE (data/hose_index/*.yaml), "
+                    f"xóa trường này khỏi manual.yaml để tránh hai nguồn sự thật"
+                )
+
         for khoa in BAT_BUOC:
             if khoa not in ban_ghi:
                 raise ManualDataError(f"{symbol}: thiếu trường bắt buộc '{khoa}'")
 
-        f_ff = ban_ghi["free_float"]
-        # Sửa 1 (Critical): loại trừ bool tường minh vì trong Python bool là lớp con của int
-        # Vì thế free_float: true từ YAML sẽ là giá trị 1 (True) nếu không kiểm tra
-        if isinstance(f_ff, bool) or not isinstance(f_ff, (int, float)) or not 0 <= f_ff <= 1:
-            raise ManualDataError(
-                f"{symbol}: free_float phải là tỷ lệ số trong khoảng 0–1, "
-                f"không phải giá trị đúng/sai (true/false). Đang là {f_ff!r}")
-
-        # Sửa 2 (Important): warning_status giờ là trường bắt buộc, không còn .get() với default
         tt = ban_ghi["warning_status"]
         if tt not in TRANG_THAI_HOP_LE:
             raise ManualDataError(
@@ -70,9 +80,7 @@ def load_manual(path: Path) -> dict[str, dict]:
             raise ManualDataError(f"{symbol}: audit_opinion '{yk}' không hợp lệ")
 
         out[symbol.upper()] = {
-            "free_float": float(f_ff),
-            "free_float_source": ban_ghi["free_float_source"],
-            "listing_date": _doc_thang(ban_ghi["listing_date"], symbol),
+            "listing_date": _doc_thang(ban_ghi.get("listing_date"), symbol),
             "warning_status": tt,
             "lnst_positive": ban_ghi.get("lnst_positive"),
             "audit_opinion": yk,

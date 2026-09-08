@@ -7,6 +7,8 @@ import logging
 from datetime import date, timedelta
 from pathlib import Path
 
+import yaml
+
 from collectors.manual_data import load_manual
 from collectors.market_data import fetch_daily_batch, fetch_hose_universe, fetch_shares_outstanding
 from rules.basket import build_vn30
@@ -20,6 +22,24 @@ ROOT = Path(__file__).resolve().parent
 DATA_DIR = ROOT / "data"
 MANUAL_FILE = DATA_DIR / "manual.yaml"
 PREV_BASKET_FILE = DATA_DIR / "previous_basket.json"
+HOSE_INDEX_DIR = DATA_DIR / "hose_index"
+
+
+def load_free_float_moi_nhat(hose_index_dir: Path = HOSE_INDEX_DIR) -> tuple[dict[str, float], str | None]:
+    """Doc file data/hose_index/<ky>.yaml MOI NHAT (sinh boi scripts/cap_nhat_cbtt.py tu
+    cong bo chinh thuc HOSE) va tra ve (free_float dict, ky). Ky la chuoi "YYYY-MM" nen
+    so sanh chuoi la du de tim ky moi nhat.
+
+    Neu chua co file nao (vd moi clone repo, chua chay cap_nhat_cbtt.py), tra ve ({}, None)
+    - moi ma se roi vao missing_data, khong duoc doan.
+    """
+    files = sorted(hose_index_dir.glob("*.yaml"))
+    if not files:
+        return {}, None
+
+    moi_nhat = max(files, key=lambda p: p.stem)  # ten file la <ky>.yaml, "2026-01" < "2026-04" ...
+    du_lieu = yaml.safe_load(moi_nhat.read_text(encoding="utf-8")) or {}
+    return du_lieu.get("free_float", {}) or {}, du_lieu.get("ky")
 
 XAP_XI = [
     "GTGD chưa gồm giao dịch thỏa thuận (nguồn dữ liệu chỉ có khớp lệnh) — "
@@ -31,8 +51,13 @@ XAP_XI = [
 ]
 
 
-def lap_stock_inputs(symbols, daily_map, shares_map, manual, previous_basket) -> list[StockInput]:
-    """Ghep so tu may (daily, SLCP) voi so nguoi xac nhan (manual) thanh StockInput.
+def lap_stock_inputs(symbols, daily_map, shares_map, manual, previous_basket, free_float) -> list[StockInput]:
+    """Ghep so tu may (daily, SLCP) voi so nguoi xac nhan (manual) va free float tu
+    cong bo chinh thuc HOSE (free_float dict, xem load_free_float_moi_nhat) thanh StockInput.
+
+    free_float la nguon RIENG voi manual - HOSE cong bo moi quy cho toan bo VNAllshare,
+    manual.yaml khong con giu truong nay (tranh hai nguon su that). Ma khong co trong
+    cong bo HOSE (vd chua vao VNAllshare) se la None - khong doan.
 
     Bo qua ma khong co SLCP hoac khong co du lieu gia (daily rong/thieu) - rules/definitions.py
     se nem ValueError neu dua daily rong vao, nen phai loc truoc o day.
@@ -51,7 +76,7 @@ def lap_stock_inputs(symbols, daily_map, shares_map, manual, previous_basket) ->
             daily=daily,
             shares_outstanding=slcp,
             listing_date=m.get("listing_date"),
-            free_float=m.get("free_float"),
+            free_float=free_float.get(sym),
             in_previous_basket=sym in prev,
             warning_status=m.get("warning_status", "none"),
             lnst_positive=m.get("lnst_positive"),
@@ -118,6 +143,12 @@ def main() -> None:
 
     manual = load_manual(MANUAL_FILE)
     prev = json.loads(PREV_BASKET_FILE.read_text(encoding="utf-8")) if PREV_BASKET_FILE.exists() else []
+    free_float, ky_cbtt = load_free_float_moi_nhat(HOSE_INDEX_DIR)
+    if ky_cbtt:
+        logger.info("Free float lấy từ công bố chính thức HOSE kỳ %s (%d mã)", ky_cbtt, len(free_float))
+    else:
+        logger.warning("Chưa có file data/hose_index/*.yaml - chạy scripts/cap_nhat_cbtt.py trước. "
+                       "Mọi mã sẽ thiếu free float.")
 
     symbols = fetch_hose_universe()
     logger.info("Vũ trụ HOSE: %d mã", len(symbols))
@@ -127,7 +158,7 @@ def main() -> None:
     # loi ha tang (mat mang/API sap) thay vi am tham hieu nham la ca san khong giao dich.
     daily_map = fetch_daily_batch(symbols, start, as_of)
 
-    ds = lap_stock_inputs(symbols, daily_map, shares, manual, prev)
+    ds = lap_stock_inputs(symbols, daily_map, shares, manual, prev, free_float)
     logger.info("Chạy bộ quy tắc trên %d mã", len(ds))
     kq = build_vn30(ds, as_of)
 

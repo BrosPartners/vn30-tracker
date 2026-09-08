@@ -1,42 +1,35 @@
-# Du lieu phai do nguoi xac nhan. Moi con so PHAI co nguon va ngay.
-# free_float: ty le 0-1. warning_status: none|warning|control|restricted|suspended
+# Du lieu phai do nguoi xac nhan. Free float KHONG con o day - da chuyen sang
+# nguon cong bo chinh thuc cua HOSE (xem data/hose_index/*.yaml, sinh boi
+# scripts/cap_nhat_cbtt.py tu PDF CBTT cua HOSE).
+# warning_status: none|warning|control|restricted|suspended
 # audit_opinion: unqualified|qualified|unknown (mac dinh unknown = CHUA xac nhan)
+# listing_date: khong bat buoc (HOSE khong cong bo dang may doc duoc)
 
 VIC:
-  free_float: 0.30
-  free_float_source: "Sheet noi bo 2026-09-08 (goc DNSE)"
   listing_date: 2018-05
   warning_status: none
   lnst_positive: true
   audit_opinion: unknown
 
 VHM:
-  free_float: 0.12
-  free_float_source: "Sheet noi bo 2026-09-08 (goc DNSE)"
   listing_date: 2019-05
   warning_status: none
   lnst_positive: true
   audit_opinion: unknown
 
 VCB:
-  free_float: 0.55
-  free_float_source: "Sheet noi bo 2026-09-08 (goc DNSE)"
   listing_date: 2016-10
   warning_status: none
   lnst_positive: true
   audit_opinion: unknown
 
 GAS:
-  free_float: 0.05
-  free_float_source: "Sheet noi bo 2026-09-08 (goc DNSE)"
   listing_date: 2012-05
   warning_status: none
   lnst_positive: true
   audit_opinion: unknown
 
 GVR:
-  free_float: 0.04
-  free_float_source: "Sheet noi bo 2026-09-08 (goc DNSE)"
   listing_date: 2020-03
   warning_status: none
   lnst_positive: true

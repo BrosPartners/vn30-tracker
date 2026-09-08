@@ -94,23 +94,49 @@ Trang web hiển thị đếm ngược tới ngày chốt dữ liệu và ngày 
 | SLCP lưu hành | `shares_data.fetch_listed_shares_batch` (mượn từ `my-stock-dashboard`) | có sẵn |
 | LNST (số liệu thô) | vnstock BCTC | cần xác nhận cờ kiểm toán bằng tay |
 
-### 4.2. Nhập tay trong repo — `data/manual.yaml`, sửa qua git
+### 4.2. Free float từ công bố chính thức HOSE + nhập tay phần còn lại
 
-Đúng quyết định của user: free float **không** scrape, để người xác nhận.
+Quyết định 2026-09-08: bỏ nhập tay free float từ DNSE. **HOSE tự công bố free-float
+chính thức mỗi quý cho toàn bộ VNAllshare** — đúng con số HOSE dùng để tính chỉ số —
+nên dùng thẳng nguồn này thay vì đoán/nhập tay.
+
+**Nguồn & luồng xử lý:**
+
+1. File PDF công bố (CBTT) của HOSE, tải từ static2.vietstock.vn, đặt tại
+   `data/hose_index/cbtt_hose_index_<ky>.pdf` và **commit vào repo làm bằng chứng gốc**.
+2. `collectors/hose_disclosure.py` bóc PDF bằng PyMuPDF (`doc_cbtt()`), trả về danh mục
+   VN30 + dự phòng + `free_float` (dict mã → tỷ lệ 0–1) của toàn bộ VNAllshare. Tự kiểm
+   tra tính toàn vẹn (đúng 30 mã VN30, đủ số mã VNAllshare, tỷ lệ trong khoảng 0–1) —
+   ném lỗi rõ ràng (`HoseDisclosureError`) nếu HOSE đổi layout PDF, không âm thầm ra
+   dữ liệu thiếu. `collectors/` không import gì từ `rules/`.
+3. `scripts/cap_nhat_cbtt.py` chạy `doc_cbtt()` trên mọi PDF trong `data/hose_index/`
+   và ghi ra `data/hose_index/<ky>.yaml` — **file này cũng commit vào git** để có lịch
+   sử và review, đầu file có comment nêu nguồn + cảnh báo không sửa tay (muốn đổi thì
+   sửa PDF nguồn rồi chạy lại script).
+4. `build.py` đọc file `<ky>.yaml` **mới nhất** làm nguồn free float chính khi ghép
+   `StockInput`.
+
+Mã không có trong công bố HOSE (chưa vào VNAllshare, ví dụ MCH/TCX tại kỳ 01/2026)
+thì free float là `None` — rơi vào `missing_data`, hiển thị "Thiếu dữ liệu" trên web,
+**tuyệt đối không đoán**.
+
+**`data/manual.yaml` thu hẹp vai trò** — chỉ còn giữ những gì HOSE không công bố ở
+dạng máy đọc được:
 
 ```yaml
 VIC:
-  free_float: 0.30          # nguồn + ngày cập nhật bắt buộc
-  free_float_source: "DNSE 2026-09-05"
-  listing_date: 2018-05
+  listing_date: 2018-05     # không bắt buộc
   warning_status: none      # none | warning | control | restricted | suspended
   lnst_positive: true
   audit_opinion: unqualified
 ```
 
-Phạm vi bảo trì: **top 50 vốn hóa HOSE**. Thứ hạng GTVH vẫn tính trên **toàn bộ HOSE**;
-chỉ free float và kết luận giới hạn trong top 50. Khi một mã lọt vào top 50 mà chưa có free float,
-bot **cảnh báo trong output và trên web** ("thiếu dữ liệu free float"), không đoán.
+Trường bắt buộc: `lnst_positive`, `audit_opinion`, `warning_status`. `listing_date`
+không bắt buộc. `free_float`/`free_float_source` **không còn được dùng ở đây** — nếu
+sót lại trong file, `load_manual()` báo lỗi ngay để tránh hai nguồn sự thật.
+
+Phạm vi bảo trì của `manual.yaml`: **top 50 vốn hóa HOSE**. Thứ hạng GTVH vẫn tính trên
+**toàn bộ HOSE**; chỉ kết luận (LNST, ý kiến kiểm toán, cảnh báo) giới hạn trong top 50.
 
 ### 4.3. Xấp xỉ phải công bố rõ trên web
 

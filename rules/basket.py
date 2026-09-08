@@ -1,7 +1,7 @@
 """Ghep 7 buoc sang loc thanh mot lan chay hoan chinh (Dieu 4.3.1)."""
 from datetime import date
 
-from rules.definitions import gtgd_kl, gtvh, gtvh_f, klgd_kl, round_free_float, turnover_ratio
+from rules.definitions import gtgd_kl, gtvh, gtvh_f, klgd_kl, round_free_float, turnover_ratio, ty
 from rules.models import BasketResult, ScreenResult, StockInput
 from rules.screens import (
     screen_eligibility,
@@ -11,11 +11,6 @@ from rules.screens import (
     screen_vn30_liquidity,
 )
 from rules.thresholds import load_thresholds
-
-
-def _ty(x: float) -> str:
-    """Dinh dang so tien thanh ty dong (dung chung style voi rules/screens.py)."""
-    return f"{x / 1e9:,.0f} tỷ".replace(",", ".")
 
 
 def build_vn30(stocks: list[StockInput], as_of: date) -> BasketResult:
@@ -86,7 +81,7 @@ def build_vn30(stocks: list[StockInput], as_of: date) -> BasketResult:
             m = result.metrics[s.symbol]
             ket_qua_bu = ScreenResult(
                 s.symbol, "vn30_liquidity", t["rule_ref"] + ".b", True,
-                f"GTGD khớp lệnh {_ty(m['gtgd_kl'])}/phiên dưới ngưỡng {_ty(t['min_gtgd_kl_vnd'])}, "
+                f"GTGD khớp lệnh {ty(m['gtgd_kl'])}/phiên dưới ngưỡng {ty(t['min_gtgd_kl_vnd'])}, "
                 f"nhưng được lấy bù cho đủ {so_luong_can} mã trong danh sách xem xét",
             )
             result.screens[s.symbol][-1] = ket_qua_bu

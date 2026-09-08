@@ -98,3 +98,8 @@ def listing_months(stock: StockInput, as_of: date) -> int:
     if as_of.day < d.day:
         months -= 1
     return months
+
+
+def ty(x: float) -> str:
+    """Định dạng số tiền thành tỷ đồng với dấu phân tách."""
+    return f"{x / 1e9:,.0f} tỷ".replace(",", ".")

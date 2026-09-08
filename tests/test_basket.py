@@ -123,15 +123,18 @@ def _borderline(i):
 
 
 def test_bu_ma_gtgd_kl_cao_nhat_khi_thieu_50_ma_dat_nguong():
-    """25 ma tot + 15 ma ranh gioi (deu duoi nguong 30 ty) -> can bu 5 ma
-    de du 50 ma trong danh sach xem xet. 5 ma bu la 5 ma ranh gioi co GTGD_KL
-    cao nhat (i = 10..14), va chung phai lot duoc vao ro vi tong "dat" = 30."""
+    """25 mã tốt đạt ngưỡng 30 tỷ + 15 mã ranh giới dưới ngưỡng -> thiếu 25 mã để đủ 50.
+
+    Pool ứng viên bù chỉ có 15 mã, nên cả 15 đều được bù vào danh sách xem xét (đủ 50).
+    Tuy nhiên sau đó bước f cắt xuống còn 30 mã theo thứ hạng GTVH, nên chỉ 5 mã ranh giới
+    có GTGD_KL cao nhất (B10..B14) sống sót trong rổ (cắt tiêu vào không phải do bù dừng).
+    """
     u = [_good(i) for i in range(25)] + [_borderline(i) for i in range(15)]
     r = build_vn30(u, AS_OF)
-    # 5 ma ranh gioi GTGD_KL cao nhat (B10..B14) duoc bu vao va lot ro
+    # 5 mã ranh giới GTGD_KL cao nhất (B10..B14) được bù vào danh sách xem xét và sống sót qua cắt bước f
     for i in range(10, 15):
-        assert f"B{i:02d}" in r.constituents, f"B{i:02d} phai duoc bu va vao ro"
-    # 10 ma ranh gioi GTGD_KL thap nhat (B00..B09) KHONG duoc bu
+        assert f"B{i:02d}" in r.constituents, f"B{i:02d} phải được bù và vào rổ"
+    # 10 mã ranh giới GTGD_KL thấp nhất (B00..B09) không được bù (bị cắt bước f vì thứ hạng GTVH thấp)
     for i in range(0, 10):
         assert f"B{i:02d}" not in r.constituents
 
@@ -175,3 +178,59 @@ def test_ro_du_30_ma_thi_khong_co_canh_bao():
     r = build_vn30(_universe(45), AS_OF)
     assert len(r.constituents) == 30
     assert r.canh_bao == []
+
+
+def test_chu_ly_cat_dung_so_luong_khi_bu_vao_danh_sach_xem_xet():
+    """Kiểm chứng rằng khi pool ứng viên bù LỚN HƠN số còn thiếu, phần dư bị loại đúng.
+
+    48 mã tốt đạt ngưỡng 30 tỷ (thiếu 2 mã cho đủ 50), pool bù có 6 mã với GTGD_KL
+    khác nhau rõ rệt. Chỉ 2 mã GTGD_KL cao nhất được bù vào danh sách xem xét,
+    có ScreenResult bước vn30_liquidity.b với passed=True; 4 mã còn lại vẫn passed=False
+    không được bù (giữ failed từ bước .b).
+    """
+    # 48 mã tốt: đủ cao để đạt ngưỡng
+    goods = [make(f"G{i:02d}", close=200.0 - i, volume=500_000) for i in range(48)]
+
+    # 6 mã ranh giới: tất cả dưới ngưỡng 30 tỷ, GTGD_KL khác nhau rõ rệt
+    # Điều kiện cân bằng:
+    # - KLGD_KL >= 300k (bước a)
+    # - GTGD_KL < 30 tỷ (bước b)
+    # - Turnover >= 0.0005 (liquidity) để vượt qua trước bước vn30_liquidity
+    # Sử dụng close=100:
+    # - GTVH = 100 * 1e9 * 1000 = 100e12, GTVH_f = 50e12
+    # - Turnover >= 0.0005 => GTGD_KL >= 50e9 = 50 tỷ (mâu thuẫn với GTGD_KL < 30!)
+    # Vậy dùng close cao hơn để GTVH cao hơn, giảm yêu cầu GTGD_KL:
+    # - close=300: GTVH = 300e12, GTVH_f = 150e12
+    # - Turnover >= 0.0005 => GTGD_KL >= 75e9 = 75 tỷ (vẫn mâu thuẫn!)
+    # => Cách duy nhất: giảm turnover ngưỡng. Xem lại: min_turnover_existing = 0.0004 (0,04%)
+    # Với mã trong rổ cũ (in_previous_basket=True):
+    # - Turnover >= 0.0004 => GTGD_KL >= 40e9 = 40 tỷ (close=100, vẫn > 30)
+    # Vậy dùng close=50 và in_previous_basket=True:
+    # - GTVH = 50e12, GTVH_f = 25e12, Turnover >= 0.0004 => GTGD_KL >= 10e9
+    # - GTGD_KL ở 10-29.9 tỷ => volume ở 200k-599k (KLGD_KL ở 200k-599k, >= 300k ✓)
+    borderlines = [
+        make("B00", close=50.0, volume=300_000, in_basket=True),   # GTGD = 15 tỷ, Turnover = 0.06%
+        make("B01", close=50.0, volume=340_000, in_basket=True),   # GTGD = 17 tỷ, Turnover = 0.068%
+        make("B02", close=50.0, volume=380_000, in_basket=True),   # GTGD = 19 tỷ, Turnover = 0.076%
+        make("B03", close=50.0, volume=420_000, in_basket=True),   # GTGD = 21 tỷ, Turnover = 0.084%
+        make("B04", close=50.0, volume=460_000, in_basket=True),   # GTGD = 23 tỷ, Turnover = 0.092%
+        make("B05", close=50.0, volume=499_000, in_basket=True),   # GTGD = 24.95 tỷ, Turnover = 0.0998%
+    ]
+    u = goods + borderlines
+    r = build_vn30(u, AS_OF)
+
+    # Đúng 2 mã GTGD_KL cao nhất (B05, B04) được bù vào danh sách xem xét
+    # Kiểm chứng ScreenResult bước vn30_liquidity có passed=True và có thông báo bù
+    for symbol in ["B05", "B04"]:
+        screen_step = next(s for s in r.screens[symbol] if s.step == "vn30_liquidity")
+        assert screen_step.passed, f"{symbol} phải có ScreenResult passed=True sau bù"
+        assert "bù" in screen_step.message.lower() or "50" in screen_step.message, \
+            f"{symbol} ScreenResult phải có thông báo bù"
+
+    # 4 mã còn lại trong pool không được bù, ScreenResult bước vn30_liquidity vẫn passed=False
+    for symbol in ["B00", "B01", "B02", "B03"]:
+        screen_step = next(s for s in r.screens[symbol] if s.step == "vn30_liquidity")
+        assert not screen_step.passed, f"{symbol} phải có ScreenResult passed=False (không được bù)"
+        # Thông báo phải nói "thiếu" hoặc "dưới ngưỡng" (vẫn failed, không được bù)
+        assert ("thiếu" in screen_step.message.lower() or "dưới" in screen_step.message.lower()), \
+            f"{symbol} thông báo phải nói 'thiếu' hoặc 'dưới ngưỡng'"

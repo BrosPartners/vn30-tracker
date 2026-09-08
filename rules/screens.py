@@ -6,7 +6,7 @@ thẳng lên web ("vượt tiêu chí nào"), nên phải viết cho người đ
 from datetime import date
 from typing import Optional
 
-from rules.definitions import gtvh_f, listing_months
+from rules.definitions import gtvh_f, listing_months, ty
 from rules.models import ScreenResult, StockInput
 from rules.thresholds import load_thresholds
 
@@ -16,11 +16,6 @@ _TRANG_THAI_XAU = {
     "restricted": "hạn chế giao dịch",
     "suspended": "tạm ngừng giao dịch",
 }
-
-
-def _ty(x: float) -> str:
-    """Định dạng số tiền thành tỷ đồng với dấu phân tách."""
-    return f"{x / 1e9:,.0f} tỷ".replace(",", ".")
 
 
 def screen_eligibility(stock: StockInput, as_of: date, gtvh_rank: int) -> ScreenResult:
@@ -100,14 +95,14 @@ def screen_free_float(stock: StockInput, gtvh_f_value: Optional[float]) -> Scree
         return ScreenResult(
             stock.symbol, "free_float", ref, True,
             f"Free float {stock.free_float:.0%} dưới 10% nhưng đạt ngoại lệ: "
-            f"vốn hóa free-float {_ty(gtvh_f_value)} ≥ {_ty(nguong)} (mã {loai})",
+            f"vốn hóa free-float {ty(gtvh_f_value)} ≥ {ty(nguong)} (mã {loai})",
         )
 
     # Không đạt điều kiện và không đủ ngoại lệ
     return ScreenResult(
         stock.symbol, "free_float", ref, False,
         f"Free float {stock.free_float:.0%} dưới 10% và vốn hóa free-float "
-        f"{_ty(gtvh_f_value)} chưa đạt ngoại lệ {_ty(nguong)} (mã {loai})",
+        f"{ty(gtvh_f_value)} chưa đạt ngoại lệ {ty(nguong)} (mã {loai})",
         shortfall=nguong - gtvh_f_value,
     )
 
@@ -162,14 +157,14 @@ def screen_vn30_liquidity(stock: StockInput, klgd_kl_value: float,
     if gtgd_kl_value < t["min_gtgd_kl_vnd"]:
         return ScreenResult(
             stock.symbol, "vn30_liquidity", ref + ".b", False,
-            f"GTGD khớp lệnh {_ty(gtgd_kl_value)}/phiên, thiếu "
-            f"{_ty(t['min_gtgd_kl_vnd'] - gtgd_kl_value)} so với ngưỡng "
-            f"{_ty(t['min_gtgd_kl_vnd'])}",
+            f"GTGD khớp lệnh {ty(gtgd_kl_value)}/phiên, thiếu "
+            f"{ty(t['min_gtgd_kl_vnd'] - gtgd_kl_value)} so với ngưỡng "
+            f"{ty(t['min_gtgd_kl_vnd'])}",
             shortfall=t["min_gtgd_kl_vnd"] - gtgd_kl_value,
         )
 
     return ScreenResult(stock.symbol, "vn30_liquidity", ref + ".a-b", True,
-                        f"KLGD {klgd_kl_value:,.0f} cp và GTGD {_ty(gtgd_kl_value)}/phiên"
+                        f"KLGD {klgd_kl_value:,.0f} cp và GTGD {ty(gtgd_kl_value)}/phiên"
                         .replace(",", "."))
 
 

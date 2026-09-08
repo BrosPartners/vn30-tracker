@@ -46,3 +46,4 @@ class BasketResult:
     metrics: dict[str, dict] = field(default_factory=dict)      # symbol -> so lieu tinh duoc
     screens: dict[str, list[ScreenResult]] = field(default_factory=dict)  # symbol -> cac buoc
     missing_data: list[str] = field(default_factory=list)       # ma thieu free float/LNST
+    canh_bao: list[str] = field(default_factory=list)           # canh bao chung (vd ro thieu ma)

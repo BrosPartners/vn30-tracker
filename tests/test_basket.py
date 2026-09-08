@@ -105,3 +105,73 @@ def test_thu_hang_gtvh_tinh_tren_toan_bo_vu_tru_khong_chi_ma_dat():
     u[0].lnst_positive = False
     r = build_vn30(u, AS_OF)
     assert r.metrics["S00"]["gtvh_rank"] == 1
+
+
+# --- Dieu 4.3.1.b: danh sach xem xet bu cho du 50 ma ---
+
+def _good(i):
+    """Ma 'tot': gia cao, khoi luong lon -> vuot xa nguong GTGD_KL 30 ty."""
+    return make(f"G{i:02d}", close=200.0 - i, volume=500_000)
+
+
+def _borderline(i):
+    """Ma 'ranh gioi': gia thap, KLGD dat 300k cp nhung GTGD_KL < 30 ty.
+
+    volume tang dan theo i -> GTGD_KL tang dan theo i (i lon nhat = GTGD_KL cao nhat).
+    """
+    return make(f"B{i:02d}", close=50.0, volume=300_000 + i * 1_000)
+
+
+def test_bu_ma_gtgd_kl_cao_nhat_khi_thieu_50_ma_dat_nguong():
+    """25 ma tot + 15 ma ranh gioi (deu duoi nguong 30 ty) -> can bu 5 ma
+    de du 50 ma trong danh sach xem xet. 5 ma bu la 5 ma ranh gioi co GTGD_KL
+    cao nhat (i = 10..14), va chung phai lot duoc vao ro vi tong "dat" = 30."""
+    u = [_good(i) for i in range(25)] + [_borderline(i) for i in range(15)]
+    r = build_vn30(u, AS_OF)
+    # 5 ma ranh gioi GTGD_KL cao nhat (B10..B14) duoc bu vao va lot ro
+    for i in range(10, 15):
+        assert f"B{i:02d}" in r.constituents, f"B{i:02d} phai duoc bu va vao ro"
+    # 10 ma ranh gioi GTGD_KL thap nhat (B00..B09) KHONG duoc bu
+    for i in range(0, 10):
+        assert f"B{i:02d}" not in r.constituents
+
+
+def test_ma_duoc_bu_co_screen_result_passed_va_thong_bao_bu():
+    u = [_good(i) for i in range(25)] + [_borderline(i) for i in range(15)]
+    r = build_vn30(u, AS_OF)
+    buoc = next(s for s in r.screens["B14"] if s.step == "vn30_liquidity")
+    assert buoc.passed
+    assert "bù" in buoc.message.lower() or "50" in buoc.message
+
+
+def test_khong_bu_them_ma_khi_da_du_50_ma_dat_nguong():
+    """Vu tru mac dinh 50 ma deu vuot nguong 30 ty -> khong co thong bao bu nao."""
+    r = build_vn30(_universe(50), AS_OF)
+    for buoc_list in r.screens.values():
+        for b in buoc_list:
+            if b.step == "vn30_liquidity":
+                assert "bù" not in b.message.lower()
+
+
+def test_dong_hang_gtvh_uu_tien_gtgd_kl_lon_hon():
+    """2 ma cung GTVH (gia va so luong CP giong nhau) nhung khac GTGD_KL
+    (khac volume) -> ma GTGD_KL lon hon phai duoc xep hang gtvh tot hon (so nho hon)."""
+    cao = make("TIE_CAO", close=100.0, volume=800_000)
+    thap = make("TIE_THAP", close=100.0, volume=500_000)
+    r = build_vn30([cao, thap], AS_OF)
+    assert r.metrics["TIE_CAO"]["gtvh"] == r.metrics["TIE_THAP"]["gtvh"]
+    assert r.metrics["TIE_CAO"]["gtgd_kl"] > r.metrics["TIE_THAP"]["gtgd_kl"]
+    assert r.metrics["TIE_CAO"]["gtvh_rank"] < r.metrics["TIE_THAP"]["gtvh_rank"]
+
+
+def test_ro_duoi_30_ma_thi_co_canh_bao():
+    r = build_vn30(_universe(10), AS_OF)
+    assert len(r.constituents) < 30
+    assert r.canh_bao
+    assert any("30" in c for c in r.canh_bao)
+
+
+def test_ro_du_30_ma_thi_khong_co_canh_bao():
+    r = build_vn30(_universe(45), AS_OF)
+    assert len(r.constituents) == 30
+    assert r.canh_bao == []

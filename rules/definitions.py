@@ -11,6 +11,7 @@ from typing import Optional
 import pandas as pd
 
 from rules.models import StockInput
+from rules.thresholds import load_thresholds
 
 PRICE_UNIT_VND = 1000
 
@@ -34,7 +35,9 @@ def _daily_market_cap(stock: StockInput) -> pd.Series:
 def gtvh(stock: StockInput) -> float:
     """Binh quan von hoa HANG NGAY trong ky nhin lai (Dieu 3.1)."""
     if stock.daily.empty:
-        return 0.0
+        raise ValueError(
+            f"Ma {stock.symbol} khong co du lieu gia - khong tinh duoc GTVH."
+        )
     return float(_daily_market_cap(stock).mean())
 
 
@@ -48,7 +51,9 @@ def gtvh_f(stock: StockInput) -> Optional[float]:
 def gtgd_kl(stock: StockInput) -> float:
     """Gia tri giao dich khop lenh: binh quan cua trung vi thang (Dieu 3.1)."""
     if stock.daily.empty:
-        return 0.0
+        raise ValueError(
+            f"Ma {stock.symbol} khong co du lieu gia - khong tinh duoc GTGD_KL."
+        )
     daily_value = stock.daily["close"] * PRICE_UNIT_VND * stock.daily["volume"]
     return average_of_monthly_medians(daily_value, stock.daily["time"])
 
@@ -56,7 +61,9 @@ def gtgd_kl(stock: StockInput) -> float:
 def klgd_kl(stock: StockInput) -> float:
     """Khoi luong giao dich khop lenh: binh quan cua trung vi thang (Dieu 3.1)."""
     if stock.daily.empty:
-        return 0.0
+        raise ValueError(
+            f"Ma {stock.symbol} khong co du lieu gia - khong tinh duoc KLGD_KL."
+        )
     return average_of_monthly_medians(stock.daily["volume"], stock.daily["time"])
 
 
@@ -67,6 +74,8 @@ def turnover_ratio(stock: StockInput) -> Optional[float]:
     chi co khop lenh -> ket qua la CAN DUOI. Xem spec muc 4.3.
     """
     denom = gtvh_f(stock)
+    # free float 0% van la gia tri hop le, nhung lam mau so bang 0 -> turnover
+    # khong xac dinh (chia cho 0), nen tra None thay vi tinh ra vo cung/loi.
     if denom is None or denom == 0:
         return None
     return gtgd_kl(stock) / denom
@@ -74,7 +83,11 @@ def turnover_ratio(stock: StockInput) -> Optional[float]:
 
 def round_free_float(f: float) -> float:
     """Dieu 3.3.5: f <= 15% lam tron LEN boi so 1%; f > 15% lam tron LEN boi so 5%."""
-    step = 0.01 if f <= 0.15 else 0.05
+    cfg = load_thresholds()["free_float"]
+    breakpoint_ = cfg["rounding_breakpoint"]
+    step_low = cfg["rounding_step_low"]
+    step_high = cfg["rounding_step_high"]
+    step = step_low if f <= breakpoint_ else step_high
     return round(math.ceil(round(f / step, 9)) * step, 4)
 
 

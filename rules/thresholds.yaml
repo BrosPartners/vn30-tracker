@@ -13,6 +13,10 @@ free_float:
   min_ratio: 0.10
   exception_gtvh_f_existing_vnd: 2.0e+12   # 2.000 ty dong - ma trong ro ky truoc
   exception_gtvh_f_new_vnd: 2.5e+12        # 2.500 ty dong - ma moi
+  rounding_ref: "3.3.5"
+  rounding_breakpoint: 0.15   # f <= 15%: lam tron len boi so 1%; tren nguong: boi so 5%
+  rounding_step_low: 0.01
+  rounding_step_high: 0.05
 
 liquidity:
   rule_ref: "3.4"

@@ -58,6 +58,18 @@ def test_gtgd_kl_va_klgd_kl():
     assert klgd_kl(st) == pytest.approx(350.0)
 
 
+def test_khong_co_du_lieu_gia_bao_loi_thay_vi_tra_khong():
+    """Ma loi fetch (daily rong) phai nem ValueError, khong duoc am tham tra 0.0
+    (neu khong se bi hieu la von hoa 0 va bi loai lang le khoi ro)."""
+    st = _stock([], [], [])
+    with pytest.raises(ValueError, match="TEST"):
+        gtvh(st)
+    with pytest.raises(ValueError, match="TEST"):
+        gtgd_kl(st)
+    with pytest.raises(ValueError, match="TEST"):
+        klgd_kl(st)
+
+
 def test_thieu_free_float_tra_none_chu_khong_doan():
     st = _stock([10.0], [100], ["2026-01-05"], free_float=None)
     assert gtvh_f(st) is None

@@ -278,3 +278,29 @@ def test_ma_khong_co_du_lieu_gia_van_bi_loc_khoi_vu_tru():
     ds = lap_stock_inputs(["ABC"], {"ABC": rong}, {"ABC": 1_000_000}, {}, [], {},
                           start=date(2025, 7, 1))
     assert ds == []
+
+
+# ---------------------------------------------------------------------------
+# Gom lich su snapshot cho sparkline (Task 9.5)
+# ---------------------------------------------------------------------------
+
+def test_gom_lich_su_theo_ma(tmp_path):
+    import json
+
+    from build import gom_lich_su
+
+    h = tmp_path / "history"
+    h.mkdir()
+    for ngay, hang in [("2026-09-01", 31), ("2026-09-02", 29)]:
+        (h / f"{ngay}.json").write_text(json.dumps({
+            "as_of": ngay,
+            "stocks": [{"symbol": "VIX", "gtvh_rank": hang, "gtgd_kl_ty": 100.0}],
+        }), encoding="utf-8")
+
+    ls = gom_lich_su(h)
+    assert [d["gtvh_rank"] for d in ls["VIX"]] == [31, 29], "Phải sắp theo ngày tăng dần"
+
+
+def test_gom_lich_su_thu_muc_khong_ton_tai_tra_ve_rong(tmp_path):
+    from build import gom_lich_su
+    assert gom_lich_su(tmp_path / "khong_ton_tai") == {}

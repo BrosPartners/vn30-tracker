@@ -20,6 +20,7 @@ from collectors.market_data import (
     fetch_shares_outstanding,
 )
 from rules.basket import build_vn30
+from rules.lich_review import ky_review_ke_tiep
 from rules.models import BasketResult, StockInput
 from rules.thresholds import load_thresholds
 
@@ -194,7 +195,29 @@ def _ket_luan(symbol: str, r: BasketResult) -> str:
     return "Không đạt"
 
 
-def xuat_json(r: BasketResult, as_of: date, ky_review: str) -> dict:
+def gom_lich_su(hist_dir: Path, so_ngay: int = 90) -> dict[str, list[dict]]:
+    """Gom cac snapshot ngay (data/history/*.json, sinh boi main() moi lan chay) thanh
+    chuoi theo ma, de trang tinh ve sparkline ma khong phai liet ke thu muc (trang tinh
+    khong lam duoc viec do)."""
+    if not hist_dir.exists():
+        return {}
+    out: dict[str, list[dict]] = {}
+    for p in sorted(hist_dir.glob("*.json"))[-so_ngay:]:
+        try:
+            d = json.loads(p.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            logger.warning("Bỏ qua snapshot hỏng: %s", p.name)
+            continue
+        for s in d.get("stocks", []):
+            out.setdefault(s["symbol"], []).append({
+                "ngay": d["as_of"],
+                "gtvh_rank": s["gtvh_rank"],
+                "gtgd_kl_ty": s["gtgd_kl_ty"],
+            })
+    return out
+
+
+def xuat_json(r: BasketResult, as_of: date, ky_review: str, lich_su: dict | None = None) -> dict:
     top = load_thresholds()["vn30"]["consideration_list_size"]
     xep = sorted(r.metrics.items(), key=lambda kv: kv[1]["gtvh_rank"])[:top]
 
@@ -235,6 +258,11 @@ def xuat_json(r: BasketResult, as_of: date, ky_review: str) -> dict:
         "reserve": r.reserve,
         "missing_data": sorted(set(r.missing_data)),
         "stocks": stocks,
+        "lich": {
+            k: (v.isoformat() if isinstance(v, date) else v)
+            for k, v in ky_review_ke_tiep(as_of).items()
+        },
+        "lich_su": lich_su or {},
         "xap_xi": XAP_XI,
         # Canh bao chung o cap toan bo ro (vd chon duoc < 30 ma) - lay tu BasketResult.canh_bao
         "canh_bao": r.canh_bao,
@@ -282,15 +310,20 @@ def main() -> None:
     logger.info("Chạy bộ quy tắc trên %d mã", len(ds))
     kq = build_vn30(ds, as_of)
 
-    ky = "07/2026"
-    out = xuat_json(kq, as_of, ky)
+    # Ghi snapshot tho (chua co khoi lich/lich_su) truoc, roi moi gom lich su - de
+    # chuoi sparkline co ca diem cua hom nay, khong bi cham 1 nhip.
+    ky = ky_review_ke_tiep(as_of)["ky"]
+    snapshot_tho = xuat_json(kq, as_of, ky)
 
     DATA_DIR.mkdir(exist_ok=True)
-    (DATA_DIR / "latest.json").write_text(
-        json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
     hist = DATA_DIR / "history"
     hist.mkdir(exist_ok=True)
     (hist / f"{as_of.isoformat()}.json").write_text(
+        json.dumps(snapshot_tho, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    lich_su = gom_lich_su(hist)
+    out = xuat_json(kq, as_of, ky, lich_su)
+    (DATA_DIR / "latest.json").write_text(
         json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
 
     logger.info("Rổ dự kiến: %s", ", ".join(kq.constituents))

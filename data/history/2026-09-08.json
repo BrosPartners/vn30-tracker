@@ -1,6 +1,6 @@
 {
   "as_of": "2026-09-08",
-  "ky_review": "07/2026",
+  "ky_review": "01/2027",
   "constituents": [
     "VIC",
     "VCB",
@@ -3195,6 +3195,12 @@
       ]
     }
   ],
+  "lich": {
+    "ky": "01/2027",
+    "ngay_chot": "2027-01-20",
+    "ngay_hieu_luc": "2027-02-01"
+  },
+  "lich_su": {},
   "xap_xi": [
     "GTGD chưa gồm giao dịch thỏa thuận (nguồn dữ liệu chỉ có khớp lệnh) — turnover ratio là ước tính cận dưới.",
     "GTVH 12 tháng dùng số cổ phiếu lưu hành hiện tại cho toàn chuỗi giá quá khứ — lệch với mã có phát hành thêm hoặc chia thưởng trong kỳ.",

@@ -1,6 +1,9 @@
 /* Doc data/latest.json va dung giao dien. Khong thu vien ngoai. */
 const $ = (id) => document.getElementById(id);
 
+// Chuoi lich su thu hang GTVH theo ma (d.lich_su), gan trong .then() truoc khi dung the.
+let LICH_SU = {};
+
 const soTy = (v) => (v === null || v === undefined) ? "—" :
   Number(v).toLocaleString("vi-VN", { maximumFractionDigits: 1 });
 const soNguyen = (v) => (v === null || v === undefined) ? "—" :
@@ -17,6 +20,20 @@ const COT = [
   ["free_float", "Free float"], ["ket_luan", "Kết luận"],
 ];
 
+function sparkline(chuoi) {
+  // Chi ve khi co tu 2 diem tro len - 1 diem khong noi len xu huong gi.
+  if (!chuoi || chuoi.length < 2) return "";
+  const hang = chuoi.map((d) => d.gtvh_rank);
+  const min = Math.min(...hang), max = Math.max(...hang);
+  const bien = max - min || 1;
+  const diem = hang.map((v, i) =>
+    `${(i / (hang.length - 1)) * 100},${((v - min) / bien) * 20}`).join(" ");
+  return `<svg viewBox="0 0 100 20" width="120" height="24" role="img"
+            aria-label="Thứ hạng vốn hóa từ ${hang[0]} tới ${hang[hang.length - 1]}">
+            <polyline points="${diem}" fill="none" stroke="#00728d" stroke-width="1.5"/>
+          </svg>`;
+}
+
 function the(s, canhBaoNoiBat) {
   const el = document.createElement("div");
   el.className = "the" + (canhBaoNoiBat ? " canh-bao" : "");
@@ -31,7 +48,7 @@ function the(s, canhBaoNoiBat) {
   const canhBaoRieng = (s.canh_bao || [])
     .map((c) => `<li class="truot">${c}</li>`).join("");
   el.innerHTML = `<b>${s.symbol}</b> — hạng ${s.gtvh_rank} vốn hóa,
-                  GTVH ${soTy(s.gtvh_ty)} tỷ
+                  GTVH ${soTy(s.gtvh_ty)} tỷ ${sparkline(LICH_SU[s.symbol])}
                   <ul>${lyDo}${canhBaoRieng}</ul>`;
   return el;
 }
@@ -66,8 +83,18 @@ fetch("./data/latest.json")
     return r.json();
   })
   .then((d) => {
-    $("meta").textContent =
-      `Kỳ review ${d.ky_review} · Dữ liệu tới ${d.as_of} · ${d.constituents.length} mã trong rổ dự kiến`;
+    LICH_SU = d.lich_su || {};
+
+    if (d.lich) {
+      const conLai = Math.ceil((new Date(d.lich.ngay_chot) - new Date(d.as_of)) / 86400000);
+      $("meta").textContent =
+        `Kỳ review ${d.lich.ky} · chốt dữ liệu ${d.lich.ngay_chot} (còn ${conLai} ngày) · ` +
+        `hiệu lực ${d.lich.ngay_hieu_luc} · dữ liệu tới ${d.as_of} · ` +
+        `${d.constituents.length} mã trong rổ dự kiến`;
+    } else {
+      $("meta").textContent =
+        `Kỳ review ${d.ky_review} · Dữ liệu tới ${d.as_of} · ${d.constituents.length} mã trong rổ dự kiến`;
+    }
 
     if (d.canh_bao && d.canh_bao.length) {
       const cb = $("canh-bao-goc");

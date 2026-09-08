@@ -15,7 +15,8 @@ def test_app_js_chi_dung_truong_co_that_trong_json():
         "gtgd_kl_ty", "klgd_kl", "turnover", "free_float", "free_float_rounded",
         "in_previous_basket", "ket_luan", "canh_bao", "screens", "step", "rule_ref", "passed",
         "message", "shortfall", "lnst_ty", "lnst_ky", "lnst_nguon", "niem_yet_nguon",
-        "niem_yet_thang",
+        "niem_yet_thang", "lich", "lich_su", "ky", "ngay_chot", "ngay_hieu_luc", "ngay",
+        "gtvh_rank", "gtgd_kl_ty",
     }
     js = APP_JS.read_text(encoding="utf-8")
     for truong in re.findall(r"\bd(?:ata)?\.([a-z_]+)\b", js):

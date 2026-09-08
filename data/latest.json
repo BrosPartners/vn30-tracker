@@ -1,6 +1,6 @@
 {
   "as_of": "2026-09-08",
-  "ky_review": "07/2026",
+  "ky_review": "01/2027",
   "constituents": [
     "VIC",
     "VCB",
@@ -3195,6 +3195,363 @@
       ]
     }
   ],
+  "lich": {
+    "ky": "01/2027",
+    "ngay_chot": "2027-01-20",
+    "ngay_hieu_luc": "2027-02-01"
+  },
+  "lich_su": {
+    "VIC": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 1,
+        "gtgd_kl_ty": 724.4
+      }
+    ],
+    "VCB": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 2,
+        "gtgd_kl_ty": 380.1
+      }
+    ],
+    "VHM": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 3,
+        "gtgd_kl_ty": 360.0
+      }
+    ],
+    "BID": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 4,
+        "gtgd_kl_ty": 223.7
+      }
+    ],
+    "CTG": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 5,
+        "gtgd_kl_ty": 323.3
+      }
+    ],
+    "TCB": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 6,
+        "gtgd_kl_ty": 463.3
+      }
+    ],
+    "VPB": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 7,
+        "gtgd_kl_ty": 611.0
+      }
+    ],
+    "HPG": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 8,
+        "gtgd_kl_ty": 839.6
+      }
+    ],
+    "GAS": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 9,
+        "gtgd_kl_ty": 139.6
+      }
+    ],
+    "MCH": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 10,
+        "gtgd_kl_ty": 50.9
+      }
+    ],
+    "MBB": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 11,
+        "gtgd_kl_ty": 451.1
+      }
+    ],
+    "VPL": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 12,
+        "gtgd_kl_ty": 56.0
+      }
+    ],
+    "FPT": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 13,
+        "gtgd_kl_ty": 718.3
+      }
+    ],
+    "LPB": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 14,
+        "gtgd_kl_ty": 98.6
+      }
+    ],
+    "HDB": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 15,
+        "gtgd_kl_ty": 357.7
+      }
+    ],
+    "GVR": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 16,
+        "gtgd_kl_ty": 116.7
+      }
+    ],
+    "ACB": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 17,
+        "gtgd_kl_ty": 282.0
+      }
+    ],
+    "VNM": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 18,
+        "gtgd_kl_ty": 267.2
+      }
+    ],
+    "STB": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 19,
+        "gtgd_kl_ty": 441.0
+      }
+    ],
+    "MWG": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 20,
+        "gtgd_kl_ty": 476.0
+      }
+    ],
+    "TCX": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 21,
+        "gtgd_kl_ty": 78.6
+      }
+    ],
+    "MSN": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 22,
+        "gtgd_kl_ty": 453.9
+      }
+    ],
+    "BSR": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 23,
+        "gtgd_kl_ty": 291.7
+      }
+    ],
+    "DMX": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 24,
+        "gtgd_kl_ty": 40.8
+      }
+    ],
+    "VJC": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 25,
+        "gtgd_kl_ty": 207.2
+      }
+    ],
+    "HVN": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 26,
+        "gtgd_kl_ty": 29.6
+      }
+    ],
+    "VCK": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 27,
+        "gtgd_kl_ty": 95.7
+      }
+    ],
+    "SHB": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 28,
+        "gtgd_kl_ty": 974.4
+      }
+    ],
+    "VRE": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 29,
+        "gtgd_kl_ty": 225.1
+      }
+    ],
+    "BCM": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 30,
+        "gtgd_kl_ty": 35.7
+      }
+    ],
+    "SSI": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 31,
+        "gtgd_kl_ty": 656.0
+      }
+    ],
+    "GEE": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 32,
+        "gtgd_kl_ty": 75.5
+      }
+    ],
+    "VIB": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 33,
+        "gtgd_kl_ty": 126.1
+      }
+    ],
+    "SAB": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 34,
+        "gtgd_kl_ty": 37.6
+      }
+    ],
+    "VPX": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 35,
+        "gtgd_kl_ty": 33.4
+      }
+    ],
+    "SSB": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 36,
+        "gtgd_kl_ty": 37.1
+      }
+    ],
+    "PLX": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 37,
+        "gtgd_kl_ty": 165.1
+      }
+    ],
+    "VIX": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 38,
+        "gtgd_kl_ty": 734.9
+      }
+    ],
+    "BVH": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 39,
+        "gtgd_kl_ty": 39.9
+      }
+    ],
+    "TPB": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 40,
+        "gtgd_kl_ty": 218.4
+      }
+    ],
+    "EIB": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 41,
+        "gtgd_kl_ty": 189.2
+      }
+    ],
+    "POW": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 42,
+        "gtgd_kl_ty": 141.1
+      }
+    ],
+    "GEX": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 43,
+        "gtgd_kl_ty": 319.3
+      }
+    ],
+    "LPS": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 44,
+        "gtgd_kl_ty": 33.0
+      }
+    ],
+    "MSB": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 45,
+        "gtgd_kl_ty": 98.9
+      }
+    ],
+    "REE": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 46,
+        "gtgd_kl_ty": 32.6
+      }
+    ],
+    "NVL": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 47,
+        "gtgd_kl_ty": 220.9
+      }
+    ],
+    "OCB": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 48,
+        "gtgd_kl_ty": 33.4
+      }
+    ],
+    "PNJ": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 49,
+        "gtgd_kl_ty": 101.3
+      }
+    ],
+    "KBC": [
+      {
+        "ngay": "2026-09-08",
+        "gtvh_rank": 50,
+        "gtgd_kl_ty": 131.1
+      }
+    ]
+  },
   "xap_xi": [
     "GTGD chưa gồm giao dịch thỏa thuận (nguồn dữ liệu chỉ có khớp lệnh) — turnover ratio là ước tính cận dưới.",
     "GTVH 12 tháng dùng số cổ phiếu lưu hành hiện tại cho toàn chuỗi giá quá khứ — lệch với mã có phát hành thêm hoặc chia thưởng trong kỳ.",

@@ -10,7 +10,10 @@ import pandas as pd
 class StockInput:
     """Toan bo thong tin ve mot ma can de chay quy tac.
 
-    daily: DataFrame co cot 'time' (datetime64), 'close' (nghin dong), 'volume' (co phieu).
+    daily: DataFrame co cot 'time' (datetime64), 'close' (nghin dong - giu nguyen don vi tu vnstock),
+    'volume' (co phieu). TRONG CLOSE: luon la don vi nghin dong nhu trai tu vnstock; moi phep tinh
+    tien phai nhan PRICE_UNIT_VND tu rules.definitions de ra VND; tuyet doi KHONG so sanh truc tiep
+    'close' voi cac nguong VND trong thresholds.yaml.
     free_float: None nghia la THIEU DU LIEU, khong duoc doan.
     """
     symbol: str

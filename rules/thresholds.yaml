@@ -11,8 +11,8 @@ eligibility:
 free_float:
   rule_ref: "3.3.3"
   min_ratio: 0.10
-  exception_gtvh_f_existing_vnd: 2000000000000   # 2.000 ty dong - ma trong ro ky truoc
-  exception_gtvh_f_new_vnd: 2500000000000        # 2.500 ty dong - ma moi
+  exception_gtvh_f_existing_vnd: 2.0e+12   # 2.000 ty dong - ma trong ro ky truoc
+  exception_gtvh_f_new_vnd: 2.5e+12        # 2.500 ty dong - ma moi
 
 liquidity:
   rule_ref: "3.4"
@@ -22,7 +22,7 @@ liquidity:
 vn30:
   rule_ref: "4.3.1"
   min_klgd_kl_shares: 300000
-  min_gtgd_kl_vnd: 30000000000
+  min_gtgd_kl_vnd: 30.0e+9
   consideration_list_size: 50
   auto_include_rank: 20
   conditional_rank_max: 40

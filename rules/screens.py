@@ -143,3 +143,54 @@ def screen_liquidity(stock: StockInput, turnover: Optional[float]) -> ScreenResu
         f"Turnover {turnover:.3%} dưới ngưỡng {nguong:.2%}",
         shortfall=nguong - turnover,
     )
+
+
+def screen_vn30_liquidity(stock: StockInput, klgd_kl_value: float,
+                          gtgd_kl_value: float) -> ScreenResult:
+    """Dieu 4.3.1.a-b: KLGD_KL >= 300.000 cp VA GTGD_KL >= 30 ty."""
+    t = load_thresholds()["vn30"]
+    ref = t["rule_ref"]
+
+    if klgd_kl_value < t["min_klgd_kl_shares"]:
+        return ScreenResult(
+            stock.symbol, "vn30_liquidity", ref + ".a", False,
+            f"KLGD khớp lệnh {klgd_kl_value:,.0f} cp/phiên, dưới ngưỡng "
+            f"{t['min_klgd_kl_shares']:,.0f} cp".replace(",", "."),
+            shortfall=t["min_klgd_kl_shares"] - klgd_kl_value,
+        )
+
+    if gtgd_kl_value < t["min_gtgd_kl_vnd"]:
+        return ScreenResult(
+            stock.symbol, "vn30_liquidity", ref + ".b", False,
+            f"GTGD khớp lệnh {_ty(gtgd_kl_value)}/phiên, thiếu "
+            f"{_ty(t['min_gtgd_kl_vnd'] - gtgd_kl_value)} so với ngưỡng "
+            f"{_ty(t['min_gtgd_kl_vnd'])}",
+            shortfall=t["min_gtgd_kl_vnd"] - gtgd_kl_value,
+        )
+
+    return ScreenResult(stock.symbol, "vn30_liquidity", ref + ".a-b", True,
+                        f"KLGD {klgd_kl_value:,.0f} cp và GTGD {_ty(gtgd_kl_value)}/phiên"
+                        .replace(",", "."))
+
+
+def screen_profit(stock: StockInput) -> ScreenResult:
+    """Dieu 4.3.1.d: loai ma co LNST am.
+
+    Quyet dinh 2026-09-08 (spec muc 4.3): y kien kiem toan CHUA xac nhan
+    (audit_opinion != 'unqualified') KHONG tu loai ma - cau "chi xet BCTC co y kien
+    chap nhan toan phan" la quy dinh chon bao cao lay so, khong phai tieu chi loai
+    doc lap. Ma nhu vay van dat nhung mang nhan canh bao hien ro tren web.
+    """
+    ref = load_thresholds()["vn30"]["rule_ref"] + ".d"
+
+    if stock.lnst_positive is None:
+        return ScreenResult(stock.symbol, "profit", ref, False,
+                            "Thiếu dữ liệu lợi nhuận sau thuế — cần xác nhận thủ công")
+    if not stock.lnst_positive:
+        return ScreenResult(stock.symbol, "profit", ref, False,
+                            "Lợi nhuận sau thuế âm ở kỳ báo cáo gần nhất")
+    if stock.audit_opinion != "unqualified":
+        return ScreenResult(stock.symbol, "profit", ref, True,
+                            "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán")
+    return ScreenResult(stock.symbol, "profit", ref, True,
+                        "Lợi nhuận sau thuế dương, kiểm toán chấp nhận toàn phần")

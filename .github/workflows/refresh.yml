@@ -41,3 +41,4 @@ jobs:
           git add data/ site/data/
           git diff --staged --quiet || git commit -m "Cap nhat du lieu VN30 $(date -u +%Y-%m-%d)"
           git push
+

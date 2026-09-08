@@ -326,6 +326,12 @@ def main() -> None:
     (DATA_DIR / "latest.json").write_text(
         json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
 
+    # Site doc ./data/latest.json tuong doi voi chinh no -> giu mot ban trong site/
+    import shutil
+    site_data = ROOT / "site" / "data"
+    site_data.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(DATA_DIR / "latest.json", site_data / "latest.json")
+
     logger.info("Rổ dự kiến: %s", ", ".join(kq.constituents))
     if kq.missing_data:
         logger.warning("THIẾU DỮ LIỆU cho %d mã: %s",

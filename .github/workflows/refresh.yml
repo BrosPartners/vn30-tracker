@@ -1,0 +1,43 @@
+name: Cap nhat du lieu VN30
+
+on:
+  schedule:
+    - cron: "0 10 * * 1-5"    # 17:00 gio Viet Nam (UTC+7), thu 2 - thu 6
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  PYTHONIOENCODING: utf-8
+  PYTHONUTF8: "1"
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Chay test truoc khi build
+        run: python -m pytest tests/ -q
+
+      - name: Cap nhat free-float tu PDF cong bo HOSE
+        run: python scripts/cap_nhat_cbtt.py
+
+      - name: Build du lieu
+        run: python build.py
+
+      - name: Commit neu co thay doi
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/ site/data/
+          git diff --staged --quiet || git commit -m "Cap nhat du lieu VN30 $(date -u +%Y-%m-%d)"
+          git push

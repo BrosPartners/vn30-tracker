@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Theo dõi ứng viên VN30 — Bros Partners</title>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&subset=latin,vietnamese&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<header>
+  <h1>Theo dõi ứng viên VN30</h1>
+  <p id="meta">Đang tải dữ liệu…</p>
+  <div id="canh-bao-goc" hidden></div>
+</header>
+<main>
+  <section class="cot-doi">
+    <div>
+      <h2>Ứng viên vào rổ</h2>
+      <div id="vao"></div>
+    </div>
+    <div>
+      <h2>Nguy cơ bị loại</h2>
+      <div id="ra"></div>
+    </div>
+  </section>
+  <section>
+    <h2>Bảng xếp hạng top 50</h2>
+    <input id="loc" type="search" placeholder="Lọc theo mã…" aria-label="Lọc theo mã">
+    <div class="cuon"><table id="bang"><thead></thead><tbody></tbody></table></div>
+  </section>
+  <section id="thieu-du-lieu"></section>
+</main>
+<footer>
+  <h3>Giới hạn dữ liệu</h3>
+  <ul id="xap-xi"></ul>
+  <p id="nguon"></p>
+  <p>Đây là ước tính của Bros Partners dựa trên quy tắc công bố của HOSE, không phải
+     công bố chính thức của Sở Giao dịch Chứng khoán TP.HCM.</p>
+</footer>
+<script src="./app.js"></script>
+</body>
+</html>

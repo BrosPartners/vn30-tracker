@@ -1,0 +1,337 @@
+# TU DONG SINH tu cbtt_hose_index_2026-01.pdf boi scripts/cap_nhat_cbtt.py - KHONG SUA TAY.
+# Nguon: Cong bo thong tin chinh thuc cua HOSE (Sở Giao dịch Chứng khoán TP.HCM)
+# ve danh muc va co cau chi so ky 2026-01, tai tu static2.vietstock.vn.
+# Muon sua du lieu: sua file PDF nguon (hoac thay file PDF ky moi vao
+# data/hose_index/) roi chay lai: python scripts/cap_nhat_cbtt.py
+# Sinh luc: 2026-09-08
+ky: 2026-01
+vn30:
+- ACB
+- BID
+- CTG
+- DGC
+- FPT
+- GAS
+- GVR
+- HDB
+- HPG
+- LPB
+- MBB
+- MSN
+- MWG
+- PLX
+- SAB
+- SHB
+- SSB
+- SSI
+- STB
+- TCB
+- TPB
+- VCB
+- VHM
+- VIB
+- VIC
+- VJC
+- VNM
+- VPB
+- VPL
+- VRE
+vn30_du_phong:
+- BSR
+- EIB
+- GEE
+- MSB
+- REE
+free_float:
+  AAA: 0.5
+  AAM: 0.35
+  ABS: 0.9
+  ABT: 0.15
+  ACB: 0.85
+  ACC: 0.3
+  ACL: 0.2
+  ADG: 0.3
+  ADP: 0.35
+  ADS: 0.55
+  AGG: 0.55
+  AGR: 0.3
+  ANV: 0.3
+  APG: 0.8
+  APH: 0.6
+  ASM: 0.55
+  ASP: 0.45
+  AST: 0.3
+  BAF: 0.45
+  BCE: 0.5
+  BCM: 0.04
+  BFC: 0.3
+  BIC: 0.15
+  BID: 0.04
+  BKG: 0.7
+  BMC: 0.6
+  BMI: 0.3
+  BMP: 0.45
+  BRC: 0.13
+  BSI: 0.14
+  BSR: 0.08
+  BTP: 0.2
+  BVH: 0.1
+  BWE: 0.25
+  CCC: 0.2
+  CCL: 0.8
+  CDC: 0.45
+  CHP: 0.3
+  CIG: 0.35
+  CII: 0.95
+  CKG: 0.75
+  CLL: 0.45
+  CMG: 0.35
+  CMX: 0.4
+  CNG: 0.3
+  CRC: 0.55
+  CRE: 0.4
+  CSM: 0.45
+  CSV: 0.35
+  CTD: 0.55
+  CTF: 0.45
+  CTG: 0.15
+  CTI: 0.95
+  CTR: 0.35
+  CTS: 0.25
+  DAH: 0.6
+  DBC: 0.7
+  DBD: 0.8
+  DCL: 0.45
+  DCM: 0.25
+  DGC: 0.6
+  DGW: 0.55
+  DHA: 0.6
+  DHC: 0.75
+  DHM: 0.4
+  DIG: 0.9
+  DLG: 0.7
+  DMC: 0.14
+  DPG: 0.5
+  DPM: 0.4
+  DPR: 0.45
+  DRC: 0.5
+  DRL: 0.7
+  DSC: 0.25
+  DSE: 0.3
+  DSN: 0.55
+  DTA: 0.65
+  DVP: 0.3
+  DXG: 0.75
+  DXS: 0.4
+  DXV: 0.25
+  EIB: 0.8
+  ELC: 0.7
+  EVE: 0.75
+  EVF: 0.95
+  EVG: 0.55
+  FCM: 0.5
+  FCN: 0.65
+  FIR: 0.6
+  FIT: 0.7
+  FMC: 0.2
+  FPT: 0.85
+  FRT: 0.55
+  FTS: 0.4
+  GAS: 0.05
+  GDT: 0.5
+  GEE: 0.13
+  GEG: 0.25
+  GEX: 0.7
+  GIL: 0.8
+  GMD: 0.9
+  GSP: 0.35
+  GVR: 0.04
+  HAG: 0.5
+  HAH: 0.6
+  HAP: 0.35
+  HAR: 0.75
+  HAX: 0.65
+  HCD: 0.4
+  HCM: 0.6
+  HDB: 0.8
+  HDC: 0.8
+  HDG: 0.6
+  HHP: 0.7
+  HHS: 0.45
+  HHV: 0.8
+  HID: 0.55
+  HII: 0.45
+  HMC: 0.3
+  HPG: 0.55
+  HPX: 0.65
+  HQC: 0.85
+  HSG: 0.7
+  HSL: 0.8
+  HTG: 0.3
+  HTI: 0.4
+  HTN: 0.55
+  HTV: 0.2
+  HUB: 0.4
+  HVH: 0.3
+  ICT: 0.5
+  IDI: 0.45
+  IJC: 0.5
+  ILB: 0.5
+  IMP: 0.6
+  ITC: 0.45
+  ITD: 0.45
+  JVC: 0.75
+  KBC: 0.55
+  KDC: 0.35
+  KDH: 0.65
+  KHG: 0.55
+  KHP: 0.5
+  KMR: 0.45
+  KOS: 0.4
+  KSB: 0.75
+  LAF: 0.15
+  LBM: 0.35
+  LCG: 0.95
+  LGL: 0.5
+  LHG: 0.5
+  LIX: 0.35
+  LPB: 0.95
+  LSS: 0.45
+  MBB: 0.5
+  MCM: 0.35
+  MCP: 0.15
+  MHC: 0.3
+  MIG: 0.35
+  MSB: 0.75
+  MSH: 0.4
+  MSN: 0.6
+  MWG: 0.75
+  NAB: 0.8
+  NAF: 0.6
+  NAV: 0.11
+  NBB: 0.25
+  NCT: 0.35
+  NHA: 0.6
+  NHH: 0.2
+  NKG: 0.75
+  NLG: 0.8
+  NNC: 0.25
+  NSC: 0.2
+  NTL: 0.7
+  NVL: 0.65
+  OCB: 0.3
+  OGC: 0.45
+  ORS: 0.9
+  PAC: 0.35
+  PAN: 0.55
+  PDR: 0.6
+  PET: 0.65
+  PGC: 0.3
+  PHC: 0.8
+  PHR: 0.35
+  PIT: 0.15
+  PLP: 0.5
+  PLX: 0.1
+  PNJ: 0.9
+  POW: 0.25
+  PPC: 0.3
+  PTB: 0.55
+  PTC: 0.4
+  PTL: 0.4
+  PVD: 0.5
+  PVP: 0.3
+  PVT: 0.45
+  QCG: 0.4
+  RAL: 0.25
+  REE: 0.35
+  RYG: 0.45
+  SAB: 0.11
+  SAM: 0.85
+  SAV: 0.4
+  SBG: 0.35
+  SBT: 0.55
+  SCR: 0.7
+  SCS: 0.45
+  SFC: 0.2
+  SFI: 0.2
+  SGN: 0.45
+  SGR: 0.35
+  SGT: 0.2
+  SHA: 0.45
+  SHB: 0.75
+  SHI: 0.75
+  SIP: 0.4
+  SJD: 0.5
+  SJS: 0.65
+  SKG: 0.6
+  SMB: 0.35
+  SSB: 0.5
+  SSI: 0.7
+  STB: 0.95
+  STK: 0.3
+  SVD: 0.4
+  SVT: 0.25
+  SZC: 0.4
+  SZL: 0.35
+  TCB: 0.55
+  TCH: 0.6
+  TCI: 0.4
+  TCL: 0.45
+  TCM: 0.4
+  TCO: 0.55
+  TCT: 0.3
+  TDC: 0.35
+  TDG: 0.8
+  TDH: 0.55
+  TDP: 0.4
+  TEG: 0.4
+  THG: 0.65
+  TIP: 0.45
+  TLD: 0.5
+  TLG: 0.4
+  TLH: 0.65
+  TMT: 0.2
+  TNH: 0.8
+  TNI: 0.45
+  TNT: 0.6
+  TPB: 0.55
+  TRC: 0.35
+  TSC: 0.6
+  TTA: 0.3
+  TTF: 0.75
+  TVB: 0.25
+  TVS: 0.45
+  UIC: 0.3
+  VCA: 0.3
+  VCB: 0.11
+  VCG: 0.55
+  VCI: 0.7
+  VDS: 0.4
+  VFG: 0.45
+  VGC: 0.12
+  VHC: 0.5
+  VHM: 0.3
+  VIB: 0.65
+  VIC: 0.35
+  VIP: 0.45
+  VIX: 1.0
+  VJC: 0.45
+  VND: 0.75
+  VNL: 0.85
+  VNM: 0.4
+  VOS: 0.5
+  VPB: 0.6
+  VPG: 0.7
+  VPH: 0.45
+  VPI: 0.5
+  VPL: 0.15
+  VPS: 0.25
+  VRC: 0.25
+  VRE: 0.4
+  VSC: 1.0
+  VSI: 0.2
+  VTB: 0.45
+  VTO: 0.45
+  VTP: 0.4
+  YBM: 0.2
+  YEG: 0.65

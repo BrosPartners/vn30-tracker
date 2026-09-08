@@ -1,0 +1,45 @@
+# Moi con so o day trich tu HOSE-Index Ground Rules Version 4.0
+# (Quyet dinh 747/QD-SGDHCM ngay 30/12/2024). Khong hard-code o noi khac.
+
+eligibility:
+  rule_ref: "3.2"
+  min_listing_months: 6
+  top_gtvh_exemption_rank: 5      # ma GTVH top-5 duoc mien neu da niem yet > 3 thang
+  top_gtvh_exemption_months: 3
+  warning_lookback_months: 3
+  # BIEN DUNG SAI KY THUAT CUA CHUNG TOI - KHONG PHAI QUY TAC HOSE. Dung de suy ngay
+  # niem yet tu ngay giao dich dau tien trong chuoi gia (build.py) khi khong co
+  # listing_date xac nhan trong manual.yaml: neu ngay giao dich dau tien lech qua
+  # nguong nay (so ngay lam viec) so voi ngay bat dau cua so du lieu yeu cau, coi la
+  # ma moi niem yet trong cua so (suy ra listing_date); neu lech trong nguong, coi la
+  # da giao dich tu truoc cua so (it nhat du do dai cua so, vd 12 thang).
+  inferred_tolerance_business_days: 5
+
+free_float:
+  rule_ref: "3.3.3"
+  min_ratio: 0.10
+  exception_gtvh_f_existing_vnd: 2.0e+12   # 2.000 ty dong - ma trong ro ky truoc
+  exception_gtvh_f_new_vnd: 2.5e+12        # 2.500 ty dong - ma moi
+  rounding_ref: "3.3.5"
+  rounding_breakpoint: 0.15   # f <= 15%: lam tron len boi so 1%; tren nguong: boi so 5%
+  rounding_step_low: 0.01
+  rounding_step_high: 0.05
+
+liquidity:
+  rule_ref: "3.4"
+  min_turnover_new: 0.0005        # 0,05%
+  min_turnover_existing: 0.0004   # 0,04%
+
+vn30:
+  rule_ref: "4.3.1"
+  min_klgd_kl_shares: 300000
+  min_gtgd_kl_vnd: 30.0e+9
+  consideration_list_size: 50
+  auto_include_rank: 20
+  conditional_rank_max: 40
+  basket_size: 30
+  reserve_size: 5
+
+lookback:
+  rule_ref: "3.1"
+  months: 12

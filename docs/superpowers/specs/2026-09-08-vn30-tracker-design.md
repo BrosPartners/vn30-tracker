@@ -92,25 +92,90 @@ Trang web hiển thị đếm ngược tới ngày chốt dữ liệu và ngày 
 | Vũ trụ HOSE | `Listing().symbols_by_exchange()`, lọc `exchange=HOSE`, `type=stock` | 715 mã |
 | Giá & khối lượng ngày | `Quote(symbol).history(interval='1D')` → `close`, `volume` | OK, 12 tháng |
 | SLCP lưu hành | `shares_data.fetch_listed_shares_batch` (mượn từ `my-stock-dashboard`) | có sẵn |
-| LNST (số liệu thô) | vnstock BCTC | cần xác nhận cờ kiểm toán bằng tay |
+| LNST của cổ đông công ty mẹ | `Finance(symbol, source='VCI').income_statement(period, lang='vi')`, chỉ tiêu `item_id == 'attributable_to_parent_company'` — ưu tiên bán niên năm hiện tại (cộng Q1+Q2 từ `period='quarter'`), rơi về năm gần nhất (`period='year'`) nếu chưa đủ 2 quý | đã kiểm chứng (FPT, BID năm 2025) — chỉ gọi cho top 50 GTVH, không phải toàn vũ trụ; cần xác nhận cờ kiểm toán bằng tay |
 
-### 4.2. Nhập tay trong repo — `data/manual.yaml`, sửa qua git
+### 4.2. Free float từ công bố chính thức HOSE + nhập tay phần còn lại
 
-Đúng quyết định của user: free float **không** scrape, để người xác nhận.
+Quyết định 2026-09-08: bỏ nhập tay free float từ DNSE. **HOSE tự công bố free-float
+chính thức mỗi quý cho toàn bộ VNAllshare** — đúng con số HOSE dùng để tính chỉ số —
+nên dùng thẳng nguồn này thay vì đoán/nhập tay.
+
+**Nguồn & luồng xử lý:**
+
+1. File PDF công bố (CBTT) của HOSE, tải từ static2.vietstock.vn, đặt tại
+   `data/hose_index/cbtt_hose_index_<ky>.pdf` và **commit vào repo làm bằng chứng gốc**.
+2. `collectors/hose_disclosure.py` bóc PDF bằng PyMuPDF (`doc_cbtt()`), trả về danh mục
+   VN30 + dự phòng + `free_float` (dict mã → tỷ lệ 0–1) của toàn bộ VNAllshare. Tự kiểm
+   tra tính toàn vẹn (đúng 30 mã VN30, đủ số mã VNAllshare, tỷ lệ trong khoảng 0–1) —
+   ném lỗi rõ ràng (`HoseDisclosureError`) nếu HOSE đổi layout PDF, không âm thầm ra
+   dữ liệu thiếu. `collectors/` không import gì từ `rules/`.
+3. `scripts/cap_nhat_cbtt.py` chạy `doc_cbtt()` trên mọi PDF trong `data/hose_index/`
+   và ghi ra `data/hose_index/<ky>.yaml` — **file này cũng commit vào git** để có lịch
+   sử và review, đầu file có comment nêu nguồn + cảnh báo không sửa tay (muốn đổi thì
+   sửa PDF nguồn rồi chạy lại script).
+4. `build.py` đọc file `<ky>.yaml` **mới nhất** làm nguồn free float chính khi ghép
+   `StockInput`.
+
+Mã không có trong công bố HOSE (chưa vào VNAllshare, ví dụ MCH/TCX tại kỳ 01/2026)
+thì free float là `None` — rơi vào `missing_data`, hiển thị "Thiếu dữ liệu" trên web,
+**tuyệt đối không đoán**.
+
+**`data/manual.yaml` thu hẹp vai trò** — chỉ còn giữ những gì HOSE không công bố ở
+dạng máy đọc được:
 
 ```yaml
 VIC:
-  free_float: 0.30          # nguồn + ngày cập nhật bắt buộc
-  free_float_source: "DNSE 2026-09-05"
-  listing_date: 2018-05
+  listing_date: 2018-05     # không bắt buộc
   warning_status: none      # none | warning | control | restricted | suspended
-  lnst_positive: true
-  audit_opinion: unqualified
 ```
 
-Phạm vi bảo trì: **top 50 vốn hóa HOSE**. Thứ hạng GTVH vẫn tính trên **toàn bộ HOSE**;
-chỉ free float và kết luận giới hạn trong top 50. Khi một mã lọt vào top 50 mà chưa có free float,
-bot **cảnh báo trong output và trên web** ("thiếu dữ liệu free float"), không đoán.
+Quyết định 2026-09-08: **LNST giờ lấy tự động từ vnstock** (chỉ tiêu
+`attributable_to_parent_company`, xem mục 4.1) nên `lnst_positive`/`audit_opinion`
+**không còn bắt buộc** trong `manual.yaml`. Trường bắt buộc duy nhất cho một mã **có
+mặt** trong file là `warning_status`; một mã **không có mặt** trong file là chuyện
+bình thường (không lỗi) — LNST/free float của nó vẫn lấy từ nguồn tự động.
+`manual.yaml` chỉ còn dùng để **ghi đè** khi người xác nhận cần thắng số máy tính
+tự động (khai báo `lnst_positive`/`audit_opinion` tường minh cho mã đó — giá trị
+này luôn thắng số tự động). `listing_date` không bắt buộc. `free_float`/
+`free_float_source` **không còn được dùng ở đây** — nếu sót lại trong file,
+`load_manual()` báo lỗi ngay để tránh hai nguồn sự thật.
+
+### 4.1.b. Suy ngày niêm yết từ ngày giao dịch đầu tiên trong chuỗi giá
+
+Quyết định 2026-09-08: `listing_date` xác nhận thủ công trong `manual.yaml` chỉ có
+cho một số ít mã (VIC/VHM/VCB/GAS/GVR). Điều 3.2 chỉ cần biết mã đã niêm yết **đủ 6
+tháng** hay chưa (mốc 3 tháng cho ngoại lệ top-5 GTVH) — không cần biết ngày niêm
+yết chính xác. Điều này suy được từ **ngày giao dịch đầu tiên trong chuỗi giá 12
+tháng** mà `build.py` đã có sẵn (qua `fetch_daily_batch`): có dữ liệu giao dịch
+nghĩa là mã đã niêm yết.
+
+`build.py` (hàm `suy_ngay_niem_yet`) so ngày giao dịch đầu tiên với ngày bắt đầu cửa
+sổ dữ liệu yêu cầu:
+
+- Lệch quá `eligibility.inferred_tolerance_business_days` (ngưỡng dung sai KỸ THUẬT
+  của chúng tôi, khai báo ở `rules/thresholds.yaml` — không phải quy tắc HOSE) → mã
+  rõ ràng mới niêm yết trong cửa sổ → **suy ra `listing_date`** = chính ngày giao
+  dịch đầu tiên đó, `niem_yet_nguon = "suy từ ngày giao dịch đầu tiên"`.
+- Lệch trong ngưỡng dung sai → mã đã giao dịch từ trước/sát ngày bắt đầu cửa sổ →
+  suy ra đã niêm yết **ít nhất bằng độ dài cửa sổ** (12 tháng), đủ điều kiện 6 tháng,
+  nhưng **KHÔNG bịa một ngày niêm yết cụ thể** — đánh dấu
+  `StockInput.niem_yet_truoc_cua_so = True`, `niem_yet_nguon = "giao dịch từ trước
+  cửa sổ dữ liệu"`. `screen_eligibility` (Điều 3.2) coi trường hợp này là **đạt**
+  với thông báo nêu rõ căn cứ.
+
+`manual.yaml` (`listing_date` xác nhận thủ công) luôn **thắng** số suy ra — người
+xác nhận thắng máy tính tự động, giống nguyên tắc đã áp dụng cho LNST. JSON xuất ra
+ghi rõ nguồn qua `niem_yet_nguon` ("xác nhận thủ công" | "suy từ ngày giao dịch đầu
+tiên" | "giao dịch từ trước cửa sổ dữ liệu") và `niem_yet_thang` (số tháng nếu biết
+ngày cụ thể, `null` nếu chỉ biết "trước cửa sổ") — để người đọc web thấy được căn
+cứ, không chỉ thấy kết luận đạt/trượt.
+
+Phạm vi gọi BCTC lấy LNST tự động: **top 50 vốn hóa HOSE** (`consideration_list_size`
+trong `rules/thresholds.yaml`), để tránh gọi BCTC cho toàn bộ 700+ mã HOSE. Thứ hạng
+GTVH vẫn tính trên **toàn bộ HOSE** trước (`build.py` chạy `build_vn30` một lượt sơ bộ
+không có LNST chỉ để lấy `gtvh_rank`), rồi mới chọn top 50 để gọi BCTC và chạy lại lần
+hai lấy kết quả chính thức — kết luận (LNST, ý kiến kiểm toán, cảnh báo) vì vậy giới
+hạn trong top 50.
 
 ### 4.3. Xấp xỉ phải công bố rõ trên web
 
@@ -124,6 +189,17 @@ bot **cảnh báo trong output và trên web** ("thiếu dữ liệu free float"
    còn câu "chỉ xét BCTC có ý kiến chấp nhận toàn phần" là quy định chọn báo cáo lấy số, không
    phải tiêu chí loại độc lập. Mã như vậy vẫn vào rổ dự kiến nhưng **mang nhãn "chưa xác nhận
    ý kiến kiểm toán"** hiện rõ trên web. Mã có LNST âm, hoặc thiếu hẳn dữ liệu LNST, vẫn bị loại.
+4. **LNST bán niên có thể là số tự cộng từ 2 báo cáo quý** — Điều 3.1 gọi "BCTC soát xét bán
+   niên hoặc kiểm toán năm gần nhất", nhưng vnstock không có bản soát xét bán niên riêng, chỉ
+   có BCTC quý. Khi chưa có báo cáo năm gần nhất mà đã có đủ Q1+Q2 của năm hiện tại, adapter
+   cộng LNST cổ đông công ty mẹ của 2 quý này làm số bán niên xấp xỉ — **đây không phải bản
+   soát xét bán niên chính thức**, và nhãn `lnst_ky` trên web phải nói rõ điều này (không được
+   trình bày như một bản soát xét đã kiểm toán).
+5. **Ngày niêm yết suy từ ngày giao dịch đầu tiên** cho mã không có xác nhận thủ công trong
+   `manual.yaml` (xem mục 4.1.b) — cách này **không phân biệt được mã mới niêm yết với mã bị
+   tạm ngừng giao dịch dài rồi giao dịch lại trong cửa sổ dữ liệu 12 tháng**: cả hai đều có
+   ngày giao dịch đầu tiên nằm trong cửa sổ. Web hiển thị `niem_yet_nguon` cho từng mã để người
+   đọc tự đối chiếu khi nghi ngờ.
 
 ## 5. Kiến trúc
 

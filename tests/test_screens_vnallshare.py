@@ -49,6 +49,14 @@ def test_ma_bi_kiem_soat_thi_truot():
     assert "kiểm soát" in r.message
 
 
+def test_thieu_ngay_niem_yet_thi_truot_khong_duoc_bia_ngay():
+    """listing_date=None nghia la chua xac nhan - KHONG duoc doan la niem yet tu 1900."""
+    r = screen_eligibility(_stock(listing_date=None), AS_OF, gtvh_rank=100)
+    assert not r.passed
+    assert "thiếu" in r.message.lower()
+    assert "ngày niêm yết" in r.message.lower()
+
+
 def test_free_float_tu_10_phan_tram_tro_len_thi_dat():
     r = screen_free_float(_stock(free_float=0.10), gtvh_f_value=1e9)
     assert r.passed

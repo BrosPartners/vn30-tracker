@@ -30,6 +30,37 @@ def test_ma_khong_co_trong_manual_van_duoc_giu_voi_free_float_none():
     assert ds[0].free_float is None
 
 
+def test_ma_khong_co_trong_manual_thi_listing_date_la_none_khong_phai_nam_1900():
+    """Bug da fix: truoc day mac dinh date(1900,1,1) -> bia ra 'Da niem yet 1500+ thang'."""
+    ds = lap_stock_inputs(["BID"], {"BID": _daily()}, {"BID": 1_000_000}, {}, [])
+    assert ds[0].listing_date is None
+
+
+def test_ma_thieu_listing_date_nam_trong_missing_data_va_ket_luan_thieu_du_lieu():
+    manual = {"BID": {"free_float": 0.30, "free_float_source": "x",
+                      "warning_status": "none", "lnst_positive": True,
+                      "audit_opinion": "unqualified"}}  # KHONG co listing_date
+    ds = lap_stock_inputs(["BID"], {"BID": _daily()}, {"BID": 1_000_000}, manual, [])
+    r = build_vn30(ds, date(2026, 7, 1))
+    assert "BID" in r.missing_data
+    kq = xuat_json(r, date(2026, 7, 1), "07/2026")
+    dong = next(d for d in kq["stocks"] if d["symbol"] == "BID")
+    assert dong["ket_luan"] == "Thiếu dữ liệu"
+
+
+def test_khong_co_ma_nao_bia_thong_bao_niem_yet_so_thang_lon_vo_ly():
+    """Bao ve toan he thong: khong duoc co thong bao kieu 'Da niem yet 1520 thang'."""
+    manual = {"BID": {"free_float": 0.30, "free_float_source": "x",
+                      "warning_status": "none", "lnst_positive": True,
+                      "audit_opinion": "unqualified"}}
+    ds = lap_stock_inputs(["BID"], {"BID": _daily()}, {"BID": 1_000_000}, manual, [])
+    r = build_vn30(ds, date(2026, 7, 1))
+    kq = xuat_json(r, date(2026, 7, 1), "07/2026")
+    for dong in kq["stocks"]:
+        for sc in dong["screens"]:
+            assert "1500" not in sc["message"] and "1520" not in sc["message"]
+
+
 def test_ma_thieu_slcp_bi_bo_qua():
     ds = lap_stock_inputs(["ABC"], {"ABC": _daily()}, {}, {}, [])
     assert ds == []

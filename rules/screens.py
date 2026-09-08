@@ -37,6 +37,13 @@ def screen_eligibility(stock: StockInput, as_of: date, gtvh_rank: int) -> Screen
             f"{t['warning_lookback_months']} tháng gần nhất",
         )
 
+    # Thiếu ngày niêm yết - KHÔNG được đoán là "niêm yết từ lâu"
+    if stock.listing_date is None:
+        return ScreenResult(
+            stock.symbol, "eligibility", ref, False,
+            "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+        )
+
     months = listing_months(stock, as_of)
 
     # Kiểm tra điều kiện cơ bản: 6 tháng

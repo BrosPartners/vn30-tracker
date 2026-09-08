@@ -30,7 +30,7 @@ def build_vn30(stocks: list[StockInput], as_of: date) -> BasketResult:
             "in_previous_basket": s.in_previous_basket,
             "audit_opinion": s.audit_opinion,
         }
-        if s.free_float is None or s.lnst_positive is None:
+        if s.free_float is None or s.lnst_positive is None or s.listing_date is None:
             result.missing_data.append(s.symbol)
 
     # Xep hang GTVH giam dan; dong hang uu tien GTGD_KL lon hon (Dieu 4.3.1.e)

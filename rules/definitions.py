@@ -94,6 +94,11 @@ def round_free_float(f: float) -> float:
 def listing_months(stock: StockInput, as_of: date) -> int:
     """So thang tron da niem yet tinh toi ngay chot du lieu."""
     d = stock.listing_date
+    if d is None:
+        # Loi lap trinh neu xay ra: screen_eligibility phai chan truoc khi goi ham nay
+        raise ValueError(
+            f"Mã {stock.symbol}: thiếu listing_date, không thể tính số tháng niêm yết"
+        )
     months = (as_of.year - d.year) * 12 + (as_of.month - d.month)
     if as_of.day < d.day:
         months -= 1

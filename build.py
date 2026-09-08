@@ -50,7 +50,7 @@ def lap_stock_inputs(symbols, daily_map, shares_map, manual, previous_basket) ->
             symbol=sym,
             daily=daily,
             shares_outstanding=slcp,
-            listing_date=m.get("listing_date", date(1900, 1, 1)),
+            listing_date=m.get("listing_date"),
             free_float=m.get("free_float"),
             in_previous_basket=sym in prev,
             warning_status=m.get("warning_status", "none"),

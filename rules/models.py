@@ -15,11 +15,15 @@ class StockInput:
     tien phai nhan PRICE_UNIT_VND tu rules.definitions de ra VND; tuyet doi KHONG so sanh truc tiep
     'close' voi cac nguong VND trong thresholds.yaml.
     free_float: None nghia la THIEU DU LIEU, khong duoc doan.
+    listing_date: None nghia la CHUA XAC NHAN ngay niem yet (mã không có trong
+    data/manual.yaml) - TUYET DOI khong duoc hieu la "niem yet tu rat lau roi".
+    Truoc day co bug mac dinh date(1900,1,1) khien he thong bia ra "Da niem yet
+    1500+ thang" cho ma chua co du lieu - da fix, gio phai de None va bao thieu.
     """
     symbol: str
     daily: pd.DataFrame
     shares_outstanding: int
-    listing_date: date
+    listing_date: Optional[date] = None
     free_float: Optional[float] = None
     in_previous_basket: bool = False
     warning_status: str = "none"        # none|warning|control|restricted|suspended

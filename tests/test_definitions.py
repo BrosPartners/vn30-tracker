@@ -38,6 +38,13 @@ def test_binh_quan_cua_trung_vi_khac_binh_quan_thuong():
 def test_gia_tinh_bang_nghin_dong():
     """vnstock tra gia theo nghin dong -> von hoa phai nhan 1000."""
     assert PRICE_UNIT_VND == 1000
+
+
+def test_listing_months_voi_listing_date_none_nem_loi_ro_rang():
+    """Khong duoc tinh ra so thang vo nghia khi thieu ngay niem yet - phai nem ValueError co ten ma."""
+    s = _stock([1.0], [100], ["2026-01-05"], listing=None)
+    with pytest.raises(ValueError, match="TEST"):
+        listing_months(s, date(2026, 7, 1))
     st = _stock([10.0], [0], ["2026-01-05"], shares=1_000_000)
     # 10 nghin dong x 1.000.000 cp = 10 ty dong
     assert gtvh(st) == pytest.approx(10e9)

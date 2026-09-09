@@ -3,6 +3,10 @@
 Cache theo NGAY: file .cache/<key>-<YYYY-MM-DD>.json. Chay lai trong ngay thi
 khong goi mang, sang hom sau tu dong lay moi. Moi ham fetch tu sinh khoa cache
 tu day du tham so cua no, nguoi goi khong phai nghi ve khoa.
+
+Rieng du lieu QUA KHU DA CHOT (vi du cua so gia ket thuc truoc hom nay) khong
+bao gio doi nua - cache cho loai nay la BAT BIEN, luu o .cache/lichsu/<key>.json
+(khong gan ngay, khong bao gio het han). Xem ham cached() va fetch_daily().
 """
 import hashlib
 import json
@@ -14,8 +18,41 @@ from pathlib import Path
 from typing import Any, Callable, Optional
 
 import pandas as pd
+import tenacity as _tenacity
 
 logger = logging.getLogger(__name__)
+
+# --- Tat retry NGAM cua vnstock (nguyen nhan #2 gay chet vi RateLimitExceeded) ---
+# Moi ham cham mang cua vnstock (Quote.history, Finance.income_statement,
+# Listing.symbols_by_exchange, Trading.price_board) duoc tu ban vnstock trang
+# tri bang @retry cua thu vien tenacity (Config.RETRIES=3, backoff mu). Retry
+# nay nam BEN TRONG vnstock, SAU luot kiem tra dieu tiet noi bo cua no (vnai) -
+# nghia la 1 lan goi "hop le" ve phia _throttle cua repo nay co the am tham phat
+# sinh toi 3 request THAT ra mang khi backend tra loi loi, nhung _throttle chi
+# dem duoc 1. Day chinh la duong request "lot luoi" gay chet o giay thu 70 du da
+# ha throttle xuong 25/phut.
+#
+# @retry cua vnstock "dong bang" gia tri Config.RETRIES ngay LUC MODULE
+# vnstock.api.* duoc import (vi no la tham so truyen vao decorator luc dinh
+# nghia ham, khong doc lai moi lan goi) - nen sua Config.RETRIES SAU KHI import
+# se khong co tac dung. Cach duy nhat kiem soat duoc la thay the ham
+# `tenacity.retry` NGAY TU DAY, TRUOC KHI vnstock duoc import lan dau (import
+# vnstock luon la lazy, o trong than cac ham goi_that() ben duoi) - collectors/
+# la tang duy nhat cham mang nen day chac chan la noi vnstock duoc cham toi dau
+# tien trong toan bo tien trinh.
+_retry_goc_cua_tenacity = _tenacity.retry  # giu lai ham goc TRUOC KHI thay the, tranh de quy
+
+
+def _tat_retry_ngam_cua_vnstock(*args, **kwargs):
+    """Thay ham tenacity.retry() ma vnstock dung: luon chi thu DUNG 1 lan.
+
+    Nho vay moi request that ra mang tuong ung dung 1 lan goi _throttle.cho_phep()
+    truoc do - dem dung, khong con request nao "lot luoi" qua retry ngam.
+    """
+    return _retry_goc_cua_tenacity(stop=_tenacity.stop_after_attempt(1))
+
+
+_tenacity.retry = _tat_retry_ngam_cua_vnstock
 
 CACHE_DIR = Path(__file__).resolve().parent.parent / ".cache"
 COT_CAN = ("time", "close", "volume")
@@ -109,10 +146,33 @@ class DieuTietRequest:
 _throttle = DieuTietRequest()
 
 
-def cached(fn: Callable[[], Any], key: str, cache_dir: Path = CACHE_DIR) -> Any:
-    """Cache ket qua JSON-serializable cua fn() theo khoa `key`, tach theo ngay."""
-    cache_dir.mkdir(parents=True, exist_ok=True)
-    p = cache_dir / f"{key}-{date.today().isoformat()}.json"
+THU_MUC_LICH_SU = "lichsu"  # thu muc con chua cache BAT BIEN (khong gan ngay)
+
+
+def cached(
+    fn: Callable[[], Any],
+    key: str,
+    cache_dir: Path = CACHE_DIR,
+    bat_bien: bool = False,
+) -> Any:
+    """Cache ket qua JSON-serializable cua fn() theo khoa `key`.
+
+    Mac dinh (bat_bien=False) cache tach theo NGAY nhu truoc gio: file
+    <key>-<hom nay>.json, sang hom sau tu dong lay lai (dung cho du lieu con
+    co the doi, vi du gia trong ngay hom nay).
+
+    Khi bat_bien=True (du lieu QUA KHU da chot, khong bao gio doi nua) thi
+    dung file <key>.json trong thu muc con rieng (khong gan ngay) va KHONG
+    BAO GIO het han - tranh phai tai lai toan bo vu tru moi ngay chi vi doi
+    ngay he thong, trong khi ban than du lieu khong doi.
+    """
+    if bat_bien:
+        thu_muc = cache_dir / THU_MUC_LICH_SU
+        thu_muc.mkdir(parents=True, exist_ok=True)
+        p = thu_muc / f"{key}.json"
+    else:
+        cache_dir.mkdir(parents=True, exist_ok=True)
+        p = cache_dir / f"{key}-{date.today().isoformat()}.json"
     if p.exists():
         return json.loads(p.read_text(encoding="utf-8"))
     kq = fn()
@@ -178,8 +238,15 @@ def fetch_hose_universe() -> list[str]:
 
 
 def fetch_daily(symbol: str, start: date, end: date) -> pd.DataFrame:
-    """OHLCV ngay. Tra DataFrame rong neu ma khong co du lieu. Co cache."""
+    """OHLCV ngay. Tra DataFrame rong neu ma khong co du lieu. Co cache.
+
+    Neu `end` truoc hom nay: cua so gia da CHOT (khong con phien nao moi phat
+    sinh trong khoang [start, end] nua) -> dung cache BAT BIEN, khong het han.
+    Neu `end` la hom nay hoac tuong lai: cua so con "song" (hom nay co the
+    them phien moi khi thi truong dang giao dich) -> giu cache theo ngay nhu cu.
+    """
     key = f"daily-{symbol}-{start.isoformat()}-{end.isoformat()}"
+    bat_bien = end < date.today()
 
     def goi_that() -> dict:
         from vnstock import Quote
@@ -198,7 +265,7 @@ def fetch_daily(symbol: str, start: date, end: date) -> pd.DataFrame:
             df = chuan_hoa_daily(raw)
         return _df_to_cache(df)
 
-    payload = cached(goi_that, key, CACHE_DIR)
+    payload = cached(goi_that, key, CACHE_DIR, bat_bien=bat_bien)
     return _df_from_cache(payload)
 
 

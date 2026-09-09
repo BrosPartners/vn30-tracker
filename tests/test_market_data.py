@@ -137,7 +137,9 @@ def test_fetch_daily_khoa_cache_gom_ca_symbol_start_end(tmp_path, monkeypatch):
     fetch_daily("VIC", date(2026, 1, 1), date(2026, 1, 10))
     fetch_daily("VCB", date(2026, 1, 1), date(2026, 1, 10))
     fetch_daily("VIC", date(2026, 2, 1), date(2026, 2, 10))
-    files = list(tmp_path.glob("*.json"))
+    # Ca 3 cua so nay deu la QUA KHU da chot (truoc ngay chay test that) nen
+    # roi vao cache bat bien o thu muc con lichsu/ (xem cached() trong market_data.py).
+    files = list(tmp_path.glob("**/*.json"))
     assert len(files) == 3
 
 
@@ -504,3 +506,60 @@ def test_fetch_lnst_batch_nguong_mac_dinh_cao_hon_fetch_daily_batch():
     import inspect
     sig = inspect.signature(md.fetch_lnst_batch)
     assert sig.parameters["nguong_loi"].default == 0.5
+
+
+# ---------------------------------------------------------------------------
+# cached(): cua so gia QUA KHU da chot phai dung cache BAT BIEN (khong gan
+# ngay, khong bao gio het han) - nguyen nhan #1 gay tai lai toan bo vu tru moi
+# ngay du du lieu qua khu khong doi.
+# ---------------------------------------------------------------------------
+
+def test_fetch_daily_cua_so_qua_khu_dung_cache_bat_bien_khong_gan_ngay(tmp_path, monkeypatch):
+    monkeypatch.setattr(md, "CACHE_DIR", tmp_path)
+    monkeypatch.setattr(md, "date", SimpleNamespace(today=lambda: date(2026, 9, 9), fromisoformat=date.fromisoformat))
+    dem = {"n": 0}
+    raw = pd.DataFrame({"time": ["2026-01-05"], "close": [10.0], "volume": [100]})
+
+    class FakeQuote:
+        def __init__(self, symbol, source):
+            pass
+
+        def history(self, start, end, interval):
+            dem["n"] += 1
+            return raw
+
+    fake_vnstock = SimpleNamespace(Quote=FakeQuote)
+    monkeypatch.setitem(__import__("sys").modules, "vnstock", fake_vnstock)
+
+    # end = 2026-01-10 < hom nay (2026-09-09) -> qua khu da chot -> cache bat bien
+    fetch_daily("VIC", date(2026, 1, 1), date(2026, 1, 10))
+    file_bat_bien = tmp_path / "lichsu" / "daily-VIC-2026-01-01-2026-01-10.json"
+    assert file_bat_bien.exists()
+    assert not list(tmp_path.glob("daily-VIC-2026-01-01-2026-01-10-*.json"))
+
+    # Doi "hom nay" sang ngay khac (nhu se xay ra khi chay lai vao hom sau) -
+    # cache bat bien KHONG duoc goi lai mang.
+    monkeypatch.setattr(md, "date", SimpleNamespace(today=lambda: date(2026, 9, 10), fromisoformat=date.fromisoformat))
+    fetch_daily("VIC", date(2026, 1, 1), date(2026, 1, 10))
+    assert dem["n"] == 1, "Cache bat bien khong duoc het han khi doi ngay he thong"
+
+
+def test_fetch_daily_cua_so_dang_song_van_cache_theo_ngay(tmp_path, monkeypatch):
+    """end = hom nay -> cua so con co the phat sinh phien moi -> giu cache theo ngay cu."""
+    monkeypatch.setattr(md, "CACHE_DIR", tmp_path)
+    monkeypatch.setattr(md, "date", SimpleNamespace(today=lambda: date(2026, 9, 9), fromisoformat=date.fromisoformat))
+    raw = pd.DataFrame({"time": ["2026-09-09"], "close": [10.0], "volume": [100]})
+
+    class FakeQuote:
+        def __init__(self, symbol, source):
+            pass
+
+        def history(self, start, end, interval):
+            return raw
+
+    fake_vnstock = SimpleNamespace(Quote=FakeQuote)
+    monkeypatch.setitem(__import__("sys").modules, "vnstock", fake_vnstock)
+
+    fetch_daily("VIC", date(2026, 9, 1), date(2026, 9, 9))
+    assert (tmp_path / "daily-VIC-2026-09-01-2026-09-09-2026-09-09.json").exists()
+    assert not (tmp_path / "lichsu").exists()

@@ -14,6 +14,7 @@ import yaml
 
 from collectors.manual_data import load_manual
 from collectors.market_data import (
+    fetch_current_market_cap,
     fetch_daily_batch,
     fetch_hose_universe,
     fetch_lnst_batch,
@@ -61,6 +62,11 @@ XAP_XI = [
     "từ ngày giao dịch đầu tiên trong chuỗi giá 12 tháng — cách này không phân biệt "
     "được mã mới niêm yết với mã bị tạm ngừng giao dịch dài rồi giao dịch lại trong "
     "cửa sổ dữ liệu.",
+    "Thứ hạng vốn hóa (GTVH) được tính đầy đủ trên toàn bộ sàn HOSE, nhưng các chỉ "
+    "tiêu bình quân 12 tháng (GTVH, GTGD khớp lệnh, thanh khoản...) chỉ được tính "
+    "cho nhóm mã đứng đầu theo vốn hóa HIỆN TẠI (xem rules/thresholds.yaml, "
+    "vn30.so_ma_lay_lich_su_gia) nhằm giảm số lượt gọi dữ liệu giá lịch sử — mã "
+    "ngoài nhóm này không được xét vào rổ.",
 ]
 
 
@@ -286,10 +292,44 @@ def main() -> None:
     symbols = fetch_hose_universe()
     logger.info("Vũ trụ HOSE: %d mã", len(symbols))
 
-    shares = fetch_shares_outstanding(symbols)
+    # --- Sang thu von hoa HIEN TAI cho TOAN BO san bang 1 luot goi re (price_board) ---
+    # roi chi lay lich su gia 12 thang (goi API ton kem, gioi han request/phut tren
+    # GitHub Actions) cho N ma dung dau - xem giai thich o rules/thresholds.yaml,
+    # vn30.so_ma_lay_lich_su_gia.
+    von_hoa_hien_tai = fetch_current_market_cap(symbols)
+    so_ma_lay_lich_su = load_thresholds()["vn30"]["so_ma_lay_lich_su_gia"]
+    xep_hang_hien_tai = sorted(von_hoa_hien_tai, key=lambda s: -von_hoa_hien_tai[s])
+    ma_lay_lich_su = xep_hang_hien_tai[:so_ma_lay_lich_su]
+    logger.info(
+        "Vốn hóa hiện tại tính được cho %d/%d mã; lấy lịch sử giá 12 tháng cho top %d mã",
+        len(von_hoa_hien_tai), len(symbols), len(ma_lay_lich_su),
+    )
+
+    # --- Kiem chung gia dinh: khoang cach von hoa hien tai giua hang 40 va hang 100 ---
+    # phai du lon, neu khong bien an toan 100 la qua hep (xem YEU CAU o task).
+    top_n_dieu_kien = load_thresholds()["vn30"]["conditional_rank_max"]
+    if len(xep_hang_hien_tai) >= so_ma_lay_lich_su:
+        vh_hang_40 = von_hoa_hien_tai[xep_hang_hien_tai[top_n_dieu_kien - 1]]
+        vh_hang_100 = von_hoa_hien_tai[xep_hang_hien_tai[so_ma_lay_lich_su - 1]]
+        ty_le = vh_hang_100 / vh_hang_40 if vh_hang_40 else None
+        logger.info(
+            "Kiểm chứng biên an toàn: vốn hóa hạng %d = %.1f tỷ, hạng %d = %.1f tỷ (tỷ lệ %s)",
+            top_n_dieu_kien, vh_hang_40 / 1e9, so_ma_lay_lich_su, vh_hang_100 / 1e9,
+            f"{ty_le:.1%}" if ty_le is not None else "N/A",
+        )
+        if ty_le is not None and ty_le > 0.5:
+            logger.warning(
+                "CẢNH BÁO: vốn hóa hạng %d bằng %.1f%% vốn hóa hạng %d — biên an toàn "
+                "top %d có thể QUÁ HẸP, cần xem lại vn30.so_ma_lay_lich_su_gia.",
+                so_ma_lay_lich_su, ty_le * 100, top_n_dieu_kien, so_ma_lay_lich_su,
+            )
+
+    shares = fetch_shares_outstanding(ma_lay_lich_su)
     # Lay gia ca san bang 1 lan goi batch (khong lap tung ma) de phat hien duoc
     # loi ha tang (mat mang/API sap) thay vi am tham hieu nham la ca san khong giao dich.
-    daily_map = fetch_daily_batch(symbols, start, as_of)
+    # Chi lay cho top N ma theo von hoa hien tai (xem giai thich o tren).
+    daily_map = fetch_daily_batch(ma_lay_lich_su, start, as_of)
+    symbols = ma_lay_lich_su
 
     # --- Vong 1: chua co LNST, chi de xep hang GTVH tren TOAN BO vu tru ---
     # (GTVH khong phu thuoc LNST, nen ket qua xep hang o vong nay da dung; vong 2

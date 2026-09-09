@@ -19,10 +19,12 @@ env:
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    # Voi gioi han 15 request/phut, lay gia toan bo universe mat ~27 phut.
-    # Dat tuong minh de neu treo thi job tu chet som, khong dot het quota
-    # thay vi cho den mac dinh 360 phut cua GitHub.
-    timeout-minutes: 90
+    # Tu ban sua toi uu request (giam ~405 ma xuong con top 100 theo von hoa hien
+    # tai truoc khi lay lich su gia), tong so request ~110 (9 lo price_board sang
+    # thu + ~100 lich su gia) o 15 request/phut ~ 8 phut. Dat 20 de co bien an toan,
+    # van thap hon nhieu so voi mac dinh 360 phut cua GitHub - job tu chet som neu
+    # treo thay vi dot het quota.
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
 

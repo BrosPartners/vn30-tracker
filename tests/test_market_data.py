@@ -11,6 +11,7 @@ from collectors.market_data import (
     cached,
     fetch_daily,
     fetch_daily_batch,
+    fetch_current_market_cap,
     fetch_hose_universe,
     fetch_shares_outstanding,
 )
@@ -165,6 +166,63 @@ def test_fetch_shares_outstanding_khoa_theo_danh_sach_ma(tmp_path, monkeypatch):
 
     fetch_shares_outstanding(["VIC", "VCB", "VNM"])
     assert dem["n"] == 2, "Danh sach ma khac nhau phai la khoa cache khac"
+
+
+# ---------------------------------------------------------------------------
+# fetch_current_market_cap: sang thu von hoa HIEN TAI bang 1 luot goi price_board
+# re, dung de xep hang toan san truoc khi chi lay lich su gia cho top N ma.
+# ---------------------------------------------------------------------------
+
+def test_fetch_current_market_cap_tinh_dung_va_khoa_theo_danh_sach_ma(tmp_path, monkeypatch):
+    monkeypatch.setattr(md, "CACHE_DIR", tmp_path)
+    dem = {"n": 0}
+
+    class FakeTrading:
+        def __init__(self, source, show_log):
+            pass
+
+        def price_board(self, symbols_list):
+            dem["n"] += 1
+            return pd.DataFrame({
+                "listing_symbol": symbols_list,
+                "listing_listed_share": [1000, 2000][: len(symbols_list)],
+                "match_match_price": [100, 200][: len(symbols_list)],
+            })
+
+    fake_vnstock = SimpleNamespace(Trading=FakeTrading)
+    monkeypatch.setitem(__import__("sys").modules, "vnstock", fake_vnstock)
+
+    kq1 = fetch_current_market_cap(["VIC", "VCB"])
+    assert kq1["VIC"] == 1000 * 100
+    assert kq1["VCB"] == 2000 * 200
+
+    kq2 = fetch_current_market_cap(["VCB", "VIC"])
+    assert dem["n"] == 1, "Danh sach ma giong nhau (chi khac thu tu) phai trung khoa cache"
+    assert kq1 == kq2
+
+
+def test_fetch_current_market_cap_roi_ve_ref_price_khi_chua_khop_lenh(tmp_path, monkeypatch):
+    """Ma chua co lenh khop trong phien (match_match_price = 0/None) -> dung gia tham
+    chieu (listing_ref_price) de khong bo sot ma khoi buoc sang thu."""
+    monkeypatch.setattr(md, "CACHE_DIR", tmp_path)
+
+    class FakeTrading:
+        def __init__(self, source, show_log):
+            pass
+
+        def price_board(self, symbols_list):
+            return pd.DataFrame({
+                "listing_symbol": ["VIC"],
+                "listing_listed_share": [1000],
+                "match_match_price": [0],
+                "listing_ref_price": [50],
+            })
+
+    fake_vnstock = SimpleNamespace(Trading=FakeTrading)
+    monkeypatch.setitem(__import__("sys").modules, "vnstock", fake_vnstock)
+
+    kq = fetch_current_market_cap(["VIC"])
+    assert kq["VIC"] == 1000 * 50
 
 
 # ---------------------------------------------------------------------------

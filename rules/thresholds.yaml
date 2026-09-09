@@ -32,6 +32,14 @@ liquidity:
 
 vn30:
   rule_ref: "4.3.1"
+  # BIEN AN TOAN KY THUAT CUA CHUNG TOI (KHONG PHAI QUY TAC HOSE): chi lay lich su
+  # gia 12 thang (goi API ton kem) cho N ma dung dau theo von hoa HIEN TAI, thay vi
+  # toan bo ~405 ma HOSE - de giam so luot goi API tren GitHub Actions (gioi han
+  # 15-20 request/phut). Chon 100 vi quy tac 4.3.1.e-f chi xet toi hang 40 va danh
+  # sach xem xet (consideration_list_size) chi co 50 ma - ma ngoai top ~100 theo von
+  # hoa hien tai khong the lot top 40 theo GTVH binh quan 12 thang. Ma ngoai top nay
+  # se khong duoc xet vao ro (khong hien trong danh sach 50 ma xem xet).
+  so_ma_lay_lich_su_gia: 100
   min_klgd_kl_shares: 300000
   min_gtgd_kl_vnd: 30.0e+9
   consideration_list_size: 50

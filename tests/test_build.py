@@ -93,7 +93,7 @@ def test_json_ghi_ro_ba_xap_xi():
     """Web phai luon hien canh bao ve gioi han du lieu - khong duoc am tham bo."""
     ds = lap_stock_inputs(["ABC"], {"ABC": _daily()}, {"ABC": 1_000_000}, {}, [], {})
     kq = xuat_json(build_vn30(ds, date(2026, 7, 1)), date(2026, 7, 1), "07/2026")
-    assert len(kq["xap_xi"]) == 4
+    assert len(kq["xap_xi"]) == 5
     assert any("thỏa thuận" in x for x in kq["xap_xi"])
 
 

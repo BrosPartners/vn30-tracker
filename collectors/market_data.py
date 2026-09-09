@@ -294,6 +294,78 @@ def fetch_shares_outstanding(symbols: list[str]) -> dict[str, int]:
     return cached(goi_that, key, CACHE_DIR)
 
 
+def fetch_current_market_cap(symbols: list[str]) -> dict[str, float]:
+    """Von hoa HIEN TAI (VND) qua price_board - dung de sang thu, xep hang toan bo
+    HOSE bang 1 luot goi RE (theo lo BATCH_SIZE_SHARES ma), truoc khi quyet dinh
+    ma nao dang lay lich su gia 12 thang (goi API ton kem hon nhieu).
+
+    Gia lay tu match_match_price (gia khop lenh gan nhat, don vi VND/co phieu -
+    KHAC voi 'close' cua Quote().history() la nghin dong). Neu ma chua co lenh
+    khop trong phien (0 hoac thieu), roi ve listing_ref_price (gia tham chieu) de
+    khong bo sot ma khoi buoc sang thu chi vi chua giao dich trong ngay.
+
+    Day la sang thu RIENG, khong lien quan gtvh() (binh quan 12 thang) dung de xep
+    hang chinh thuc trong rules/ - ham nay chi de chon vu tru con truoc.
+    """
+    ma_sap_xep = sorted(set(s.strip().upper() for s in symbols))
+    dau_vet = hashlib.md5(",".join(ma_sap_xep).encode("utf-8")).hexdigest()[:12]
+    key = f"current-market-cap-{len(ma_sap_xep)}ma-{dau_vet}"
+
+    def goi_that() -> dict[str, float]:
+        from vnstock import Trading
+
+        out: dict[str, float] = {}
+        for i in range(0, len(symbols), BATCH_SIZE_SHARES):
+            lo = symbols[i:i + BATCH_SIZE_SHARES]
+            _throttle.cho_phep()
+            try:
+                df = Trading(source=VNSTOCK_SOURCE.lower(), show_log=False).price_board(symbols_list=lo)
+            except Exception as e:
+                logger.warning(
+                    "price_board lỗi ở lô mã %s (vốn hóa hiện tại): %s", _mo_ta_danh_sach_ma(lo), e
+                )
+                continue
+            if df is None or df.empty:
+                continue
+            df.columns = [f"{c[0]}_{c[1]}" if isinstance(c, tuple) else str(c) for c in df.columns]
+            can = ("listing_symbol", "listing_listed_share", "match_match_price")
+            if not all(c in df.columns for c in can):
+                logger.warning("price_board thiếu cột cần cho vốn hóa hiện tại (%s)", ", ".join(can))
+                continue
+            co_ref = "listing_ref_price" in df.columns
+            for _, row in df.iterrows():
+                sym = str(row.get("listing_symbol", "")).strip().upper()
+                if not sym:
+                    continue
+                try:
+                    slcp = int(row.get("listing_listed_share", 0) or 0)
+                except (TypeError, ValueError):
+                    continue
+                try:
+                    gia = float(row.get("match_match_price", 0) or 0)
+                except (TypeError, ValueError):
+                    gia = 0.0
+                if gia <= 0 and co_ref:
+                    try:
+                        gia = float(row.get("listing_ref_price", 0) or 0)
+                    except (TypeError, ValueError):
+                        gia = 0.0
+                if slcp > 0 and gia > 0:
+                    out[sym] = slcp * gia
+                else:
+                    logger.warning("Bỏ mã %s: thiếu SLCP hoặc giá để tính vốn hóa hiện tại", sym)
+
+        ma_thieu = sorted(set(s.strip().upper() for s in symbols) - set(out.keys()))
+        if ma_thieu:
+            logger.warning(
+                "Không tính được vốn hóa hiện tại cho %s trong tổng %d mã đầu vào",
+                _mo_ta_danh_sach_ma(ma_thieu), len(symbols),
+            )
+        return out
+
+    return cached(goi_that, key, CACHE_DIR)
+
+
 # ---------------------------------------------------------------------------
 # LNST cua dong cong ty me (Dieu 3.1) - dung cho sang loc loi nhuan 4.3.1.d
 # ---------------------------------------------------------------------------

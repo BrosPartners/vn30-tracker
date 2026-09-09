@@ -563,3 +563,86 @@ def test_fetch_daily_cua_so_dang_song_van_cache_theo_ngay(tmp_path, monkeypatch)
     fetch_daily("VIC", date(2026, 9, 1), date(2026, 9, 9))
     assert (tmp_path / "daily-VIC-2026-09-01-2026-09-09-2026-09-09.json").exists()
     assert not (tmp_path / "lichsu").exists()
+
+
+# ---------------------------------------------------------------------------
+# Sua loi: KHONG duoc cache ket qua RONG - mot lan fn() that bai (mang loi,
+# rate-limit...) khong duoc bien thanh "vinh vien khong co du lieu". Xem
+# canh_bao trong report task-cache-rong.
+# ---------------------------------------------------------------------------
+
+def test_cached_khong_ghi_file_khi_ket_qua_rong_theo_dang_cache(tmp_path):
+    """Khi truyen dang_cache va fn() tra ve gia tri khong dang cache, cached()
+    phai TRA VE ket qua do cho nguoi goi nhung KHONG ghi file xuong dia."""
+    dem = {"n": 0}
+
+    def that():
+        dem["n"] += 1
+        return {"records": []}
+
+    kq1 = cached(that, "thu-rong", tmp_path, dang_cache=lambda kq: len(kq.get("records", [])) > 0)
+    assert kq1 == {"records": []}
+    assert not list(tmp_path.glob("*.json")), "Ket qua rong khong duoc ghi file cache"
+
+    # Lan goi thu hai phai goi lai fn(), khong duoc lay tu cache (vi khong co file)
+    cached(that, "thu-rong", tmp_path, dang_cache=lambda kq: len(kq.get("records", [])) > 0)
+    assert dem["n"] == 2, "Ket qua rong khong duoc cache -> lan sau phai goi lai fn()"
+
+
+def test_cached_van_ghi_file_khi_ket_qua_khong_rong_theo_dang_cache(tmp_path):
+    """dang_cache tra True thi hanh vi cache binh thuong nhu cu."""
+    dem = {"n": 0}
+
+    def that():
+        dem["n"] += 1
+        return {"records": [{"time": "2026-01-05", "close": 10.0, "volume": 100}]}
+
+    cached(that, "thu-day", tmp_path, dang_cache=lambda kq: len(kq.get("records", [])) > 0)
+    cached(that, "thu-day", tmp_path, dang_cache=lambda kq: len(kq.get("records", [])) > 0)
+    assert dem["n"] == 1, "Ket qua khong rong van phai cache binh thuong"
+    assert list(tmp_path.glob("*.json"))
+
+
+def test_cached_mac_dinh_dang_cache_none_van_cache_moi_thu_nhu_cu(tmp_path):
+    """Khong truyen dang_cache (None) -> hanh vi cu: cache moi ket qua, ke ca rong.
+    Bao dam khong pha vo cac ham fetch khac dang goi cached() ma khong truyen tham so nay."""
+    dem = {"n": 0}
+
+    def that():
+        dem["n"] += 1
+        return {"records": []}
+
+    cached(that, "thu-mac-dinh", tmp_path)
+    cached(that, "thu-mac-dinh", tmp_path)
+    assert dem["n"] == 1, "Khong truyen dang_cache thi van cache moi thu nhu truoc gio"
+
+
+def test_fetch_daily_khong_cache_khi_goi_that_tra_ve_rong(tmp_path, monkeypatch):
+    """Day chinh la loi that: fetch_daily voi ma dang niem yet nhung goi mang
+    that bai (vi du timeout) tra ve DataFrame rong -> KHONG duoc cache vinh vien
+    thanh "khong co du lieu". Lan goi sau (co the mang da on dinh lai) phai
+    duoc thu lai, khong duoc doc lai file cache rong cu."""
+    monkeypatch.setattr(md, "CACHE_DIR", tmp_path)
+    monkeypatch.setattr(md, "date", SimpleNamespace(today=lambda: date(2026, 9, 9), fromisoformat=date.fromisoformat))
+    dem = {"n": 0}
+
+    class FakeQuoteLoi:
+        def __init__(self, symbol, source):
+            pass
+
+        def history(self, start, end, interval):
+            dem["n"] += 1
+            raise RuntimeError("Gia lap loi mang / rate-limit")
+
+    fake_vnstock = SimpleNamespace(Quote=FakeQuoteLoi)
+    monkeypatch.setitem(__import__("sys").modules, "vnstock", fake_vnstock)
+
+    df1 = fetch_daily("DGC", date(2025, 7, 8), date(2026, 7, 15))
+    assert df1.empty
+
+    file_bat_bien = tmp_path / "lichsu" / "daily-DGC-2025-07-08-2026-07-15.json"
+    assert not file_bat_bien.exists(), "Ket qua rong do loi mang khong duoc cache vinh vien"
+
+    df2 = fetch_daily("DGC", date(2025, 7, 8), date(2026, 7, 15))
+    assert df2.empty
+    assert dem["n"] == 2, "Lan goi sau phai thu lai mang, khong duoc doc cache rong cu"

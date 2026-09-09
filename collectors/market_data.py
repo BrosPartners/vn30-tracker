@@ -154,6 +154,7 @@ def cached(
     key: str,
     cache_dir: Path = CACHE_DIR,
     bat_bien: bool = False,
+    dang_cache: Optional[Callable[[Any], bool]] = None,
 ) -> Any:
     """Cache ket qua JSON-serializable cua fn() theo khoa `key`.
 
@@ -165,6 +166,16 @@ def cached(
     dung file <key>.json trong thu muc con rieng (khong gan ngay) va KHONG
     BAO GIO het han - tranh phai tai lai toan bo vu tru moi ngay chi vi doi
     ngay he thong, trong khi ban than du lieu khong doi.
+
+    `dang_cache`: ham kiem tra ket qua fn() co DANG duoc ghi xuong dia hay
+    khong. Mac dinh None nghia la cache moi thu (giu nguyen hanh vi cu cho
+    cac ham khong quan tam). Khi duoc truyen va tra ve False, ket qua VAN
+    duoc tra ve cho nguoi goi nhung KHONG ghi file - vi mot chuoi gia rong
+    cua ma dang niem yet gan nhu chac chan la LOI LAY DU LIEU (mang loi,
+    rate-limit, API sap...), khong phai su that thi truong "ma nay khong co
+    giao dich trong ca nam". Neu cu cache no lai, mot lan that bai TAM THOI
+    se bien thanh loi VINH VIEN (vi cache bat bien khong bao gio het han) va
+    khong bao gio tu khoi duoc nua.
     """
     if bat_bien:
         thu_muc = cache_dir / THU_MUC_LICH_SU
@@ -176,7 +187,8 @@ def cached(
     if p.exists():
         return json.loads(p.read_text(encoding="utf-8"))
     kq = fn()
-    p.write_text(json.dumps(kq, ensure_ascii=False), encoding="utf-8")
+    if dang_cache is None or dang_cache(kq):
+        p.write_text(json.dumps(kq, ensure_ascii=False), encoding="utf-8")
     return kq
 
 
@@ -265,7 +277,12 @@ def fetch_daily(symbol: str, start: date, end: date) -> pd.DataFrame:
             df = chuan_hoa_daily(raw)
         return _df_to_cache(df)
 
-    payload = cached(goi_that, key, CACHE_DIR, bat_bien=bat_bien)
+    def _co_ban_ghi(payload: dict) -> bool:
+        """Chuoi gia rong cua mot ma dang niem yet gan nhu chac chan la loi lay
+        du lieu, khong phai su that thi truong - khong duoc cache lai."""
+        return bool(payload.get("records"))
+
+    payload = cached(goi_that, key, CACHE_DIR, bat_bien=bat_bien, dang_cache=_co_ban_ghi)
     return _df_from_cache(payload)
 
 

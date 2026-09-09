@@ -2,7 +2,7 @@ from datetime import date
 
 import pandas as pd
 
-from build import lap_stock_inputs, load_free_float_moi_nhat, xuat_json
+from build import canh_bao_ma_ro_cu_bien_mat, lap_stock_inputs, load_free_float_moi_nhat, xuat_json
 from rules.basket import build_vn30
 
 TIMES = pd.to_datetime(["2026-01-05", "2026-02-05"])
@@ -304,3 +304,34 @@ def test_gom_lich_su_theo_ma(tmp_path):
 def test_gom_lich_su_thu_muc_khong_ton_tai_tra_ve_rong(tmp_path):
     from build import gom_lich_su
     assert gom_lich_su(tmp_path / "khong_ton_tai") == {}
+
+
+# ---------------------------------------------------------------------------
+# Tuyen phong thu thu hai: ma ro cu bien mat khoi vu tru (khong lay duoc du
+# lieu gia) phai duoc canh bao to, khong am tham lot qua (xem sua loi cache rong).
+# ---------------------------------------------------------------------------
+
+def test_canh_bao_ma_ro_cu_bien_mat_khi_khong_con_trong_vu_tru():
+    ds = lap_stock_inputs(["VIC"], {"VIC": _daily()}, {"VIC": 7_762_186_000}, {}, [], {})
+    canh_bao = canh_bao_ma_ro_cu_bien_mat(["VIC", "DGC"], ds)
+    assert len(canh_bao) == 1
+    assert "DGC" in canh_bao[0]
+    assert "VIC" not in canh_bao[0]
+
+
+def test_khong_canh_bao_khi_tat_ca_ma_ro_cu_van_con_trong_vu_tru():
+    ds = lap_stock_inputs(["VIC"], {"VIC": _daily()}, {"VIC": 7_762_186_000}, {}, [], {})
+    assert canh_bao_ma_ro_cu_bien_mat(["VIC"], ds) == []
+
+
+def test_canh_bao_ma_ro_cu_bien_mat_khong_phan_biet_hoa_thuong():
+    ds = lap_stock_inputs(["VIC"], {"VIC": _daily()}, {"VIC": 7_762_186_000}, {}, [], {})
+    assert canh_bao_ma_ro_cu_bien_mat(["vic"], ds) == []
+
+
+def test_canh_bao_ma_ro_cu_bien_mat_neu_dich_danh_nhieu_ma():
+    ds = lap_stock_inputs(["VIC"], {"VIC": _daily()}, {"VIC": 7_762_186_000}, {}, [], {})
+    canh_bao = canh_bao_ma_ro_cu_bien_mat(["VIC", "DGC", "BSR"], ds)
+    assert len(canh_bao) == 2
+    ma_neu = " ".join(canh_bao)
+    assert "DGC" in ma_neu and "BSR" in ma_neu

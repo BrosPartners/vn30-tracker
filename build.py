@@ -191,6 +191,27 @@ def lap_stock_inputs(symbols, daily_map, shares_map, manual, previous_basket, fr
     return ds
 
 
+def canh_bao_ma_ro_cu_bien_mat(previous_basket: list[str], ds: list[StockInput]) -> list[str]:
+    """Tuyen phong thu thu hai: neu mot ma dang trong ro VN30 KY TRUOC lai
+    khong co mat trong vu tru da lap StockInput (nghia la khong lay duoc du
+    lieu gia/SLCP - xem lap_stock_inputs, buoc "bo qua ma khong co SLCP hoac
+    khong co du lieu gia"), gan nhu chac chan la LOI KY THUAT (mang loi, cache
+    hong, API sap...) chu khong phai su that "ma nay het niem yet". Mot ma
+    dang trong VN30 ma bien mat khoi du lieu can duoc canh bao TO, khong duoc
+    de am tham lot qua.
+
+    Tra ve danh sach cau canh bao tieng Viet co dau, moi cau neu dich danh 1 ma.
+    """
+    ma_trong_vu_tru = {si.symbol.upper() for si in ds}
+    ma_bien_mat = sorted(s.upper() for s in previous_basket if s.upper() not in ma_trong_vu_tru)
+    return [
+        f"Mã {ma} đang ở trong rổ VN30 kỳ trước nhưng không lấy được dữ liệu giá/SLCP "
+        f"kỳ này nên KHÔNG THỂ xét — nghi ngờ lỗi kỹ thuật (mạng lỗi/cache hỏng/API sập), "
+        f"không phải sự thật thị trường, cần kiểm tra lại nguồn dữ liệu cho mã này."
+        for ma in ma_bien_mat
+    ]
+
+
 def _ket_luan(symbol: str, r: BasketResult) -> str:
     if symbol in r.constituents:
         return "Trong rổ dự kiến"
@@ -349,6 +370,7 @@ def main() -> None:
     ds = lap_stock_inputs(symbols, daily_map, shares, manual, prev, free_float, lnst_auto, start=start)
     logger.info("Chạy bộ quy tắc trên %d mã", len(ds))
     kq = build_vn30(ds, as_of)
+    kq.canh_bao.extend(canh_bao_ma_ro_cu_bien_mat(prev, ds))
 
     # Ghi snapshot tho (chua co khoi lich/lich_su) truoc, roi moi gom lich su - de
     # chuoi sparkline co ca diem cua hom nay, khong bi cham 1 nhip.

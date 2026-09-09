@@ -256,3 +256,36 @@ def test_khong_canh_bao_khi_ma_thieu_du_lieu_hang_thap_ngoai_vung_chon():
     u[44].free_float = None  # S44, hang 45 - ngoai vung 40
     r = build_vn30(u, AS_OF)
     assert not any("S44" in cb for cb in r.canh_bao)
+
+
+# ---------------------------------------------------------------------------
+# Pham vi "thieu du lieu": LNST chi duoc lay cho danh sach xem xet (top 50).
+# Ma hang > 50 khong the vao ro theo Dieu 4.3.1.f (chi xet den hang 40), nen
+# viec KHONG goi BCTC cho nhung ma do la quyet dinh pham vi co y, khong phai
+# lo hong du lieu - gan nhan "thieu du lieu" cho chung lam nguoi doc hieu sai
+# rang cong cu con nhieu cho mu.
+# ---------------------------------------------------------------------------
+
+def test_thieu_lnst_o_hang_ngoai_danh_sach_xem_xet_khong_phai_thieu_du_lieu():
+    ds = _universe(60)
+    ds[55] = make("S55", close=100.0 - 55, lnst=None)
+    r = build_vn30(ds, AS_OF)
+    assert r.metrics["S55"]["gtvh_rank"] > 50
+    assert "S55" not in r.missing_data
+
+
+def test_thieu_lnst_o_hang_trong_danh_sach_xem_xet_van_la_thieu_du_lieu():
+    ds = _universe(60)
+    ds[10] = make("S10", close=100.0 - 10, lnst=None)
+    r = build_vn30(ds, AS_OF)
+    assert r.metrics["S10"]["gtvh_rank"] <= 50
+    assert "S10" in r.missing_data
+
+
+def test_thieu_free_float_o_hang_ngoai_danh_sach_xem_xet_van_la_thieu_du_lieu():
+    """Free float lay tu cong bo HOSE cho TOAN BO VNAllshare - thieu la thieu that,
+    khong phai do ta co tinh khong lay (khac LNST)."""
+    ds = _universe(60)
+    ds[55] = make("S55", close=100.0 - 55, free_float=None)
+    r = build_vn30(ds, AS_OF)
+    assert "S55" in r.missing_data

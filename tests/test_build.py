@@ -101,8 +101,9 @@ def test_json_ghi_ro_ba_xap_xi():
     """Web phai luon hien canh bao ve gioi han du lieu - khong duoc am tham bo."""
     ds = lap_stock_inputs(["ABC"], {"ABC": _daily()}, {"ABC": 1_000_000}, {}, [], {})
     kq = xuat_json(build_vn30(ds, date(2026, 7, 1)), date(2026, 7, 1), "07/2026")
-    assert len(kq["xap_xi"]) == 5
+    assert len(kq["xap_xi"]) == 6
     assert any("thỏa thuận" in x for x in kq["xap_xi"])
+    assert any("consideration_list_size" in x for x in kq["xap_xi"])
 
 
 def test_json_co_khoi_canh_bao_chung_tu_basket_result():
@@ -492,7 +493,11 @@ def test_ma_moi_giao_dich_sau_ngay_chot_vang_mat_vnallshare_van_la_thieu_du_lieu
     assert "MOI" in r.missing_data
     kq = xuat_json(r, date(2026, 7, 1), "07/2026")
     dong = next(d for d in kq["stocks"] if d["symbol"] == "MOI")
-    assert dong["ket_luan"] == "Thiếu dữ liệu"
+    # Nhan hien thi la "Không đạt" chu khong phai "Thiếu dữ liệu": ma nay con truot
+    # Dieu 3.2 mot cach dut khoat (chua niem yet du 6 thang), va ly do dut khoat
+    # thang nhan thieu du lieu - xem build._ket_luan. Diem cua test nay la ngu nghia
+    # cua BUOC free_float ben duoi, khong phai nhan tong hop.
+    assert dong["ket_luan"] == "Không đạt"
     buoc_ff = next(sc for sc in dong["screens"] if sc["step"] == "free_float")
     assert buoc_ff["thieu_du_lieu"] is True
 
@@ -540,3 +545,59 @@ def test_canh_bao_bien_mat_khi_ma_hang_cao_la_hose_loai_khong_phai_thieu_du_lieu
     r = build_vn30(ds, date(2026, 7, 1))
     assert "HVN" not in r.missing_data
     assert not any("HVN" in cb for cb in r.canh_bao)
+
+
+# ---------------------------------------------------------------------------
+# Uu tien nhan: mot ly do truot THUC CHAT thang "thieu du lieu"
+# ---------------------------------------------------------------------------
+
+def test_ma_truot_dut_khoat_thi_khong_gan_nhan_thieu_du_lieu():
+    """Ma moi niem yet 1 thang truot Dieu 3.2 mot cach dut khoat; free float cua no
+    khong the co (HOSE chua cong bo cho ma moi) va cung KHONG con y nghia gi.
+    Gan nhan "Thiếu dữ liệu" o day la sai: bo sung du lieu cung khong doi ket qua."""
+    manual = {"MOI": {"listing_date": date(2026, 6, 1), "warning_status": "none",
+                      "lnst_positive": True, "audit_opinion": "unqualified"}}
+    ds = lap_stock_inputs(["MOI"], {"MOI": _daily()}, {"MOI": 1_000_000}, manual, [], {}, {})
+    r = build_vn30(ds, date(2026, 7, 1))
+    kq = xuat_json(r, date(2026, 7, 1), "07/2026")
+    dong = next(d for d in kq["stocks"] if d["symbol"] == "MOI")
+    assert dong["ket_luan"] == "Không đạt", dong["ket_luan"]
+
+
+def test_ma_chi_truot_vi_thieu_du_lieu_van_gan_nhan_thieu_du_lieu():
+    manual = {"CU": {"listing_date": date(2016, 1, 1), "warning_status": "none",
+                     "audit_opinion": "unqualified"}}
+    ds = lap_stock_inputs(["CU"], {"CU": _daily()}, {"CU": 1_000_000}, manual, [],
+                          {"CU": 0.30}, {})
+    r = build_vn30(ds, date(2026, 7, 1))
+    kq = xuat_json(r, date(2026, 7, 1), "07/2026")
+    dong = next(d for d in kq["stocks"] if d["symbol"] == "CU")
+    assert dong["ket_luan"] == "Thiếu dữ liệu"
+
+
+def test_missing_data_trong_json_khong_liet_ke_ma_da_truot_dut_khoat():
+    """Nhan o bang va danh sach "Thiếu dữ liệu" o cuoi trang phai NOI CUNG MOT
+    DIEU. Ma moi niem yet 1 thang bi loai dut khoat theo Dieu 3.2, nen no khong
+    thuoc danh sach "chua ket luan duoc vi thieu du lieu" du free float trong."""
+    manual = {"MOI": {"listing_date": date(2026, 6, 1), "warning_status": "none",
+                      "lnst_positive": True, "audit_opinion": "unqualified"}}
+    ds = lap_stock_inputs(["MOI"], {"MOI": _daily()}, {"MOI": 1_000_000}, manual, [], {}, {})
+    r = build_vn30(ds, date(2026, 7, 1))
+    assert "MOI" in r.missing_data          # o tang du lieu van dung: free float trong
+    kq = xuat_json(r, date(2026, 7, 1), "07/2026")
+    assert "MOI" not in kq["missing_data"]  # nhung khong hien ra web nhu mot cho mu
+
+
+def test_ma_dat_het_tieu_chi_nhung_khong_du_suat_khong_bi_ghi_la_khong_dat():
+    """Ma nhu BVH vuot CA 5 buoc sang loc, chi thua vi 30 suat da day (Dieu 4.3.1.f).
+    Ghi "Không đạt" cho no la sai su that - phai phan biet ro voi ma truot tieu chi."""
+    from build import _ket_luan
+    from rules.models import BasketResult, ScreenResult
+
+    r = BasketResult()
+    r.metrics["BVH"] = {"hose_loai_khoi_vnallshare": False}
+    r.screens["BVH"] = [
+        ScreenResult("BVH", b, "3.2", True, "đạt") for b in
+        ("eligibility", "free_float", "liquidity", "vn30_liquidity", "profit")
+    ]
+    assert _ket_luan("BVH", r) == "Đạt tiêu chí, ngoài rổ"

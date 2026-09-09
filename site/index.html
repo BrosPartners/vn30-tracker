@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Theo dõi ứng viên VN30 — Bros Partners</title>
+<title>Tracking VN30 — Bros Partners</title>
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&subset=latin,vietnamese&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 <header>
-  <h1>Theo dõi ứng viên VN30</h1>
+  <h1>Tracking VN30</h1>
   <p id="meta">Đang tải dữ liệu…</p>
   <div id="canh-bao-goc" hidden></div>
 </header>
@@ -34,6 +34,14 @@
   <section>
     <h2>Bảng xếp hạng top 50</h2>
     <input id="loc" type="search" placeholder="Lọc theo mã…" aria-label="Lọc theo mã">
+    <ul class="chu-giai" aria-label="Chú giải màu">
+      <li class="kl-trong-ro">Trong rổ dự kiến</li>
+      <li class="kl-du-phong">Dự phòng</li>
+      <li class="kl-dat-ngoai-ro">Đạt tiêu chí, ngoài rổ</li>
+      <li class="kl-khong-dat">Không đạt tiêu chí</li>
+      <li class="kl-thieu-du-lieu">Thiếu dữ liệu</li>
+      <li class="kl-hose-loai">HOSE loại khỏi VNAllshare</li>
+    </ul>
     <div class="cuon"><table id="bang"><thead></thead><tbody></tbody></table></div>
   </section>
   <section id="thieu-du-lieu"></section>

@@ -646,3 +646,75 @@ def test_fetch_daily_khong_cache_khi_goi_that_tra_ve_rong(tmp_path, monkeypatch)
     df2 = fetch_daily("DGC", date(2025, 7, 8), date(2026, 7, 15))
     assert df2.empty
     assert dem["n"] == 2, "Lan goi sau phai thu lai mang, khong duoc doc cache rong cu"
+
+
+def test_fetch_lnst_boc_duoc_chi_tieu_cua_bo_bao_cao_bao_hiem(tmp_path, monkeypatch):
+    """BCTC bao hiem (vd BVH) KHONG co dong attributable_to_parent_company; chi tieu
+    tuong duong ten la net_profit_attributable_to_shareholders_of_the_group.
+    Truoc khi sua, BVH tra None va bi gan nhan "thieu du lieu" oan."""
+    monkeypatch.setattr(md, "CACHE_DIR", tmp_path)
+    monkeypatch.setattr(md, "date", SimpleNamespace(today=lambda: date(2026, 9, 8)))
+
+    df_quy = _df_bctc(
+        ["profit_after_tax", "minority_interest",
+         "net_profit_attributable_to_shareholders_of_the_group"],
+        **{"2026-Q2": [1047, 15, 1032], "2026-Q1": [816, 16, 799]},
+    )
+
+    class FakeFinance:
+        def __init__(self, symbol, source):
+            pass
+
+        def income_statement(self, period, lang):
+            return df_quy
+
+    monkeypatch.setitem(__import__("sys").modules, "vnstock",
+                        SimpleNamespace(Finance=FakeFinance))
+
+    kq = md.fetch_lnst("BVH")
+    assert kq is not None
+    assert kq["lnst_vnd"] == 1032 + 799
+    assert "net_profit_attributable_to_shareholders_of_the_group" in kq["nguon"]
+
+
+def test_fetch_lnst_uu_tien_chi_tieu_cong_ty_me_khi_co_ca_hai(tmp_path, monkeypatch):
+    monkeypatch.setattr(md, "CACHE_DIR", tmp_path)
+    monkeypatch.setattr(md, "date", SimpleNamespace(today=lambda: date(2026, 9, 8)))
+
+    df_quy = _df_bctc(
+        ["attributable_to_parent_company",
+         "net_profit_attributable_to_shareholders_of_the_group"],
+        **{"2026-Q2": [10, 999], "2026-Q1": [5, 999]},
+    )
+
+    class FakeFinance:
+        def __init__(self, symbol, source):
+            pass
+
+        def income_statement(self, period, lang):
+            return df_quy
+
+    monkeypatch.setitem(__import__("sys").modules, "vnstock",
+                        SimpleNamespace(Finance=FakeFinance))
+
+    assert md.fetch_lnst("FPT")["lnst_vnd"] == 15
+
+
+def test_fetch_lnst_khong_cache_ket_qua_none(tmp_path, monkeypatch):
+    """None gan nhu luon la LOI LAY DU LIEU (mang/rate-limit/schema la), khong phai
+    su that "doanh nghiep khong co LNST" - cache lai se khoa cai loi do suot ca ngay."""
+    monkeypatch.setattr(md, "CACHE_DIR", tmp_path)
+    monkeypatch.setattr(md, "date", SimpleNamespace(today=lambda: date(2026, 9, 8)))
+
+    class FakeFinance:
+        def __init__(self, symbol, source):
+            pass
+
+        def income_statement(self, period, lang):
+            raise RuntimeError("API sập")
+
+    monkeypatch.setitem(__import__("sys").modules, "vnstock",
+                        SimpleNamespace(Finance=FakeFinance))
+
+    assert md.fetch_lnst("XYZ") is None
+    assert list(tmp_path.glob("lnst-XYZ-*.json")) == []

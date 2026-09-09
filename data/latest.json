@@ -40,61 +40,7 @@
     "PLX",
     "VIX"
   ],
-  "missing_data": [
-    "BAF",
-    "BMP",
-    "BVH",
-    "BWE",
-    "CII",
-    "CRV",
-    "CTR",
-    "DCM",
-    "DGC",
-    "DGW",
-    "DHG",
-    "DMX",
-    "DPM",
-    "DSE",
-    "DXG",
-    "EVF",
-    "FRT",
-    "FTS",
-    "GEL",
-    "GMD",
-    "HAG",
-    "HAH",
-    "HCM",
-    "HSG",
-    "KDC",
-    "KDH",
-    "KLB",
-    "LGC",
-    "LPS",
-    "NAB",
-    "NLG",
-    "ORS",
-    "PC1",
-    "PDR",
-    "PGV",
-    "PHR",
-    "PVD",
-    "PVT",
-    "SBT",
-    "SIP",
-    "SJS",
-    "TAL",
-    "TCH",
-    "VBB",
-    "VCF",
-    "VCG",
-    "VCI",
-    "VGC",
-    "VHC",
-    "VND",
-    "VPI",
-    "VSH",
-    "VTP"
-  ],
+  "missing_data": [],
   "stocks": [
     {
       "symbol": "VIC",
@@ -1584,7 +1530,7 @@
       "lnst_nguon": "tự động",
       "niem_yet_nguon": "suy từ ngày giao dịch đầu tiên",
       "niem_yet_thang": 1,
-      "ket_luan": "Thiếu dữ liệu",
+      "ket_luan": "Không đạt",
       "hose_loai_khoi_vnallshare": false,
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
@@ -2492,12 +2438,12 @@
       "free_float": 0.1,
       "free_float_rounded": 0.1,
       "in_previous_basket": false,
-      "lnst_ty": null,
-      "lnst_ky": null,
-      "lnst_nguon": null,
+      "lnst_ty": 1831.5,
+      "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
+      "lnst_nguon": "tự động",
       "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
       "niem_yet_thang": null,
-      "ket_luan": "Thiếu dữ liệu",
+      "ket_luan": "Đạt tiêu chí, ngoài rổ",
       "hose_loai_khoi_vnallshare": false,
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
@@ -2538,10 +2484,10 @@
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
-          "passed": false,
-          "message": "Thiếu dữ liệu lợi nhuận sau thuế — cần xác nhận thủ công",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
           "shortfall": null,
-          "thieu_du_lieu": true
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -2561,7 +2507,7 @@
       "lnst_nguon": "tự động",
       "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
       "niem_yet_thang": null,
-      "ket_luan": "Không đạt",
+      "ket_luan": "Đạt tiêu chí, ngoài rổ",
       "hose_loai_khoi_vnallshare": false,
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
@@ -2625,7 +2571,7 @@
       "lnst_nguon": "tự động",
       "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
       "niem_yet_thang": null,
-      "ket_luan": "Không đạt",
+      "ket_luan": "Đạt tiêu chí, ngoài rổ",
       "hose_loai_khoi_vnallshare": false,
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
@@ -2689,7 +2635,7 @@
       "lnst_nguon": "tự động",
       "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
       "niem_yet_thang": null,
-      "ket_luan": "Không đạt",
+      "ket_luan": "Đạt tiêu chí, ngoài rổ",
       "hose_loai_khoi_vnallshare": false,
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
@@ -2753,7 +2699,7 @@
       "lnst_nguon": "tự động",
       "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
       "niem_yet_thang": null,
-      "ket_luan": "Không đạt",
+      "ket_luan": "Đạt tiêu chí, ngoài rổ",
       "hose_loai_khoi_vnallshare": false,
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
@@ -2817,7 +2763,7 @@
       "lnst_nguon": "tự động",
       "niem_yet_nguon": "suy từ ngày giao dịch đầu tiên",
       "niem_yet_thang": 0,
-      "ket_luan": "Thiếu dữ liệu",
+      "ket_luan": "Không đạt",
       "hose_loai_khoi_vnallshare": false,
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
@@ -2865,7 +2811,7 @@
       "lnst_nguon": "tự động",
       "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
       "niem_yet_thang": null,
-      "ket_luan": "Không đạt",
+      "ket_luan": "Đạt tiêu chí, ngoài rổ",
       "hose_loai_khoi_vnallshare": false,
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
@@ -2929,7 +2875,7 @@
       "lnst_nguon": "tự động",
       "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
       "niem_yet_thang": null,
-      "ket_luan": "Không đạt",
+      "ket_luan": "Đạt tiêu chí, ngoài rổ",
       "hose_loai_khoi_vnallshare": false,
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
@@ -2993,7 +2939,7 @@
       "lnst_nguon": "tự động",
       "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
       "niem_yet_thang": null,
-      "ket_luan": "Không đạt",
+      "ket_luan": "Đạt tiêu chí, ngoài rổ",
       "hose_loai_khoi_vnallshare": false,
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
@@ -3057,7 +3003,7 @@
       "lnst_nguon": "tự động",
       "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
       "niem_yet_thang": null,
-      "ket_luan": "Không đạt",
+      "ket_luan": "Đạt tiêu chí, ngoài rổ",
       "hose_loai_khoi_vnallshare": false,
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
@@ -3121,7 +3067,7 @@
       "lnst_nguon": "tự động",
       "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
       "niem_yet_thang": null,
-      "ket_luan": "Không đạt",
+      "ket_luan": "Đạt tiêu chí, ngoài rổ",
       "hose_loai_khoi_vnallshare": false,
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
@@ -3185,7 +3131,7 @@
       "lnst_nguon": "tự động",
       "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
       "niem_yet_thang": null,
-      "ket_luan": "Không đạt",
+      "ket_luan": "Đạt tiêu chí, ngoài rổ",
       "hose_loai_khoi_vnallshare": false,
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
@@ -3846,7 +3792,8 @@
     "GTVH 12 tháng dùng số cổ phiếu lưu hành hiện tại cho toàn chuỗi giá quá khứ — lệch với mã có phát hành thêm hoặc chia thưởng trong kỳ.",
     "Ý kiến kiểm toán không đọc được tự động — mã chưa xác nhận hiển thị là 'chưa xác nhận', không mặc định là đạt.",
     "Ngày niêm yết cho mã không có xác nhận thủ công trong data/manual.yaml được SUY từ ngày giao dịch đầu tiên trong chuỗi giá 12 tháng — cách này không phân biệt được mã mới niêm yết với mã bị tạm ngừng giao dịch dài rồi giao dịch lại trong cửa sổ dữ liệu. Cách suy này còn dùng lịch sử giá của mã trên MỌI sàn (nguồn dữ liệu không phân biệt sàn), nên với cổ phiếu CHUYỂN SÀN (ví dụ từ UPCoM sang HOSE như MCH) thời gian niêm yết trên HOSE sẽ bị tính DÀI HƠN thực tế — những mã như vậy được đối chiếu với danh mục VNAllshare của công bố HOSE gần nhất và đánh dấu cảnh báo riêng ở cấp mã nếu không có mặt trong công bố đó.",
-    "Thứ hạng vốn hóa (GTVH) được tính đầy đủ trên toàn bộ sàn HOSE, nhưng các chỉ tiêu bình quân 12 tháng (GTVH, GTGD khớp lệnh, thanh khoản...) chỉ được tính cho nhóm mã đứng đầu theo vốn hóa HIỆN TẠI (xem rules/thresholds.yaml, vn30.so_ma_lay_lich_su_gia) nhằm giảm số lượt gọi dữ liệu giá lịch sử — mã ngoài nhóm này không được xét vào rổ."
+    "Thứ hạng vốn hóa (GTVH) được tính đầy đủ trên toàn bộ sàn HOSE, nhưng các chỉ tiêu bình quân 12 tháng (GTVH, GTGD khớp lệnh, thanh khoản...) chỉ được tính cho nhóm mã đứng đầu theo vốn hóa HIỆN TẠI (xem rules/thresholds.yaml, vn30.so_ma_lay_lich_su_gia) nhằm giảm số lượt gọi dữ liệu giá lịch sử — mã ngoài nhóm này không được xét vào rổ.",
+    "Lợi nhuận sau thuế (Điều 4.3.1.d) chỉ được lấy cho danh sách xem xét — nhóm mã đứng đầu theo vốn hóa (xem rules/thresholds.yaml, vn30.consideration_list_size) — vì Điều 4.3.1.f chỉ chọn tới hạng 40 nên mã ngoài nhóm này không thể vào rổ. Đây là quyết định phạm vi có ý, không phải lỗ hổng dữ liệu, nên những mã đó KHÔNG bị gắn nhãn 'thiếu dữ liệu'."
   ],
   "canh_bao": [],
   "nguon_quy_tac": "HOSE-Index Ground Rules v4.0 (QĐ 747/QĐ-SGDHCM, 30/12/2024)"

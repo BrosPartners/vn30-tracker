@@ -454,24 +454,38 @@ def fetch_current_market_cap(symbols: list[str]) -> dict[str, float]:
 # LNST cua dong cong ty me (Dieu 3.1) - dung cho sang loc loi nhuan 4.3.1.d
 # ---------------------------------------------------------------------------
 
-CHI_TIEU_LNST_CTY_ME = "attributable_to_parent_company"
+# vnstock dung bo chi tieu KHAC NHAU theo nganh. "LNST cua co dong cong ty me"
+# (Dieu 3.1) mang ten:
+#   - attributable_to_parent_company: DN thuong, ngan hang, cong ty chung khoan
+#   - net_profit_attributable_to_shareholders_of_the_group: bo bao cao BAO HIEM (vd BVH)
+# Xet theo dung thu tu nay; KHONG duoc tu tinh profit_after_tax - minority_interest
+# (quy uoc dau cua minority_interest khac nhau giua cac bo bao cao) khi da co dong
+# tong hop san.
+CHI_TIEU_LNST_CTY_ME = (
+    "attributable_to_parent_company",
+    "net_profit_attributable_to_shareholders_of_the_group",
+)
 
 
-def _lay_dong_lnst(df: Optional[pd.DataFrame], cot: str) -> Optional[float]:
-    """Boc gia tri chi tieu LNST cua dong cong ty me tai 1 cot (nam hoac quy).
+def _lay_dong_lnst(
+    df: Optional[pd.DataFrame], cot: str
+) -> Optional[tuple[float, str]]:
+    """Boc (gia tri, ten chi tieu da dung) cua LNST cong ty me tai 1 cot (nam hoac quy).
 
-    Tra None neu thieu cot, thieu dong chi tieu, hoac gia tri khong doc duoc so -
+    Tra None neu thieu cot, thieu moi dong chi tieu, hoac gia tri khong doc duoc so -
     KHONG DUOC DOAN (vd tra 0).
     """
     if df is None or df.empty or "item_id" not in df.columns or cot not in df.columns:
         return None
-    dong = df[df["item_id"] == CHI_TIEU_LNST_CTY_ME]
-    if dong.empty:
-        return None
-    try:
-        return float(dong.iloc[0][cot])
-    except (TypeError, ValueError):
-        return None
+    for chi_tieu in CHI_TIEU_LNST_CTY_ME:
+        dong = df[df["item_id"] == chi_tieu]
+        if dong.empty:
+            continue
+        try:
+            return float(dong.iloc[0][cot]), chi_tieu
+        except (TypeError, ValueError):
+            return None
+    return None
 
 
 def _cot_quy(nam: int, quy: int) -> str:
@@ -507,10 +521,10 @@ def fetch_lnst(symbol: str, as_of: Optional[date] = None) -> Optional[dict]:
         q2 = _lay_dong_lnst(df_quy, _cot_quy(nam_hien_tai, 2))
         if q1 is not None and q2 is not None:
             return {
-                "lnst_vnd": q1 + q2,
+                "lnst_vnd": q1[0] + q2[0],
                 "ky": f"Bán niên {nam_hien_tai} (cộng từ báo cáo quý 1+2, "
                       f"không phải bản soát xét bán niên chính thức)",
-                "nguon": "vnstock BCTC quý (Q1+Q2), attributable_to_parent_company",
+                "nguon": f"vnstock BCTC quý (Q1+Q2), {q1[1]}",
             }
 
         # --- Roi ve: nam gan nhat, tu bao cao nam ---
@@ -532,12 +546,14 @@ def fetch_lnst(symbol: str, as_of: Optional[date] = None) -> Optional[dict]:
         if gia_tri is None:
             return None
         return {
-            "lnst_vnd": gia_tri,
+            "lnst_vnd": gia_tri[0],
             "ky": f"Năm {cot_moi_nhat}",
-            "nguon": "vnstock BCTC năm, attributable_to_parent_company",
+            "nguon": f"vnstock BCTC năm, {gia_tri[1]}",
         }
 
-    return cached(goi_that, key, CACHE_DIR)
+    # None gan nhu luon la loi lay du lieu (mang/rate-limit/bo chi tieu la), khong
+    # phai su that thi truong - cache lai se khoa cai loi do suot ca ngay.
+    return cached(goi_that, key, CACHE_DIR, dang_cache=lambda kq: kq is not None)
 
 
 def fetch_lnst_batch(

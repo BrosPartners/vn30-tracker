@@ -84,6 +84,11 @@ XAP_XI = [
     "cho nhóm mã đứng đầu theo vốn hóa HIỆN TẠI (xem rules/thresholds.yaml, "
     "vn30.so_ma_lay_lich_su_gia) nhằm giảm số lượt gọi dữ liệu giá lịch sử — mã "
     "ngoài nhóm này không được xét vào rổ.",
+    "Lợi nhuận sau thuế (Điều 4.3.1.d) chỉ được lấy cho danh sách xem xét — nhóm mã "
+    "đứng đầu theo vốn hóa (xem rules/thresholds.yaml, vn30.consideration_list_size) — "
+    "vì Điều 4.3.1.f chỉ chọn tới hạng 40 nên mã ngoài nhóm này không thể vào rổ. "
+    "Đây là quyết định phạm vi có ý, không phải lỗ hổng dữ liệu, nên những mã đó "
+    "KHÔNG bị gắn nhãn 'thiếu dữ liệu'.",
 ]
 
 
@@ -271,10 +276,23 @@ def _ket_luan(symbol: str, r: BasketResult) -> str:
         return "Trong rổ dự kiến"
     if symbol in r.reserve:
         return "Dự phòng"
-    if symbol in r.missing_data:
-        return "Thiếu dữ liệu"
     if r.metrics.get(symbol, {}).get("hose_loai_khoi_vnallshare"):
         return "HOSE loại khỏi VNAllshare"
+    # Mot ly do truot THUC CHAT (thieu_du_lieu=False, vd chua niem yet du 6 thang)
+    # thang nhan "Thieu du lieu": ma da bi loai dut khoat, bo sung du lieu con
+    # thieu cung khong the doi ket qua. Vi du that: DMX/LPS moi niem yet 0-1 thang
+    # nen HOSE chua cong bo free float, nhung chinh viec moi niem yet da loai chung.
+    truot_thuc_chat = any(
+        not b.passed and not b.thieu_du_lieu for b in r.screens.get(symbol, [])
+    )
+    if symbol in r.missing_data and not truot_thuc_chat:
+        return "Thiếu dữ liệu"
+    # Vuot het cac buoc sang loc ma van khong duoc chon nghia la THUA SUAT
+    # (Dieu 4.3.1.f chi co 30 suat + 5 du phong), khong phai truot tieu chi -
+    # ghi "Không đạt" cho nhung ma nay la noi sai su that.
+    buoc = r.screens.get(symbol, [])
+    if buoc and all(b.passed for b in buoc):
+        return "Đạt tiêu chí, ngoài rổ"
     return "Không đạt"
 
 
@@ -350,7 +368,15 @@ def xuat_json(r: BasketResult, as_of: date, ky_review: str, lich_su: dict | None
         "ky_review": ky_review,
         "constituents": r.constituents,
         "reserve": r.reserve,
-        "missing_data": sorted(set(r.missing_data)),
+        # Chi liet ke ma THUC SU chua ket luan duoc. Ma da co mot ly do truot dut
+        # khoat (vd chua niem yet du 6 thang) thi bo sung du lieu cung khong doi
+        # ket qua - de no trong danh sach nay se noi nguoc voi nhan "Không đạt"
+        # o bang top 50 (xem _ket_luan).
+        "missing_data": sorted(
+            sym for sym in set(r.missing_data)
+            if not any(not b.passed and not b.thieu_du_lieu
+                       for b in r.screens.get(sym, []))
+        ),
         "stocks": stocks,
         "lich": {
             k: (v.isoformat() if isinstance(v, date) else v)

@@ -54,6 +54,19 @@ function the(s, loaiThe) {
   return el;
 }
 
+// Phan loai mau cho tung dong bang top 50. Khoa la CHINH XAC chuoi ket_luan do
+// build._ket_luan sinh ra (xem tests/test_site_smoke.py giu hai ben khong lech nhau).
+// Mau chi la lop bo tro: cot "Kết luận" bang chu van luon hien, de trang con doc
+// duoc khi in den trang hoac voi nguoi mu mau.
+const MAU_KET_LUAN = {
+  "Trong rổ dự kiến": "kl-trong-ro",
+  "Dự phòng": "kl-du-phong",
+  "Không đạt": "kl-khong-dat",
+  "Đạt tiêu chí, ngoài rổ": "kl-dat-ngoai-ro",
+  "Thiếu dữ liệu": "kl-thieu-du-lieu",
+  "HOSE loại khỏi VNAllshare": "kl-hose-loai",
+};
+
 function dungBang(stocks) {
   $("bang").querySelector("thead").innerHTML =
     "<tr>" + COT.map(([, ten]) => `<th>${ten}</th>`).join("") + "</tr>";
@@ -63,12 +76,14 @@ function dungBang(stocks) {
     tbody.innerHTML = "";
     top50.filter((s) => s.symbol.includes(loc.toUpperCase())).forEach((s) => {
       const tr = document.createElement("tr");
+      tr.className = MAU_KET_LUAN[s.ket_luan] || "";
       tr.innerHTML = COT.map(([khoa]) => {
         let v = s[khoa];
         if (khoa === "turnover") v = phanTram(v);
         else if (khoa === "free_float") v = phanTramTron(v);
         else if (khoa === "klgd_kl") v = soNguyen(v);
         else if (typeof v === "number") v = soTy(v);
+        if (khoa === "ket_luan") return `<td><span class="nhan">${v ?? "—"}</span></td>`;
         return `<td>${v ?? "—"}</td>`;
       }).join("");
       tbody.appendChild(tr);

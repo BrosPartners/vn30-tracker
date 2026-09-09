@@ -42,15 +42,6 @@ def build_vn30(stocks: list[StockInput], as_of: date) -> BasketResult:
             # chi biet la du 6 thang, khong biet chinh xac bao nhieu thang -> None.
             "niem_yet_thang": None if s.listing_date is None else listing_months(s, as_of),
         }
-        # Thieu ca listing_date CU THE lan bang chung "truoc cua so" moi la thieu du lieu -
-        # niem_yet_truoc_cua_so=True la bang chung hop le, khong duoc coi la thieu.
-        thieu_niem_yet = s.listing_date is None and not s.niem_yet_truoc_cua_so
-        # free_float=None CHI la thieu du lieu khi KHONG co bang chung HOSE da xet
-        # va loai ma nay (xem rules/models.StockInput.hose_loai_khoi_vnallshare) -
-        # neu co, day la thong tin duong ("HOSE loai"), khong phai lo hong du lieu.
-        thieu_free_float = s.free_float is None and not s.hose_loai_khoi_vnallshare
-        if thieu_free_float or s.lnst_positive is None or thieu_niem_yet:
-            result.missing_data.append(s.symbol)
 
     # Xep hang GTVH giam dan; dong hang uu tien GTGD_KL lon hon (Dieu 4.3.1.e)
     def _khoa_gtvh(s: StockInput) -> tuple:
@@ -60,6 +51,25 @@ def build_vn30(stocks: list[StockInput], as_of: date) -> BasketResult:
     xep = sorted(stocks, key=_khoa_gtvh)
     for hang, s in enumerate(xep, start=1):
         result.metrics[s.symbol]["gtvh_rank"] = hang
+
+    # --- Ma nao thuc su THIEU DU LIEU (phai xep hang xong moi ket luan duoc) ---
+    for s in xep:
+        # Thieu ca listing_date CU THE lan bang chung "truoc cua so" moi la thieu du lieu -
+        # niem_yet_truoc_cua_so=True la bang chung hop le, khong duoc coi la thieu.
+        thieu_niem_yet = s.listing_date is None and not s.niem_yet_truoc_cua_so
+        # free_float=None CHI la thieu du lieu khi KHONG co bang chung HOSE da xet
+        # va loai ma nay (xem rules/models.StockInput.hose_loai_khoi_vnallshare) -
+        # neu co, day la thong tin duong ("HOSE loai"), khong phai lo hong du lieu.
+        thieu_free_float = s.free_float is None and not s.hose_loai_khoi_vnallshare
+        # LNST chi can cho danh sach xem xet (top `consideration_list_size` theo GTVH):
+        # Dieu 4.3.1.f chi chon den hang 40, nen ma hang thap hon khong the vao ro va
+        # ta CO Y khong goi BCTC cho chung (xem build.py). Do la quyet dinh pham vi,
+        # khong phai lo hong du lieu - gan nhan "thieu du lieu" o day se lam nguoi doc
+        # tuong cong cu con hang chuc cho mu.
+        thieu_lnst = (s.lnst_positive is None
+                      and result.metrics[s.symbol]["gtvh_rank"] <= t["consideration_list_size"])
+        if thieu_free_float or thieu_lnst or thieu_niem_yet:
+            result.missing_data.append(s.symbol)
 
     # --- 3 buoc sang loc VNAllshare: eligibility, free_float, liquidity ---
     vnallshare = []

@@ -14,7 +14,7 @@ def test_app_js_chi_dung_truong_co_that_trong_json():
         "xap_xi", "nguon_quy_tac", "symbol", "gtvh_rank", "gtvh_ty", "gtvh_f_ty",
         "gtgd_kl_ty", "klgd_kl", "turnover", "free_float", "free_float_rounded",
         "in_previous_basket", "ket_luan", "canh_bao", "screens", "step", "rule_ref", "passed",
-        "message", "shortfall", "lnst_ty", "lnst_ky", "lnst_nguon", "niem_yet_nguon",
+        "message", "shortfall", "thieu_du_lieu", "lnst_ty", "lnst_ky", "lnst_nguon", "niem_yet_nguon",
         "niem_yet_thang", "lich", "lich_su", "ky", "ngay_chot", "ngay_hieu_luc", "ngay",
         "gtvh_rank", "gtgd_kl_ty",
     }

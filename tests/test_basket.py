@@ -234,3 +234,25 @@ def test_chu_ly_cat_dung_so_luong_khi_bu_vao_danh_sach_xem_xet():
         # Thông báo phải nói "thiếu" hoặc "dưới ngưỡng" (vẫn failed, không được bù)
         assert ("thiếu" in screen_step.message.lower() or "dưới" in screen_step.message.lower()), \
             f"{symbol} thông báo phải nói 'thiếu' hoặc 'dưới ngưỡng'"
+
+
+def test_canh_bao_khi_ma_thieu_du_lieu_co_hang_von_hoa_du_dieu_kien():
+    """S02 (hang 3, <=40) thieu free_float -> phai co canh bao noi ro ten ma va
+    ly do (thieu du lieu, khong phai truot thuc chat), de nguoi doc khong hieu
+    lam ro du kien la dang tin cay hoan toan."""
+    u = _universe()
+    u[2].free_float = None
+    r = build_vn30(u, AS_OF)
+    assert any("S02" in cb for cb in r.canh_bao), r.canh_bao
+    canh_bao_s02 = next(cb for cb in r.canh_bao if "S02" in cb)
+    assert "thiếu dữ liệu" in canh_bao_s02.lower()
+    assert "không nên" in canh_bao_s02.lower() or "không đáng tin" in canh_bao_s02.lower()
+
+
+def test_khong_canh_bao_khi_ma_thieu_du_lieu_hang_thap_ngoai_vung_chon():
+    """Ma thieu du lieu nhung hang > 40 (ngoai vung duoc chon) thi khong can canh
+    bao rieng vi khong anh huong toi viec chon ro."""
+    u = _universe()
+    u[44].free_float = None  # S44, hang 45 - ngoai vung 40
+    r = build_vn30(u, AS_OF)
+    assert not any("S44" in cb for cb in r.canh_bao)

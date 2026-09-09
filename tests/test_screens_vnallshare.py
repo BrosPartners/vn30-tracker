@@ -3,7 +3,7 @@ from datetime import date
 import pandas as pd
 
 from rules.models import StockInput
-from rules.screens import screen_eligibility, screen_free_float, screen_liquidity
+from rules.screens import screen_eligibility, screen_free_float, screen_liquidity, screen_profit
 
 
 def _stock(**kw):
@@ -127,3 +127,56 @@ def test_free_float_trang_thai_dung_nhung_gtvh_f_value_none_la_loi():
     r = screen_free_float(_stock(free_float=0.05), gtvh_f_value=None)
     assert not r.passed
     assert "không có giá trị vốn hóa free-float" in r.message
+
+
+def test_thieu_free_float_thi_danh_dau_thieu_du_lieu():
+    """Truot vi THIEU free_float phai danh dau thieu_du_lieu=True de web
+    khong xep vao nhom 'nguy co bi loai' (xem rules/models.ScreenResult)."""
+    r = screen_free_float(_stock(free_float=None), gtvh_f_value=None)
+    assert not r.passed
+    assert r.thieu_du_lieu is True
+
+
+def test_free_float_that_khong_dat_thi_khong_phai_thieu_du_lieu():
+    """Truot vi ty le THAT khong dat nguong (co du lieu ro rang) - khong duoc
+    danh dau thieu_du_lieu, day la truot THUC CHAT."""
+    r = screen_free_float(_stock(free_float=0.04, in_previous_basket=False), gtvh_f_value=2.1e12)
+    assert not r.passed
+    assert r.thieu_du_lieu is False
+
+
+def test_thieu_ngay_niem_yet_thi_danh_dau_thieu_du_lieu():
+    r = screen_eligibility(_stock(listing_date=None), AS_OF, gtvh_rank=100)
+    assert not r.passed
+    assert r.thieu_du_lieu is True
+
+
+def test_niem_yet_duoi_6_thang_khong_phai_thieu_du_lieu():
+    """Co ngay niem yet ro rang, chi la chua du thang - day la truot THUC CHAT."""
+    r = screen_eligibility(_stock(listing_date=date(2026, 4, 1)), AS_OF, gtvh_rank=100)
+    assert not r.passed
+    assert r.thieu_du_lieu is False
+
+
+def test_turnover_khong_tinh_duoc_do_thieu_free_float_la_thieu_du_lieu():
+    r = screen_liquidity(_stock(free_float=None), None)
+    assert not r.passed
+    assert r.thieu_du_lieu is True
+
+
+def test_turnover_that_khong_dat_khong_phai_thieu_du_lieu():
+    r = screen_liquidity(_stock(in_previous_basket=False), 0.00049)
+    assert not r.passed
+    assert r.thieu_du_lieu is False
+
+
+def test_thieu_lnst_thi_danh_dau_thieu_du_lieu():
+    r = screen_profit(_stock(lnst_positive=None))
+    assert not r.passed
+    assert r.thieu_du_lieu is True
+
+
+def test_lnst_am_khong_phai_thieu_du_lieu():
+    r = screen_profit(_stock(lnst_positive=False))
+    assert not r.passed
+    assert r.thieu_du_lieu is False

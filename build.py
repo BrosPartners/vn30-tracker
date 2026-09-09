@@ -273,7 +273,8 @@ def xuat_json(r: BasketResult, as_of: date, ky_review: str, lich_su: dict | None
                          else ["Chưa xác nhận ý kiến kiểm toán"]),
             "screens": [
                 {"step": s.step, "rule_ref": s.rule_ref, "passed": s.passed,
-                 "message": s.message, "shortfall": s.shortfall}
+                 "message": s.message, "shortfall": s.shortfall,
+                 "thieu_du_lieu": s.thieu_du_lieu}
                 for s in r.screens.get(sym, [])
             ],
         })

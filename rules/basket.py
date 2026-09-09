@@ -56,6 +56,11 @@ def build_vn30(stocks: list[StockInput], as_of: date) -> BasketResult:
 
     # --- 3 buoc sang loc VNAllshare: eligibility, free_float, liquidity ---
     vnallshare = []
+    # Ma bi loai o vong nay MA MOI ly do truot deu la thieu du lieu (khong co ly
+    # do truot thuc chat nao) VA hang von hoa cua no van nam trong vung duoc chon
+    # (<= conditional_rank_max) - nghia la neu co du du lieu, rat co the no da
+    # duoc xet vao ro. Phai canh bao ro cho nguoi doc, KHONG duoc de am tham.
+    ma_thieu_du_lieu_hang_cao = []
     for s in xep:
         m = result.metrics[s.symbol]
         buoc = [
@@ -66,6 +71,11 @@ def build_vn30(stocks: list[StockInput], as_of: date) -> BasketResult:
         result.screens[s.symbol] = buoc
         if all(b.passed for b in buoc):
             vnallshare.append(s)
+        else:
+            that_bai = [b for b in buoc if not b.passed]
+            if that_bai and all(b.thieu_du_lieu for b in that_bai) \
+                    and m["gtvh_rank"] <= t["conditional_rank_max"]:
+                ma_thieu_du_lieu_hang_cao.append(s.symbol)
 
     # --- Dieu 4.3.1.a: loai ma KLGD_KL < nguong; Dieu 4.3.1.b: loai ma GTGD_KL < nguong ---
     sau_a = []          # da qua buoc a (con lai sau khi loai theo KLGD_KL)
@@ -130,6 +140,18 @@ def build_vn30(stocks: list[StockInput], as_of: date) -> BasketResult:
 
     # --- Dieu 4.3.1.g: 5 ma GTVH lon nhat con lai ---
     result.reserve = [s.symbol for s in dat if s.symbol not in chon][: t["reserve_size"]]
+
+    # --- Canh bao neu co ma du hang von hoa vao ro nhung bi loai vi thieu du lieu ---
+    if ma_thieu_du_lieu_hang_cao:
+        ds_ma = ", ".join(sorted(ma_thieu_du_lieu_hang_cao))
+        result.canh_bao.append(
+            f"Mã {ds_ma} có hạng vốn hóa đủ điều kiện vào rổ (hạng ≤ "
+            f"{t['conditional_rank_max']}) nhưng bị loại khỏi vòng xét ở bước sàng lọc "
+            "VNAllshare CHỈ VÌ THIẾU DỮ LIỆU đầu vào (free float/ngày niêm yết/LNST chưa "
+            "có), không phải vì không đạt tiêu chí thực chất. Vì vậy rổ dự kiến hiện tại "
+            "KHÔNG đáng tin cậy đầy đủ — các mã đang lấp vào chỗ trống của những mã này "
+            "không nên được đọc như một dự báo chắc chắn, mà cần chờ bổ sung dữ liệu."
+        )
 
     # --- Canh bao neu ro khong du 30 ma: dau hieu du lieu dau vao chua du ---
     if len(result.constituents) < t["basket_size"]:

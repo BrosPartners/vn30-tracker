@@ -51,6 +51,7 @@ def screen_eligibility(stock: StockInput, as_of: date, gtvh_rank: int) -> Screen
         return ScreenResult(
             stock.symbol, "eligibility", ref, False,
             "Thiếu ngày niêm yết — cần cập nhật thủ công vào data/manual.yaml",
+            thieu_du_lieu=True,
         )
 
     months = listing_months(stock, as_of)
@@ -87,7 +88,8 @@ def screen_free_float(stock: StockInput, gtvh_f_value: Optional[float]) -> Scree
     # Thiếu dữ liệu free float
     if stock.free_float is None:
         return ScreenResult(stock.symbol, "free_float", ref, False,
-                            "Thiếu dữ liệu free float — cần cập nhật thủ công")
+                            "Thiếu dữ liệu free float — cần cập nhật thủ công",
+                            thieu_du_lieu=True)
 
     # Đạt điều kiện cơ bản: >= 10%
     if stock.free_float >= t["min_ratio"]:
@@ -135,7 +137,8 @@ def screen_liquidity(stock: StockInput, turnover: Optional[float]) -> ScreenResu
         if gtvh_f_val is None:
             # Thiếu dữ liệu free float - không thể tính gtvh_f
             return ScreenResult(stock.symbol, "liquidity", ref, False,
-                                "Không tính được turnover do thiếu dữ liệu free float — cần cập nhật thủ công")
+                                "Không tính được turnover do thiếu dữ liệu free float — cần cập nhật thủ công",
+                                thieu_du_lieu=True)
         elif gtvh_f_val == 0:
             # Free float = 0% - không xác định được (chia cho 0)
             return ScreenResult(stock.symbol, "liquidity", ref, False,
@@ -196,7 +199,8 @@ def screen_profit(stock: StockInput) -> ScreenResult:
 
     if stock.lnst_positive is None:
         return ScreenResult(stock.symbol, "profit", ref, False,
-                            "Thiếu dữ liệu lợi nhuận sau thuế — cần xác nhận thủ công")
+                            "Thiếu dữ liệu lợi nhuận sau thuế — cần xác nhận thủ công",
+                            thieu_du_lieu=True)
     if not stock.lnst_positive:
         return ScreenResult(stock.symbol, "profit", ref, False,
                             "Lợi nhuận sau thuế âm ở kỳ báo cáo gần nhất")

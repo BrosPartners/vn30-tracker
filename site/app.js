@@ -34,9 +34,10 @@ function sparkline(chuoi) {
           </svg>`;
 }
 
-function the(s, canhBaoNoiBat) {
+function the(s, loaiThe) {
+  // loaiThe: "" (binh thuong) | "canh-bao" (nguy co that su) | "thieu-du-lieu" (chua ket luan)
   const el = document.createElement("div");
-  el.className = "the" + (canhBaoNoiBat ? " canh-bao" : "");
+  el.className = "the" + (loaiThe ? " " + loaiThe : "");
   const truot = (s.screens || []).filter((x) => !x.passed);
   const dsHien = truot.length ? truot : (s.screens || []);
   const lyDo = dsHien.map((x) => {
@@ -104,19 +105,39 @@ fetch("./data/latest.json")
 
     const trongRo = new Set(d.constituents);
 
+    // Mot ma chi "chua ket luan duoc" khi TAT CA cac buoc sang loc ma no truot deu
+    // co thieu_du_lieu=true (danh dau o tang du lieu - rules/models.ScreenResult -
+    // KHONG do chuoi tieng Viet trong message, cach do de vo). Neu khong truot
+    // buoc nao (bi loai vi ly do khac, vd thu hang) thi KHONG phai thieu du lieu.
+    const chiThieuDuLieu = (s) => {
+      const truot = (s.screens || []).filter((x) => !x.passed);
+      return truot.length > 0 && truot.every((x) => x.thieu_du_lieu === true);
+    };
+
     const ungVien = d.stocks.filter((s) => !s.in_previous_basket && trongRo.has(s.symbol));
-    const nguyCo = d.stocks.filter((s) => s.in_previous_basket && !trongRo.has(s.symbol));
+    const raKhongTrongRo = d.stocks.filter((s) => s.in_previous_basket && !trongRo.has(s.symbol));
+    // Nguy co bi loai: CHI gom ma truot vi ly do THUC CHAT (khong phai thieu du lieu).
+    const nguyCo = raKhongTrongRo.filter((s) => !chiThieuDuLieu(s));
+    // Chua ket luan duoc: ma trong ro ky truoc nhung moi buoc truot deu la thieu du lieu.
+    const chuaKetLuan = raKhongTrongRo.filter((s) => chiThieuDuLieu(s));
 
     if (ungVien.length) {
-      ungVien.forEach((s) => $("vao").appendChild(the(s, false)));
+      ungVien.forEach((s) => $("vao").appendChild(the(s, "")));
     } else {
       $("vao").innerHTML = '<p class="rong">Chưa có mã nào đủ điều kiện thêm mới trong kỳ này.</p>';
     }
 
     if (nguyCo.length) {
-      nguyCo.forEach((s) => $("ra").appendChild(the(s, true)));
+      nguyCo.forEach((s) => $("ra").appendChild(the(s, "canh-bao")));
     } else {
-      $("ra").innerHTML = '<p class="rong">Chưa có mã nào trong rổ hiện tại bị đe dọa loại.</p>';
+      $("ra").innerHTML = '<p class="rong">Chưa có mã nào trong rổ hiện tại bị đe dọa loại vì lý do thực chất.</p>';
+    }
+
+    if (chuaKetLuan.length) {
+      chuaKetLuan.forEach((s) => $("chua-ket-luan").appendChild(the(s, "thieu-du-lieu")));
+    } else {
+      $("chua-ket-luan").innerHTML =
+        '<p class="rong">Không có mã nào trong rổ hiện tại bị bỏ sót chỉ vì thiếu dữ liệu.</p>';
     }
 
     dungBang(d.stocks);

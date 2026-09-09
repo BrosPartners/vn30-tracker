@@ -127,35 +127,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã niêm yết 100 tháng",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 35%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.173%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 4.390.334 cp và GTGD 727 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -185,35 +190,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã niêm yết 119 tháng",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 11%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.678%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 6.114.917 cp và GTGD 380 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -243,35 +253,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã niêm yết 88 tháng",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 30%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.249%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 5.876.668 cp và GTGD 361 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -301,35 +316,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 4% dưới 10% nhưng đạt ngoại lệ: vốn hóa free-float 11.113 tỷ ≥ 2.000 tỷ (mã đang trong rổ)",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 2.013%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 5.693.359 cp và GTGD 224 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -359,35 +379,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 15%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.811%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 9.300.154 cp và GTGD 323 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -417,35 +442,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 55%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.355%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 13.626.397 cp và GTGD 463 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -475,35 +505,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 60%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.461%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 21.032.437 cp và GTGD 611 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -533,35 +568,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 55%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.755%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 34.323.210 cp và GTGD 840 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -591,35 +631,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã niêm yết 172 tháng",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 5% dưới 10% nhưng đạt ngoại lệ: vốn hóa free-float 9.365 tỷ ≥ 2.000 tỷ (mã đang trong rổ)",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 1.491%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 1.664.353 cp và GTGD 140 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -649,21 +694,24 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": false,
           "message": "Thiếu dữ liệu free float — cần cập nhật thủ công",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": true
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": false,
           "message": "Không tính được turnover do thiếu dữ liệu free float — cần cập nhật thủ công",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": true
         }
       ]
     },
@@ -693,35 +741,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 50%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.544%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 21.570.485 cp và GTGD 451 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -751,35 +804,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 15%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.248%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 668.096 cp và GTGD 56 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -809,35 +867,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 85%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.580%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 8.272.269 cp và GTGD 719 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -867,35 +930,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 95%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.077%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 2.170.935 cp và GTGD 99 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -925,35 +993,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 80%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.346%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 13.915.276 cp và GTGD 358 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -983,35 +1056,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã niêm yết 78 tháng",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 4% dưới 10% nhưng đạt ngoại lệ: vốn hóa free-float 5.048 tỷ ≥ 2.000 tỷ (mã đang trong rổ)",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 2.313%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 3.513.321 cp và GTGD 117 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -1041,35 +1119,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 85%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.266%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 13.008.976 cp và GTGD 282 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -1099,35 +1182,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 40%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.537%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 4.414.129 cp và GTGD 267 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -1157,35 +1245,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 95%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.395%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 7.346.836 cp và GTGD 441 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -1215,35 +1308,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 75%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.543%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 6.012.022 cp và GTGD 476 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -1273,21 +1371,24 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã niêm yết 10 tháng",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": false,
           "message": "Thiếu dữ liệu free float — cần cập nhật thủ công",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": true
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": false,
           "message": "Không tính được turnover do thiếu dữ liệu free float — cần cập nhật thủ công",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": true
         }
       ]
     },
@@ -1317,35 +1418,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 60%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.679%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 5.905.507 cp và GTGD 455 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -1375,35 +1481,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 8% dưới 10% nhưng đạt ngoại lệ: vốn hóa free-float 8.907 tỷ ≥ 2.000 tỷ (mã đang trong rổ)",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 3.283%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 12.674.209 cp và GTGD 292 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -1433,21 +1544,24 @@
           "rule_ref": "3.2",
           "passed": false,
           "message": "Mới niêm yết 1 tháng, chưa đủ 6 tháng",
-          "shortfall": 5
+          "shortfall": 5,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": false,
           "message": "Thiếu dữ liệu free float — cần cập nhật thủ công",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": true
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": false,
           "message": "Không tính được turnover do thiếu dữ liệu free float — cần cập nhật thủ công",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": true
         }
       ]
     },
@@ -1477,35 +1591,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 45%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.458%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 1.588.334 cp và GTGD 207 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -1535,21 +1654,24 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": false,
           "message": "Thiếu dữ liệu free float — cần cập nhật thủ công",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": true
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": false,
           "message": "Không tính được turnover do thiếu dữ liệu free float — cần cập nhật thủ công",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": true
         }
       ]
     },
@@ -1579,21 +1701,24 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã niêm yết 8 tháng",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": false,
           "message": "Thiếu dữ liệu free float — cần cập nhật thủ công",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": true
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": false,
           "message": "Không tính được turnover do thiếu dữ liệu free float — cần cập nhật thủ công",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": true
         }
       ]
     },
@@ -1623,35 +1748,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 75%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 1.873%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 62.941.701 cp và GTGD 974 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -1681,35 +1811,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 40%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.827%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 7.542.667 cp và GTGD 225 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -1739,21 +1874,24 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": false,
           "message": "Free float 4% dưới 10% và vốn hóa free-float 2.412 tỷ chưa đạt ngoại lệ 2.500 tỷ (mã ngoài rổ)",
-          "shortfall": 88217605947.95508
+          "shortfall": 88217605947.95508,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 1.483%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -1783,35 +1921,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 70%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 1.570%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 26.510.169 cp và GTGD 657 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -1841,35 +1984,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 13%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.983%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 838.657 cp và GTGD 75 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -1899,35 +2047,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 65%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.337%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 7.090.677 cp và GTGD 126 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -1957,35 +2110,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 11%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.611%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 859.839 cp và GTGD 38 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -2015,21 +2173,24 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã niêm yết 8 tháng",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": false,
           "message": "Thiếu dữ liệu free float — cần cập nhật thủ công",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": true
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": false,
           "message": "Không tính được turnover do thiếu dữ liệu free float — cần cập nhật thủ công",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": true
         }
       ]
     },
@@ -2059,35 +2220,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 50%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.144%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 2.426.522 cp và GTGD 37 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -2117,35 +2283,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 10%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 3.315%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 3.892.570 cp và GTGD 165 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -2175,35 +2346,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 100%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 1.553%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 38.484.594 cp và GTGD 735 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -2233,35 +2409,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 10%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.842%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 597.500 cp và GTGD 40 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": false,
           "message": "Thiếu dữ liệu lợi nhuận sau thuế — cần xác nhận thủ công",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": true
         }
       ]
     },
@@ -2291,35 +2472,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 55%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.856%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 12.481.002 cp và GTGD 219 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -2349,35 +2535,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 80%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.568%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 8.204.711 cp và GTGD 190 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -2407,35 +2598,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 25%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 1.397%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 10.566.943 cp và GTGD 141 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -2465,35 +2661,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 70%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 1.162%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 10.532.383 cp và GTGD 320 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -2523,21 +2724,24 @@
           "rule_ref": "3.2",
           "passed": false,
           "message": "Mới niêm yết 0 tháng, chưa đủ 6 tháng",
-          "shortfall": 6
+          "shortfall": 6,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": false,
           "message": "Thiếu dữ liệu free float — cần cập nhật thủ công",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": true
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": false,
           "message": "Không tính được turnover do thiếu dữ liệu free float — cần cập nhật thủ công",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": true
         }
       ]
     },
@@ -2567,35 +2771,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 75%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.376%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 8.838.446 cp và GTGD 99 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -2625,35 +2834,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 35%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.281%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 596.206 cp và GTGD 33 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -2683,35 +2897,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 65%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 1.044%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 15.212.655 cp và GTGD 221 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -2741,35 +2960,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 30%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.344%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 3.046.368 cp và GTGD 33 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -2799,35 +3023,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 90%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.360%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 2.058.933 cp và GTGD 101 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -2857,35 +3086,40 @@
           "rule_ref": "3.2",
           "passed": true,
           "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
           "message": "Free float 55%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
           "message": "Turnover 0.767%",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
           "message": "KLGD 3.724.068 cp và GTGD 131 tỷ/phiên",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         },
         {
           "step": "profit",
           "rule_ref": "4.3.1.d",
           "passed": true,
           "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     }
@@ -2903,6 +3137,8 @@
     "Ngày niêm yết cho mã không có xác nhận thủ công trong data/manual.yaml được SUY từ ngày giao dịch đầu tiên trong chuỗi giá 12 tháng — cách này không phân biệt được mã mới niêm yết với mã bị tạm ngừng giao dịch dài rồi giao dịch lại trong cửa sổ dữ liệu.",
     "Thứ hạng vốn hóa (GTVH) được tính đầy đủ trên toàn bộ sàn HOSE, nhưng các chỉ tiêu bình quân 12 tháng (GTVH, GTGD khớp lệnh, thanh khoản...) chỉ được tính cho nhóm mã đứng đầu theo vốn hóa HIỆN TẠI (xem rules/thresholds.yaml, vn30.so_ma_lay_lich_su_gia) nhằm giảm số lượt gọi dữ liệu giá lịch sử — mã ngoài nhóm này không được xét vào rổ."
   ],
-  "canh_bao": [],
+  "canh_bao": [
+    "Mã HVN, MCH, TCX, VCK, VPX có hạng vốn hóa đủ điều kiện vào rổ (hạng ≤ 40) nhưng bị loại khỏi vòng xét ở bước sàng lọc VNAllshare CHỈ VÌ THIẾU DỮ LIỆU đầu vào (free float/ngày niêm yết/LNST chưa có), không phải vì không đạt tiêu chí thực chất. Vì vậy rổ dự kiến hiện tại KHÔNG đáng tin cậy đầy đủ — các mã đang lấp vào chỗ trống của những mã này không nên được đọc như một dự báo chắc chắn, mà cần chờ bổ sung dữ liệu."
+  ],
   "nguon_quy_tac": "HOSE-Index Ground Rules v4.0 (QĐ 747/QĐ-SGDHCM, 30/12/2024)"
 }

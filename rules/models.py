@@ -60,6 +60,12 @@ class ScreenResult:
     passed: bool
     message: str         # cau tieng Viet giai thich, hien thang len web
     shortfall: Optional[float] = None   # con thieu bao nhieu (don vi cua chinh tieu chi)
+    # True nghia la buoc nay TRUOT vi THIEU DU LIEU DAU VAO (free float/ngay niem
+    # yet/LNST chua co, hoac khong tinh duoc turnover do thieu free float) - KHONG
+    # phai vi ma khong dat tieu chi THUC CHAT. Web dung truong nay de tach nhom
+    # "chua ket luan duoc (thieu du lieu)" khoi nhom "nguy co bi loai" (that su
+    # truot tieu chi), THAY VI do chuoi tieng Viet trong message (de vo).
+    thieu_du_lieu: bool = False
 
 
 @dataclass

@@ -335,3 +335,40 @@ def test_canh_bao_ma_ro_cu_bien_mat_neu_dich_danh_nhieu_ma():
     assert len(canh_bao) == 2
     ma_neu = " ".join(canh_bao)
     assert "DGC" in ma_neu and "BSR" in ma_neu
+
+
+def test_json_xuat_thieu_du_lieu_cho_moi_buoc_sang_loc():
+    """Web dung truong nay o tang du lieu de tach nhom 'nguy co bi loai' khoi
+    'chua ket luan duoc' - khong duoc do chuoi tieng Viet (de vo)."""
+    manual = {"BID": {"warning_status": "none", "lnst_positive": True,
+                      "audit_opinion": "unqualified"}}  # KHONG co listing_date
+    free_float = {"BID": 0.30}
+    ds = lap_stock_inputs(["BID"], {"BID": _daily()}, {"BID": 1_000_000}, manual, [], free_float)
+    r = build_vn30(ds, date(2026, 7, 1))
+    kq = xuat_json(r, date(2026, 7, 1), "07/2026")
+    dong = next(d for d in kq["stocks"] if d["symbol"] == "BID")
+    truot = [sc for sc in dong["screens"] if not sc["passed"]]
+    assert truot, "BID phai truot it nhat 1 buoc (thieu ngay niem yet)"
+    assert all("thieu_du_lieu" in sc for sc in dong["screens"])
+    # BID chi truot vi thieu ngay niem yet -> moi buoc truot deu thieu_du_lieu=True,
+    # nghia la day la ma "chua ket luan duoc", KHONG phai "nguy co bi loai" that su.
+    assert all(sc["thieu_du_lieu"] for sc in truot)
+
+
+def test_ma_trong_ro_ky_truoc_chi_truot_vi_thieu_du_lieu_khong_phai_nguy_co_that():
+    """Mo phong tinh huong MCH/TCX: ma trong ro ky truoc, von hoa cao, nhung
+    thieu free float (chua co trong cong bo HOSE) -> phai truot free_float VOI
+    thieu_du_lieu=True, khong co buoc nao truot vi ly do thuc chat. Day la can cu
+    de tang web KHONG duoc xep ma nay vao nhom 'nguy co bi loai'."""
+    manual = {"MCH": {"listing_date": date(2015, 1, 1), "warning_status": "none",
+                      "lnst_positive": True, "audit_opinion": "unqualified"}}
+    free_float = {}  # MCH khong co trong cong bo HOSE ky nay
+    ds = lap_stock_inputs(["MCH"], {"MCH": _daily(volume=2_000_000)}, {"MCH": 1_000_000},
+                          manual, previous_basket=["MCH"], free_float=free_float)
+    r = build_vn30(ds, date(2026, 7, 1))
+    kq = xuat_json(r, date(2026, 7, 1), "07/2026")
+    dong = next(d for d in kq["stocks"] if d["symbol"] == "MCH")
+    truot = [sc for sc in dong["screens"] if not sc["passed"]]
+    assert truot
+    assert all(sc["thieu_du_lieu"] for sc in truot), \
+        "MCH chi truot vi thieu free float, khong phai truot thuc chat"

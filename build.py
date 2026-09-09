@@ -21,6 +21,7 @@ from collectors.market_data import (
     fetch_shares_outstanding,
 )
 from rules.basket import build_vn30
+from rules.definitions import ty
 from rules.lich_review import ky_review_ke_tiep, ngay_chot_tu_ky
 from rules.models import BasketResult, StockInput
 from rules.thresholds import load_thresholds
@@ -271,6 +272,125 @@ def canh_bao_ma_ro_cu_bien_mat(previous_basket: list[str], ds: list[StockInput])
     ]
 
 
+def dinh_nghia_chi_tieu() -> dict:
+    """Dinh nghia cac cot so lieu va cac nhan ket luan, de trang web tu giai thich.
+
+    MOI CON SO trong mo ta duoc noi suy tu rules/thresholds.yaml chu KHONG viet cung:
+    doi nguong o file quy tac ma trang web con noi nguong cu la noi sai voi nguoi doc.
+    Khoa `khoa` khop dung ten truong cua bang top 50 (site/app.js COT).
+    """
+    t = load_thresholds()
+    ff, lq, vn, el = t["free_float"], t["liquidity"], t["vn30"], t["eligibility"]
+    thang = t["lookback"]["months"]
+    phan_tram = lambda x: f"{x * 100:g}".replace(".", ",") + "%"
+
+    cot = [
+        {
+            "khoa": "gtvh_rank", "ten": "Hạng", "rule_ref": vn["rule_ref"] + ".e",
+            "mo_ta": "Thứ hạng theo GTVH giảm dần trên toàn bộ sàn HOSE; đồng hạng thì "
+                     "mã có GTGD khớp lệnh lớn hơn đứng trước.",
+        },
+        {
+            "khoa": "gtvh_ty", "ten": "GTVH (tỷ)", "rule_ref": t["lookback"]["rule_ref"],
+            "mo_ta": f"Giá trị vốn hóa bình quân: lấy vốn hóa của TỪNG PHIÊN (giá đóng cửa × "
+                     f"số cổ phiếu lưu hành) trong {thang} tháng gần nhất rồi bình quân. Đây "
+                     f"KHÔNG phải vốn hóa tại một thời điểm — một mã tăng giá mạnh gần đây vẫn "
+                     f"có GTVH thấp cho tới khi mức giá mới đủ thời gian đi vào bình quân.",
+        },
+        {
+            "khoa": "gtvh_f_ty", "ten": "GTVH free-float (tỷ)", "rule_ref": ff["rule_ref"],
+            "mo_ta": f"GTVH nhân tỷ lệ free float đã làm tròn. Đây là mẫu số của Turnover, và "
+                     f"là căn cứ của ngoại lệ cứu mã có free float dưới "
+                     f"{phan_tram(ff['min_ratio'])}: được chấp nhận nếu GTVH free-float đạt "
+                     f"{ty(ff['exception_gtvh_f_existing_vnd'])} (mã đang trong rổ) hoặc "
+                     f"{ty(ff['exception_gtvh_f_new_vnd'])} (mã mới).",
+        },
+        {
+            "khoa": "gtgd_kl_ty", "ten": "GTGD khớp lệnh (tỷ)",
+            "rule_ref": f"{t['lookback']['rule_ref']} + {vn['rule_ref']}.b",
+            "mo_ta": f"Giá trị giao dịch khớp lệnh bình quân một phiên, tính theo cách riêng "
+                     f"của HOSE: lấy TRUNG VỊ của từng tháng dương lịch rồi bình quân "
+                     f"{thang} trung vị đó — nên một tháng ít phiên vẫn có trọng số bằng tháng "
+                     f"nhiều phiên, và vài phiên đột biến không kéo được số bình quân lên. "
+                     f"Ngưỡng vào danh sách xem xét: từ {ty(vn['min_gtgd_kl_vnd'])} một phiên.",
+        },
+        {
+            "khoa": "klgd_kl", "ten": "KLGD khớp lệnh",
+            "rule_ref": f"{t['lookback']['rule_ref']} + {vn['rule_ref']}.a",
+            "mo_ta": "Khối lượng khớp lệnh bình quân một phiên, tính bằng đúng cách trung vị "
+                     "tháng như GTGD. Ngưỡng: từ "
+                     + f"{vn['min_klgd_kl_shares']:,.0f}".replace(",", ".")
+                     + " cổ phiếu một phiên. Không đạt bước này là bị loại hẳn, "
+                       "không được xét tiếp bước GTGD.",
+        },
+        {
+            "khoa": "turnover", "ten": "Turnover", "rule_ref": lq["rule_ref"],
+            "mo_ta": f"Tỷ lệ quay vòng = GTGD khớp lệnh ÷ GTVH free-float, tức mỗi phiên có "
+                     f"bao nhiêu phần cổ phiếu tự do chuyển nhượng được đổi chủ. Ngưỡng: từ "
+                     f"{phan_tram(lq['min_turnover_new'])} với mã mới, từ "
+                     f"{phan_tram(lq['min_turnover_existing'])} với mã đang trong rổ. "
+                     f"Số trên trang là CẬN DƯỚI: nguồn dữ liệu chỉ có khớp lệnh, chưa gồm "
+                     f"giao dịch thỏa thuận.",
+        },
+        {
+            "khoa": "free_float", "ten": "Free float",
+            "rule_ref": f"{ff['rule_ref']} + {ff['rounding_ref']}",
+            "mo_ta": f"Tỷ lệ cổ phiếu tự do chuyển nhượng — phần không do nhà nước, cổ đông "
+                     f"lớn, người nội bộ hay đối tác chiến lược nắm giữ. Số trên trang lấy "
+                     f"NGUYÊN từ công bố chính thức của HOSE, không tự tính lại. HOSE làm tròn "
+                     f"LÊN: bội số {phan_tram(ff['rounding_step_low'])} nếu tỷ lệ tới "
+                     f"{phan_tram(ff['rounding_breakpoint'])}, bội số "
+                     f"{phan_tram(ff['rounding_step_high'])} nếu cao hơn. Phải đạt "
+                     f"{phan_tram(ff['min_ratio'])}, trừ ngoại lệ nêu ở GTVH free-float.",
+        },
+    ]
+
+    nhan = [
+        {
+            "nhan": "Trong rổ dự kiến",
+            "mo_ta": f"Nằm trong {vn['basket_size']} mã mà bộ quy tắc chọn ra: "
+                     f"top {vn['auto_include_rank']} theo GTVH vào thẳng, các suất còn lại lấy "
+                     f"trong hạng {vn['auto_include_rank'] + 1}–{vn['conditional_rank_max']} và "
+                     f"ưu tiên mã đã có trong rổ kỳ trước.",
+        },
+        {
+            "nhan": "Dự phòng",
+            "mo_ta": f"Nằm trong {vn['reserve_size']} mã dự phòng theo thứ tự, dùng khi một mã "
+                     f"trong rổ bị loại GIỮA KỲ theo Điều 8 (ví dụ thật: ngày 13/5/2026 BSR — "
+                     f"dự phòng số 1 — thay DGC sau khi DGC bị chuyển sang diện kiểm soát).",
+        },
+        {
+            "nhan": "Đạt tiêu chí, ngoài rổ",
+            "mo_ta": f"Vượt CẢ các bước sàng lọc nhưng {vn['basket_size']} suất đã đầy, hoặc "
+                     f"hạng vốn hóa nằm ngoài hạng {vn['conditional_rank_max']}. Đây là nhóm "
+                     f"gần rổ nhất — không phải mã trượt tiêu chí.",
+        },
+        {
+            "nhan": "Không đạt",
+            "mo_ta": f"Trượt ít nhất một tiêu chí THỰC CHẤT: chưa niêm yết đủ "
+                     f"{el['min_listing_months']} tháng, đang ở diện cảnh báo/kiểm soát, free "
+                     f"float quá thấp, thanh khoản dưới ngưỡng, hoặc lợi nhuận sau thuế không "
+                     f"dương.",
+        },
+        {
+            "nhan": "Thiếu dữ liệu",
+            "mo_ta": "Mọi bước mà mã này trượt đều CHỈ vì thiếu dữ liệu đầu vào, không phải vì "
+                     "không đạt tiêu chí — không nên đọc là 'nguy cơ bị loại'. Mã đã có một lý "
+                     "do trượt thực chất thì không xếp vào đây, vì bổ sung dữ liệu cũng không "
+                     "đổi được kết quả.",
+        },
+        {
+            "nhan": "HOSE loại khỏi VNAllshare",
+            "mo_ta": f"Không có trong danh mục VNAllshare mà HOSE công bố, tức chính HOSE đã "
+                     f"loại mã này ở bước sàng lọc Điều {el['rule_ref']}–{lq['rule_ref']} "
+                     f"(cảnh báo, kiểm soát, thanh khoản...). VN30 luôn là tập con của "
+                     f"VNAllshare, nên đây là thông tin chắc chắn, không phải lỗ hổng dữ liệu. "
+                     f"Lý do cụ thể HOSE không nêu trong file công bố.",
+        },
+    ]
+    return {"cot": cot, "nhan": nhan}
+
+
 def _ket_luan(symbol: str, r: BasketResult) -> str:
     if symbol in r.constituents:
         return "Trong rổ dự kiến"
@@ -383,6 +503,7 @@ def xuat_json(r: BasketResult, as_of: date, ky_review: str, lich_su: dict | None
             for k, v in ky_review_ke_tiep(as_of).items()
         },
         "lich_su": lich_su or {},
+        "dinh_nghia": dinh_nghia_chi_tieu(),
         "xap_xi": XAP_XI,
         # Canh bao chung o cap toan bo ro (vd chon duoc < 30 ma) - lay tu BasketResult.canh_bao
         "canh_bao": r.canh_bao,

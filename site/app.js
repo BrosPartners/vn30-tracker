@@ -171,6 +171,19 @@ fetch("./data/latest.json")
       $("thieu-du-lieu").innerHTML = "<h2>Thiếu dữ liệu</h2><p>Không có mã nào thiếu dữ liệu.</p>";
     }
 
+    // Dinh nghia chi tieu: mo ta va MOI CON SO nguong den tu build.py (noi suy tu
+    // rules/thresholds.yaml), khong go tay vao HTML - xem tests/test_site_smoke.py.
+    if (d.dinh_nghia) {
+      $("dinh-nghia-cot").innerHTML = d.dinh_nghia.cot.map((c) =>
+        `<dt>${c.ten}</dt><dd>${c.mo_ta} <small>(Điều ${c.rule_ref})</small></dd>`).join("");
+      $("dinh-nghia-nhan").innerHTML = d.dinh_nghia.nhan.map((n) => {
+        const lop = MAU_KET_LUAN[n.nhan] || "";
+        return `<dt class="${lop}">${n.nhan}</dt><dd>${n.mo_ta}</dd>`;
+      }).join("");
+    } else {
+      $("dinh-nghia").hidden = true;
+    }
+
     $("xap-xi").innerHTML = (d.xap_xi || []).map((x) => `<li>${x}</li>`).join("")
       || "<li>Không có ghi chú xấp xỉ nào cho kỳ này.</li>";
     $("nguon").textContent = "Nguồn quy tắc: " + d.nguon_quy_tac;

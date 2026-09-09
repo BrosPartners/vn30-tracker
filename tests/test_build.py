@@ -601,3 +601,53 @@ def test_ma_dat_het_tieu_chi_nhung_khong_du_suat_khong_bi_ghi_la_khong_dat():
         ("eligibility", "free_float", "liquidity", "vn30_liquidity", "profit")
     ]
     assert _ket_luan("BVH", r) == "Đạt tiêu chí, ngoài rổ"
+
+
+# ---------------------------------------------------------------------------
+# Dinh nghia chi tieu hien tren web
+# ---------------------------------------------------------------------------
+
+def _kq_json():
+    ds = lap_stock_inputs(["ABC"], {"ABC": _daily()}, {"ABC": 1_000_000}, {}, [], {})
+    return xuat_json(build_vn30(ds, date(2026, 7, 1)), date(2026, 7, 1), "07/2026")
+
+
+def test_json_co_dinh_nghia_cho_moi_cot_so_lieu_va_moi_nhan():
+    kq = _kq_json()
+    assert "dinh_nghia" in kq
+    khoa_cot = {c["khoa"] for c in kq["dinh_nghia"]["cot"]}
+    # Dung dung ten truong nhu bang top 50 dang dung (site/app.js COT)
+    assert {"gtvh_ty", "gtvh_f_ty", "gtgd_kl_ty", "klgd_kl", "turnover",
+            "free_float", "gtvh_rank"} <= khoa_cot
+    for c in kq["dinh_nghia"]["cot"]:
+        assert c["ten"] and c["mo_ta"] and c["rule_ref"], c
+    for n in kq["dinh_nghia"]["nhan"]:
+        assert n["nhan"] and n["mo_ta"], n
+
+
+def test_dinh_nghia_lay_nguong_tu_thresholds_khong_viet_cung():
+    """Doi so trong rules/thresholds.yaml thi mo ta tren web phai doi theo -
+    neu khong, trang se noi mot nguong khac voi nguong dang thuc su duoc ap dung."""
+    from rules.thresholds import load_thresholds
+
+    t = load_thresholds()
+    kq = _kq_json()
+    mo_ta = " ".join(c["mo_ta"] for c in kq["dinh_nghia"]["cot"])
+    assert "300.000" in mo_ta                                     # min_klgd_kl_shares
+    assert "30 tỷ" in mo_ta                                       # min_gtgd_kl_vnd
+    assert "0,05%" in mo_ta and "0,04%" in mo_ta                  # min_turnover_*
+    assert "10%" in mo_ta                                         # free_float.min_ratio
+    assert "2.000 tỷ" in mo_ta and "2.500 tỷ" in mo_ta            # ngoai le 3.3.3
+    assert str(t["lookback"]["months"]) in mo_ta                  # 12 thang
+
+
+def test_dinh_nghia_phu_het_nhan_ket_luan_ma_ket_luan_sinh_ra():
+    import re
+
+    from build import __file__ as f
+    from pathlib import Path
+
+    than = Path(f).read_text(encoding="utf-8").split("def _ket_luan(")[1].split("\ndef ")[0]
+    nhan_sinh_ra = set(re.findall(r'return "([^"]+)"', than))
+    co_mo_ta = {n["nhan"] for n in _kq_json()["dinh_nghia"]["nhan"]}
+    assert nhan_sinh_ra <= co_mo_ta, f"chưa giải thích nhãn: {nhan_sinh_ra - co_mo_ta}"

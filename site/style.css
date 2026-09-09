@@ -65,3 +65,23 @@ details summary{cursor:pointer;color:var(--teal-text);font-weight:600}
 #bang tbody tr.kl-dat-ngoai-ro{background:#f7fbfc;border-left-color:#8fc6d4}
 #bang tr.kl-dat-ngoai-ro td .nhan{color:var(--teal-text);font-weight:400}
 .chu-giai .kl-dat-ngoai-ro::before{background:#8fc6d4;border-color:#8fc6d4}
+
+/* --- Khoi dinh nghia chi tieu -------------------------------------------- */
+#dinh-nghia{margin:0 0 12px;font-size:13px}
+#dinh-nghia h3{font-size:13.5px;color:var(--teal-text);margin:14px 0 6px}
+#dinh-nghia dl{margin:0;display:grid;grid-template-columns:minmax(150px,190px) 1fr;
+               gap:6px 14px;align-items:start}
+#dinh-nghia dt{font-weight:600;color:#1c1f21}
+#dinh-nghia dd{margin:0;color:#4a5054;max-width:78ch}
+#dinh-nghia dd small{color:#6a7075;white-space:nowrap}
+#dinh-nghia dt[class^="kl-"]{display:flex;align-items:flex-start}
+#dinh-nghia dt[class^="kl-"]::before{content:"";flex:0 0 auto;width:11px;height:11px;
+  border-radius:3px;margin:4px 6px 0 0;border:1px solid var(--vien)}
+#dinh-nghia dt.kl-trong-ro::before{background:var(--xanh);border-color:var(--xanh)}
+#dinh-nghia dt.kl-du-phong::before{background:var(--teal);border-color:var(--teal)}
+#dinh-nghia dt.kl-dat-ngoai-ro::before{background:#8fc6d4;border-color:#8fc6d4}
+#dinh-nghia dt.kl-khong-dat::before{background:#fff}
+#dinh-nghia dt.kl-thieu-du-lieu::before{background:var(--vang);border-color:var(--vang)}
+#dinh-nghia dt.kl-hose-loai::before{background:var(--do);border-color:var(--do)}
+@media (max-width:640px){#dinh-nghia dl{grid-template-columns:1fr;gap:2px}
+  #dinh-nghia dd{margin-bottom:8px}}

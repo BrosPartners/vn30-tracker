@@ -16,7 +16,7 @@ def test_app_js_chi_dung_truong_co_that_trong_json():
         "in_previous_basket", "ket_luan", "canh_bao", "screens", "step", "rule_ref", "passed",
         "message", "shortfall", "thieu_du_lieu", "lnst_ty", "lnst_ky", "lnst_nguon", "niem_yet_nguon",
         "niem_yet_thang", "lich", "lich_su", "ky", "ngay_chot", "ngay_hieu_luc", "ngay",
-        "gtvh_rank", "gtgd_kl_ty",
+        "gtvh_rank", "gtgd_kl_ty", "dinh_nghia", "cot", "nhan", "khoa", "ten", "mo_ta",
     }
     js = APP_JS.read_text(encoding="utf-8")
     for truong in re.findall(r"\bd(?:ata)?\.([a-z_]+)\b", js):
@@ -105,3 +105,21 @@ def test_tieu_de_trang_la_tracking_vn30():
     html = INDEX.read_text(encoding="utf-8")
     assert "<title>Tracking VN30" in html
     assert "<h1>Tracking VN30</h1>" in html
+
+
+def test_trang_giai_thich_dinh_nghia_cot_va_nhan():
+    """Nguoi doc phai tra loi duoc "GTVH la gi, Turnover tinh the nao" NGAY TREN TRANG,
+    khong phai di doc Ground Rules hay hoi lai."""
+    html = INDEX.read_text(encoding="utf-8")
+    js = APP_JS.read_text(encoding="utf-8")
+    assert 'id="dinh-nghia"' in html, "Trang thiếu khối định nghĩa chỉ tiêu"
+    assert "dinh_nghia" in js, "app.js chưa đọc khối định nghĩa từ latest.json"
+    assert "d.dinh_nghia.cot" in js and "d.dinh_nghia.nhan" in js
+
+
+def test_dinh_nghia_khong_viet_cung_trong_html():
+    """Mo ta phai den tu build.py (noi suy tu thresholds.yaml), khong go tay vao HTML -
+    nguoc lai se noi mot nguong khac voi nguong dang thuc su ap dung."""
+    html = INDEX.read_text(encoding="utf-8")
+    for so in ("300.000", "0,05%", "2.500 tỷ"):
+        assert so not in html, f"Ngưỡng '{so}' bị viết cứng trong index.html"

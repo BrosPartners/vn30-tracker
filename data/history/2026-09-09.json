@@ -3186,6 +3186,78 @@
     "ngay_hieu_luc": "2027-02-01"
   },
   "lich_su": {},
+  "dinh_nghia": {
+    "cot": [
+      {
+        "khoa": "gtvh_rank",
+        "ten": "Hạng",
+        "rule_ref": "4.3.1.e",
+        "mo_ta": "Thứ hạng theo GTVH giảm dần trên toàn bộ sàn HOSE; đồng hạng thì mã có GTGD khớp lệnh lớn hơn đứng trước."
+      },
+      {
+        "khoa": "gtvh_ty",
+        "ten": "GTVH (tỷ)",
+        "rule_ref": "3.1",
+        "mo_ta": "Giá trị vốn hóa bình quân: lấy vốn hóa của TỪNG PHIÊN (giá đóng cửa × số cổ phiếu lưu hành) trong 12 tháng gần nhất rồi bình quân. Đây KHÔNG phải vốn hóa tại một thời điểm — một mã tăng giá mạnh gần đây vẫn có GTVH thấp cho tới khi mức giá mới đủ thời gian đi vào bình quân."
+      },
+      {
+        "khoa": "gtvh_f_ty",
+        "ten": "GTVH free-float (tỷ)",
+        "rule_ref": "3.3.3",
+        "mo_ta": "GTVH nhân tỷ lệ free float đã làm tròn. Đây là mẫu số của Turnover, và là căn cứ của ngoại lệ cứu mã có free float dưới 10%: được chấp nhận nếu GTVH free-float đạt 2.000 tỷ (mã đang trong rổ) hoặc 2.500 tỷ (mã mới)."
+      },
+      {
+        "khoa": "gtgd_kl_ty",
+        "ten": "GTGD khớp lệnh (tỷ)",
+        "rule_ref": "3.1 + 4.3.1.b",
+        "mo_ta": "Giá trị giao dịch khớp lệnh bình quân một phiên, tính theo cách riêng của HOSE: lấy TRUNG VỊ của từng tháng dương lịch rồi bình quân 12 trung vị đó — nên một tháng ít phiên vẫn có trọng số bằng tháng nhiều phiên, và vài phiên đột biến không kéo được số bình quân lên. Ngưỡng vào danh sách xem xét: từ 30 tỷ một phiên."
+      },
+      {
+        "khoa": "klgd_kl",
+        "ten": "KLGD khớp lệnh",
+        "rule_ref": "3.1 + 4.3.1.a",
+        "mo_ta": "Khối lượng khớp lệnh bình quân một phiên, tính bằng đúng cách trung vị tháng như GTGD. Ngưỡng: từ 300.000 cổ phiếu một phiên. Không đạt bước này là bị loại hẳn, không được xét tiếp bước GTGD."
+      },
+      {
+        "khoa": "turnover",
+        "ten": "Turnover",
+        "rule_ref": "3.4",
+        "mo_ta": "Tỷ lệ quay vòng = GTGD khớp lệnh ÷ GTVH free-float, tức mỗi phiên có bao nhiêu phần cổ phiếu tự do chuyển nhượng được đổi chủ. Ngưỡng: từ 0,05% với mã mới, từ 0,04% với mã đang trong rổ. Số trên trang là CẬN DƯỚI: nguồn dữ liệu chỉ có khớp lệnh, chưa gồm giao dịch thỏa thuận."
+      },
+      {
+        "khoa": "free_float",
+        "ten": "Free float",
+        "rule_ref": "3.3.3 + 3.3.5",
+        "mo_ta": "Tỷ lệ cổ phiếu tự do chuyển nhượng — phần không do nhà nước, cổ đông lớn, người nội bộ hay đối tác chiến lược nắm giữ. Số trên trang lấy NGUYÊN từ công bố chính thức của HOSE, không tự tính lại. HOSE làm tròn LÊN: bội số 1% nếu tỷ lệ tới 15%, bội số 5% nếu cao hơn. Phải đạt 10%, trừ ngoại lệ nêu ở GTVH free-float."
+      }
+    ],
+    "nhan": [
+      {
+        "nhan": "Trong rổ dự kiến",
+        "mo_ta": "Nằm trong 30 mã mà bộ quy tắc chọn ra: top 20 theo GTVH vào thẳng, các suất còn lại lấy trong hạng 21–40 và ưu tiên mã đã có trong rổ kỳ trước."
+      },
+      {
+        "nhan": "Dự phòng",
+        "mo_ta": "Nằm trong 5 mã dự phòng theo thứ tự, dùng khi một mã trong rổ bị loại GIỮA KỲ theo Điều 8 (ví dụ thật: ngày 13/5/2026 BSR — dự phòng số 1 — thay DGC sau khi DGC bị chuyển sang diện kiểm soát)."
+      },
+      {
+        "nhan": "Đạt tiêu chí, ngoài rổ",
+        "mo_ta": "Vượt CẢ các bước sàng lọc nhưng 30 suất đã đầy, hoặc hạng vốn hóa nằm ngoài hạng 40. Đây là nhóm gần rổ nhất — không phải mã trượt tiêu chí."
+      },
+      {
+        "nhan": "Không đạt",
+        "mo_ta": "Trượt ít nhất một tiêu chí THỰC CHẤT: chưa niêm yết đủ 6 tháng, đang ở diện cảnh báo/kiểm soát, free float quá thấp, thanh khoản dưới ngưỡng, hoặc lợi nhuận sau thuế không dương."
+      },
+      {
+        "nhan": "Thiếu dữ liệu",
+        "mo_ta": "Mọi bước mà mã này trượt đều CHỈ vì thiếu dữ liệu đầu vào, không phải vì không đạt tiêu chí — không nên đọc là 'nguy cơ bị loại'. Mã đã có một lý do trượt thực chất thì không xếp vào đây, vì bổ sung dữ liệu cũng không đổi được kết quả."
+      },
+      {
+        "nhan": "HOSE loại khỏi VNAllshare",
+        "mo_ta": "Không có trong danh mục VNAllshare mà HOSE công bố, tức chính HOSE đã loại mã này ở bước sàng lọc Điều 3.2–3.4 (cảnh báo, kiểm soát, thanh khoản...). VN30 luôn là tập con của VNAllshare, nên đây là thông tin chắc chắn, không phải lỗ hổng dữ liệu. Lý do cụ thể HOSE không nêu trong file công bố."
+      }
+    ]
+  },
   "xap_xi": [
     "GTGD chưa gồm giao dịch thỏa thuận (nguồn dữ liệu chỉ có khớp lệnh) — turnover ratio là ước tính cận dưới.",
     "GTVH 12 tháng dùng số cổ phiếu lưu hành hiện tại cho toàn chuỗi giá quá khứ — lệch với mã có phát hành thêm hoặc chia thưởng trong kỳ.",

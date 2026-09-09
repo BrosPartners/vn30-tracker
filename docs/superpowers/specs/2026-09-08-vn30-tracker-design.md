@@ -200,6 +200,20 @@ hạn trong top 50.
    tạm ngừng giao dịch dài rồi giao dịch lại trong cửa sổ dữ liệu 12 tháng**: cả hai đều có
    ngày giao dịch đầu tiên nằm trong cửa sổ. Web hiển thị `niem_yet_nguon` cho từng mã để người
    đọc tự đối chiếu khi nghi ngờ.
+6. **Rổ VN30 "kỳ trước" (`data/baskets/*.json`, `data/previous_basket.json`) suy ra bằng cách
+   cộng dồn delta giữa các kỳ, không phải chép lại PDF công bố mỗi kỳ** — bài học rút ra
+   2026-09 (xem `data/baskets/NGUON.md`): rổ VN30 có thể thay đổi **GIỮA KỲ** theo Điều 8
+   Ground Rules, không chỉ ở các kỳ review định kỳ 6 tháng. Cụ thể, mã bị HOSE chuyển sang
+   diện cảnh báo/kiểm soát/hạn chế giao dịch (vi phạm công bố thông tin, chậm nộp BCTC kiểm
+   toán quá hạn, v.v.) bị loại khỏi VN30 **ngay khi quyết định có hiệu lực**, và mã xếp vị trí
+   ưu tiên số 1 trong danh mục dự phòng VN30 được đôn lên thay thế ngay — không chờ kỳ review
+   định kỳ tiếp theo. Trường hợp thực tế: DGC bị loại 13/5/2026 (chuyển diện kiểm soát do chậm
+   nộp BCTC 2025 kiểm toán), BSR thay thế — nếu chỉ cộng dồn thay đổi của kỳ review định kỳ
+   07/2026 (loại PLX/TPB, thêm MCH/TCX) lên thẳng mốc gốc 01/2026 mà bỏ qua điều chỉnh giữa kỳ
+   này thì `previous_basket` sẽ sai (còn DGC, thiếu BSR) và làm sai luôn kết quả kiểm định Điều
+   4.3.1.f (ưu tiên mã có trong rổ kỳ trước). Vì vậy: **mỗi lần suy rổ hiện hành từ mốc gốc phải
+   rà soát riêng các quyết định điều chỉnh giữa kỳ theo Điều 8, không được mặc định "giữa hai kỳ
+   review không có thay đổi nào"**.
 
 ## 5. Kiến trúc
 

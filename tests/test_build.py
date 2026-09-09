@@ -11,6 +11,7 @@ from build import (
 )
 from collectors.manual_data import load_manual
 from rules.basket import build_vn30
+from rules.models import StockInput
 
 TIMES = pd.to_datetime(["2026-01-05", "2026-02-05"])
 
@@ -446,3 +447,96 @@ def test_ma_trong_ro_ky_truoc_chi_truot_vi_thieu_du_lieu_khong_phai_nguy_co_that
     assert truot
     assert all(sc["thieu_du_lieu"] for sc in truot), \
         "MCH chi truot vi thieu free float, khong phai truot thuc chat"
+
+
+# ---------------------------------------------------------------------------
+# Phan biet (a) "HOSE da xet va loai khoi VNAllshare" voi (b) "thieu du lieu thuc
+# su" khi mot ma HOSE khong co trong cong bo VNAllshare gan nhat (xem task: mã
+# HVN, hạng vốn hóa 26, vắng mặt ở cả 2 kỳ công bố vì bị chuyển sang diện cảnh báo).
+# ---------------------------------------------------------------------------
+
+def test_ma_giao_dich_tu_lau_vang_mat_vnallshare_thi_hose_loai_khong_phai_thieu_du_lieu():
+    """Ma da giao dich tren HOSE tu TRUOC ngay chot cua ky cong bo (xac nhan thu
+    cong listing_date), nhung khong co trong VNAllshare -> HOSE DA XET va LOAI,
+    KHONG duoc coi la thieu du lieu."""
+    manual = {"HVN": {"listing_date": date(2020, 1, 1), "warning_status": "none",
+                      "lnst_positive": True, "audit_opinion": "unqualified"}}
+    free_float = {}  # HVN khong co trong cong bo VNAllshare ky nay
+    ds = lap_stock_inputs(["HVN"], {"HVN": _daily(volume=2_000_000)}, {"HVN": 1_000_000},
+                          manual, previous_basket=[], free_float=free_float, ky_cbtt="2026-07")
+    assert ds[0].hose_loai_khoi_vnallshare is True
+    r = build_vn30(ds, date(2026, 7, 1))
+    assert "HVN" not in r.missing_data
+    assert not any("HVN" in cb and "thiếu dữ liệu" in cb.lower() for cb in r.canh_bao), \
+        "khong duoc kich hoat canh bao 'thieu du lieu' cho HVN vi day khong con la thieu du lieu"
+    kq = xuat_json(r, date(2026, 7, 1), "07/2026")
+    dong = next(d for d in kq["stocks"] if d["symbol"] == "HVN")
+    assert dong["ket_luan"] == "HOSE loại khỏi VNAllshare"
+    buoc_ff = next(sc for sc in dong["screens"] if sc["step"] == "free_float")
+    assert not buoc_ff["passed"]
+    assert buoc_ff["thieu_du_lieu"] is False
+    assert "07/2026" in buoc_ff["message"]
+
+
+def test_ma_moi_giao_dich_sau_ngay_chot_vang_mat_vnallshare_van_la_thieu_du_lieu():
+    """Ma moi bat dau giao dich SAU ngay chot cua ky cong bo (vd niem yet 2026-08,
+    sau ngay chot 2026-07-15) -> HOSE CHUA TUNG XET, day moi thuc su la thieu du
+    lieu, VA phai kich hoat canh bao do neu hang von hoa du dieu kien."""
+    manual = {"MOI": {"listing_date": date(2026, 8, 1), "warning_status": "none",
+                      "lnst_positive": True, "audit_opinion": "unqualified"}}
+    free_float = {}
+    ds = lap_stock_inputs(["MOI"], {"MOI": _daily(volume=2_000_000)}, {"MOI": 1_000_000},
+                          manual, previous_basket=[], free_float=free_float, ky_cbtt="2026-07")
+    assert ds[0].hose_loai_khoi_vnallshare is False
+    r = build_vn30(ds, date(2026, 7, 1))
+    assert "MOI" in r.missing_data
+    kq = xuat_json(r, date(2026, 7, 1), "07/2026")
+    dong = next(d for d in kq["stocks"] if d["symbol"] == "MOI")
+    assert dong["ket_luan"] == "Thiếu dữ liệu"
+    buoc_ff = next(sc for sc in dong["screens"] if sc["step"] == "free_float")
+    assert buoc_ff["thieu_du_lieu"] is True
+
+
+def test_ma_co_trong_vnallshare_hanh_vi_khong_doi_du_co_ky_cbtt():
+    """Truyen them ky_cbtt khong duoc lam thay doi hanh vi cua ma DA CO trong
+    cong bo VNAllshare (co free_float)."""
+    manual = {"VIC": {"listing_date": date(2018, 5, 1), "warning_status": "none",
+                      "lnst_positive": True, "audit_opinion": "unqualified"}}
+    free_float = {"VIC": 0.30}
+    ds = lap_stock_inputs(["VIC"], {"VIC": _daily(volume=2_000_000)}, {"VIC": 7_762_186_000},
+                          manual, previous_basket=["VIC"], free_float=free_float, ky_cbtt="2026-07")
+    assert ds[0].hose_loai_khoi_vnallshare is False
+    r = build_vn30(ds, date(2026, 7, 1))
+    assert "VIC" not in r.missing_data
+
+
+def test_hvn_co_trong_manual_voi_warning_status():
+    """HVN phai duoc ghi thu cong trong data/manual.yaml voi warning_status=warning
+    (xem task hose-loai 2026-09-09: HOSE chuyen HVN sang dien canh bao tu 14/07/2026)."""
+    manual = load_manual(MANUAL_FILE)
+    assert "HVN" in manual, "data/manual.yaml phai co ghi de HVN (dien canh bao)"
+    assert manual["HVN"]["warning_status"] == "warning"
+
+
+def test_canh_bao_bien_mat_khi_ma_hang_cao_la_hose_loai_khong_phai_thieu_du_lieu():
+    """Tai hien dung tinh huong HVN trong task: ma hang von hoa <= 40 vang mat
+    VNAllshare vi HOSE da loai -> KHONG duoc kich hoat canh bao do dau trang."""
+    def make(symbol, close, free_float=None, listing=date(2015, 1, 1)):
+        return StockInput(
+            symbol=symbol,
+            daily=pd.DataFrame({"time": TIMES, "close": [close, close],
+                                "volume": [2_000_000, 2_000_000]}),
+            shares_outstanding=1_000_000_000,
+            listing_date=listing,
+            free_float=free_float,
+            lnst_positive=True,
+            audit_opinion="unqualified",
+            hose_loai_khoi_vnallshare=(free_float is None),
+            ky_cbtt_gan_nhat="07/2026" if free_float is None else None,
+        )
+
+    ds = [make(f"S{i:02d}", 100.0 - i, free_float=0.5) for i in range(44)]
+    ds.append(make("HVN", 95.0, free_float=None))  # hang von hoa cao, chac chan <= 40
+    r = build_vn30(ds, date(2026, 7, 1))
+    assert "HVN" not in r.missing_data
+    assert not any("HVN" in cb for cb in r.canh_bao)

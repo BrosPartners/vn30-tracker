@@ -116,9 +116,14 @@ nên dùng thẳng nguồn này thay vì đoán/nhập tay.
 4. `build.py` đọc file `<ky>.yaml` **mới nhất** làm nguồn free float chính khi ghép
    `StockInput`.
 
-Mã không có trong công bố HOSE (chưa vào VNAllshare, ví dụ MCH/TCX tại kỳ 01/2026)
-thì free float là `None` — rơi vào `missing_data`, hiển thị "Thiếu dữ liệu" trên web,
-**tuyệt đối không đoán**.
+Mã không có trong công bố HOSE (chưa vào VNAllshare) thì free float là `None`.
+**Quyết định 2026-09-09 (xem mục 4.3, "Vắng mặt trong VNAllshare là thông tin dương"):**
+điều này KHÔNG tự động nghĩa là "thiếu dữ liệu" — chỉ khi mã đó chưa từng được HOSE
+xét (mới giao dịch SAU ngày chốt của kỳ công bố, ví dụ MCH/TCX tại kỳ 01/2026) mới
+rơi vào `missing_data` và hiển thị "Thiếu dữ liệu" trên web. Nếu mã đã giao dịch
+TRƯỚC ngày chốt mà vẫn vắng mặt, đó là bằng chứng HOSE đã loại nó ở Điều 3.2–3.4 —
+hiển thị "HOSE loại khỏi VNAllshare", không phải thiếu dữ liệu. Trong cả hai trường
+hợp, **tuyệt đối không đoán** giá trị free float.
 
 **`data/manual.yaml` thu hẹp vai trò** — chỉ còn giữ những gì HOSE không công bố ở
 dạng máy đọc được:
@@ -226,7 +231,45 @@ hạn trong top 50.
    luôn được tin, không bị gắn cảnh báo này (xem `data/manual.yaml`, mục MCH: ghi đè
    `listing_date: 2025-12`). `rules/` không import từ `collectors/` và ngược lại — dữ liệu
    `free_float` được TRUYỀN VÀO `lap_stock_inputs` từ `build.py`, không tạo phụ thuộc chéo.
-6. **Rổ VN30 "kỳ trước" (`data/baskets/*.json`, `data/previous_basket.json`) suy ra bằng cách
+6. **Vắng mặt trong VNAllshare là thông tin dương, không phải lỗ hổng dữ liệu (quyết định
+   2026-09-09, ca HVN).** Danh mục VNAllshare trong công bố HOSE **chính là KẾT QUẢ của các
+   bước sàng lọc Điều 3.2–3.4** (trạng thái giao dịch/thời gian niêm yết, free float, thanh
+   khoản) — HOSE chỉ đưa vào công bố những mã đã qua sàng lọc. Vì vậy một mã HOSE **vắng
+   mặt** khỏi công bố không có nghĩa "ta thiếu dữ liệu về nó", mà rất có thể có nghĩa "HOSE
+   đã xét và loại nó". Ca cụ thể: **HVN** (Vietnam Airlines, hạng vốn hóa 26) vắng mặt ở CẢ
+   HAI kỳ công bố (01/2026, 07/2026) vì HOSE chuyển HVN từ diện kiểm soát sang **diện cảnh
+   báo** từ 14/07/2026 (lỗ lũy kế 23.148 tỷ đồng tại 30/06/2026) — diện cảnh báo/kiểm soát bị
+   loại khỏi vũ trụ chỉ số theo Điều 3.2. Trước bản sửa này, công cụ gán nhãn "Thiếu dữ liệu"
+   sai cho mọi mã vắng mặt và kích hoạt cảnh báo đỏ đầu trang nói rổ dự kiến "KHÔNG đáng tin
+   cậy đầy đủ" — sai về logic, vì HOSE hoàn toàn có thể (và có quyền) loại một mã đúng quy tắc.
+
+   **Cách phân biệt hai trường hợp** (khi một mã HOSE vắng mặt khỏi VNAllshare của công bố
+   mới nhất):
+   - **(a) Mã đã giao dịch trên HOSE từ TRƯỚC ngày chốt dữ liệu của kỳ công bố đó** → HOSE
+     đã xét và loại nó (không đủ điều kiện tham gia/free float/thanh khoản theo Điều 3.2–3.4)
+     → kết luận **"HOSE loại khỏi VNAllshare"**, KHÔNG phải "thiếu dữ liệu". Không kích hoạt
+     cảnh báo đỏ đầu trang. Lý do cụ thể (cảnh báo, kiểm soát, thanh khoản...) HOSE không nêu
+     trong file `<ky>.yaml` nên thông báo không bịa ra lý do, trừ khi có xác nhận thủ công
+     trong `data/manual.yaml` (như HVN: `warning_status: warning`) khiến `screen_eligibility`
+     nêu đúng lý do thực chất.
+   - **(b) Mã bắt đầu giao dịch SAU ngày chốt dữ liệu của kỳ công bố** (ví dụ MCH/TCX với
+     công bố kỳ 01/2026) → HOSE CHƯA TỪNG xét nó → đây mới thực sự là **"thiếu dữ liệu"**,
+     và VẪN kích hoạt cảnh báo đỏ đầu trang nếu hạng vốn hóa đủ điều kiện (≤
+     `vn30.conditional_rank_max`).
+
+   **Triển khai:** `rules/lich_review.ngay_chot_tu_ky(ky)` tính ngày chốt (thứ Tư tuần 3 của
+   tháng ky) từ chuỗi `ky` ("YYYY-MM") đã lưu trong `data/hose_index/<ky>.yaml` — KHÔNG
+   hard-code ngày. `build.py` (`lap_stock_inputs`) so sánh ngày niêm yết (xác nhận thủ công
+   hoặc suy từ chuỗi giá, xem mục 4.1.b) với ngày chốt này để gán
+   `StockInput.hose_loai_khoi_vnallshare`. `rules/screens.screen_free_float`/`screen_liquidity`
+   dùng cờ này để trả `thieu_du_lieu=False` kèm thông báo nêu rõ kỳ công bố và Điều 3.2–3.4
+   thay vì thông báo "thiếu dữ liệu" mặc định; `rules/basket.build_vn30` dùng cùng cờ để
+   KHÔNG đưa mã case (a) vào `missing_data` (nên cũng không kích hoạt cảnh báo đỏ, vốn chỉ
+   xét các bước sàng lọc trượt CÙNG là `thieu_du_lieu=True`). Trên web, mã case (a) hiện đúng
+   kết luận "HOSE loại khỏi VNAllshare" ở bảng xếp hạng (hoặc nhóm "Nguy cơ bị loại" nếu đang
+   ở trong rổ kỳ trước) — không rơi vào nhóm "Chưa kết luận được (thiếu dữ liệu)".
+
+7. **Rổ VN30 "kỳ trước" (`data/baskets/*.json`, `data/previous_basket.json`) suy ra bằng cách
    cộng dồn delta giữa các kỳ, không phải chép lại PDF công bố mỗi kỳ** — bài học rút ra
    2026-09 (xem `data/baskets/NGUON.md`): rổ VN30 có thể thay đổi **GIỮA KỲ** theo Điều 8
    Ground Rules, không chỉ ở các kỳ review định kỳ 6 tháng. Cụ thể, mã bị HOSE chuyển sang

@@ -1,6 +1,14 @@
 from datetime import date
 
-from rules.lich_review import ky_review_ke_tiep, thu_tu_trong_thang
+from rules.lich_review import ky_review_ke_tiep, ngay_chot_tu_ky, thu_tu_trong_thang
+
+
+def test_ngay_chot_tu_ky_thang_7():
+    assert ngay_chot_tu_ky("2026-07") == date(2026, 7, 15)
+
+
+def test_ngay_chot_tu_ky_thang_1():
+    assert ngay_chot_tu_ky("2026-01") == date(2026, 1, 21)
 
 
 def test_thu_tu_tuan_thu_ba():

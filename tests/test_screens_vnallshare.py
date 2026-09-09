@@ -145,6 +145,28 @@ def test_free_float_that_khong_dat_thi_khong_phai_thieu_du_lieu():
     assert r.thieu_du_lieu is False
 
 
+def test_free_float_none_thong_thuong_thi_thieu_du_lieu():
+    """Khong co bang chung HOSE da xet (hose_loai_khoi_vnallshare=False, mac dinh)
+    -> phai la thieu du lieu nhu cu, khong duoc doi hanh vi mac dinh."""
+    r = screen_free_float(_stock(free_float=None), gtvh_f_value=None)
+    assert not r.passed
+    assert r.thieu_du_lieu is True
+
+
+def test_free_float_none_hose_da_loai_thi_khong_phai_thieu_du_lieu():
+    """Ma khong co trong VNAllshare NHUNG co bang chung HOSE da xet va loai (vd
+    da giao dich tu truoc ngay chot) -> KHONG duoc coi la thieu du lieu, message
+    phai neu ro ky cong bo va Dieu 3.2-3.4."""
+    r = screen_free_float(
+        _stock(free_float=None, hose_loai_khoi_vnallshare=True, ky_cbtt_gan_nhat="07/2026"),
+        gtvh_f_value=None,
+    )
+    assert not r.passed
+    assert r.thieu_du_lieu is False
+    assert "07/2026" in r.message
+    assert "3.2" in r.message or "3.3" in r.message or "3.4" in r.message
+
+
 def test_thieu_ngay_niem_yet_thi_danh_dau_thieu_du_lieu():
     r = screen_eligibility(_stock(listing_date=None), AS_OF, gtvh_rank=100)
     assert not r.passed

@@ -39,3 +39,13 @@ MCH:
   # Dieu 3.2 - xem task chuyen san 2026-09-09).
   listing_date: 2025-12
   warning_status: none
+
+HVN:
+  # HVN (Vietnam Airlines) vang mat khoi danh muc VNAllshare o CA HAI ky cong bo
+  # (01/2026 va 07/2026) - KHONG phai thieu du lieu, ma vi HOSE da CHUYEN HVN tu
+  # dien kiem soat sang DIEN CANH BAO tu 14/07/2026, do lo luy ke 23.148 ty dong
+  # tai 30/06/2026 (BCTC hop nhat quy 2/2026). Dien canh bao/kiem soat bi loai
+  # khoi vu tru chi so theo Dieu 3.2 - xem task hose-loai 2026-09-09. Ghi
+  # warning_status thu cong o day de screen_eligibility (rules/screens.py) loai
+  # HVN bang LY DO DUNG (dien canh bao), thay vi de free_float=None gian tiep loai.
+  warning_status: warning

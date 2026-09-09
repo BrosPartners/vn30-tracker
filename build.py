@@ -21,7 +21,7 @@ from collectors.market_data import (
     fetch_shares_outstanding,
 )
 from rules.basket import build_vn30
-from rules.lich_review import ky_review_ke_tiep
+from rules.lich_review import ky_review_ke_tiep, ngay_chot_tu_ky
 from rules.models import BasketResult, StockInput
 from rules.thresholds import load_thresholds
 
@@ -146,7 +146,8 @@ def _ghep_lnst(sym: str, m: dict, lnst_auto: dict) -> dict:
 
 
 def lap_stock_inputs(symbols, daily_map, shares_map, manual, previous_basket, free_float,
-                      lnst_auto: dict | None = None, start: date | None = None) -> list[StockInput]:
+                      lnst_auto: dict | None = None, start: date | None = None,
+                      ky_cbtt: str | None = None) -> list[StockInput]:
     """Ghep so tu may (daily, SLCP, LNST tu dong) voi so nguoi xac nhan (manual) va free
     float tu cong bo chinh thuc HOSE (free_float dict, xem load_free_float_moi_nhat) thanh
     StockInput.
@@ -154,6 +155,14 @@ def lap_stock_inputs(symbols, daily_map, shares_map, manual, previous_basket, fr
     free_float la nguon RIENG voi manual - HOSE cong bo moi quy cho toan bo VNAllshare,
     manual.yaml khong con giu truong nay (tranh hai nguon su that). Ma khong co trong
     cong bo HOSE (vd chua vao VNAllshare) se la None - khong doan.
+
+    ky_cbtt: ky cua cong bo dang dung de doi chieu (dinh dang "YYYY-MM", vd "2026-07" -
+    chinh la ky tra ve tu load_free_float_moi_nhat). Dung de tinh ngay chot du lieu
+    (rules.lich_review.ngay_chot_tu_ky) va PHAN BIET ma vang mat khoi VNAllshare vi
+    HOSE da xet va loai (da giao dich truoc ngay chot) voi ma thuc su thieu du lieu
+    (moi giao dich sau ngay chot, HOSE chua tung xet) - xem StockInput.hose_loai_khoi_vnallshare.
+    Neu khong truyen (None), GIU HANH VI CU: moi ma vang mat khoi free_float deu la
+    thieu du lieu (khong phan biet duoc neu khong biet ngay chot).
 
     lnst_auto: dict symbol -> {lnst_vnd, ky, nguon} tu collectors.market_data.fetch_lnst_batch,
     thuong chi co cho top N ma theo GTVH (goi BCTC cho ca vu tru la khong can thiet).
@@ -170,6 +179,8 @@ def lap_stock_inputs(symbols, daily_map, shares_map, manual, previous_basket, fr
     """
     lnst_auto = lnst_auto or {}
     prev = {s.upper() for s in previous_basket}
+    ngay_chot = ngay_chot_tu_ky(ky_cbtt) if ky_cbtt else None
+    ky_cbtt_hien_thi = f"{ky_cbtt[5:7]}/{ky_cbtt[0:4]}" if ky_cbtt else None
     ds: list[StockInput] = []
     for sym in symbols:
         sym = sym.upper()
@@ -200,6 +211,18 @@ def lap_stock_inputs(symbols, daily_map, shares_map, manual, previous_basket, fr
             and sym not in free_float
         )
 
+        # Phan biet (a) HOSE DA XET va LOAI ma khoi VNAllshare voi (b) THIEU DU LIEU
+        # thuc su (xem rules/models.StockInput.hose_loai_khoi_vnallshare va docstring
+        # o tren). Chi ket luan (a) khi biet ngay_chot cua ky cong bo dang dung VA co
+        # bang chung ma da giao dich tren HOSE tu TRUOC ngay do (xac nhan thu cong
+        # hoac suy tu chuoi gia truoc cua so du lieu).
+        hose_loai_khoi_vnallshare = (
+            sym not in free_float and ngay_chot is not None and (
+                niem_yet_truoc_cua_so
+                or (listing_date is not None and listing_date < ngay_chot)
+            )
+        )
+
         ds.append(StockInput(
             symbol=sym,
             daily=daily,
@@ -216,6 +239,8 @@ def lap_stock_inputs(symbols, daily_map, shares_map, manual, previous_basket, fr
             lnst_nguon=lnst["lnst_nguon"],
             niem_yet_nguon=niem_yet_nguon,
             canh_bao_chuyen_san=canh_bao_chuyen_san,
+            hose_loai_khoi_vnallshare=hose_loai_khoi_vnallshare,
+            ky_cbtt_gan_nhat=ky_cbtt_hien_thi if hose_loai_khoi_vnallshare else None,
         ))
     return ds
 
@@ -248,6 +273,8 @@ def _ket_luan(symbol: str, r: BasketResult) -> str:
         return "Dự phòng"
     if symbol in r.missing_data:
         return "Thiếu dữ liệu"
+    if r.metrics.get(symbol, {}).get("hose_loai_khoi_vnallshare"):
+        return "HOSE loại khỏi VNAllshare"
     return "Không đạt"
 
 
@@ -297,6 +324,9 @@ def xuat_json(r: BasketResult, as_of: date, ky_review: str, lich_su: dict | None
             "niem_yet_nguon": m["niem_yet_nguon"],
             "niem_yet_thang": m["niem_yet_thang"],
             "ket_luan": _ket_luan(sym, r),
+            # True khi ma vang mat khoi VNAllshare vi HOSE DA XET va LOAI (khong
+            # phai thieu du lieu) - xem rules/models.StockInput.hose_loai_khoi_vnallshare.
+            "hose_loai_khoi_vnallshare": m["hose_loai_khoi_vnallshare"],
             # Nhan canh bao rieng cho tung ma - khong duoc am tham bo (spec muc 4.3)
             "canh_bao": (
                 ([] if m["audit_opinion"] == "unqualified"
@@ -392,7 +422,7 @@ def main() -> None:
     # --- Vong 1: chua co LNST, chi de xep hang GTVH tren TOAN BO vu tru ---
     # (GTVH khong phu thuoc LNST, nen ket qua xep hang o vong nay da dung; vong 2
     # chi bo sung LNST cho top N ma de sang loc Dieu 4.3.1.d, khong doi xep hang.)
-    ds_so_bo = lap_stock_inputs(symbols, daily_map, shares, manual, prev, free_float, start=start)
+    ds_so_bo = lap_stock_inputs(symbols, daily_map, shares, manual, prev, free_float, start=start, ky_cbtt=ky_cbtt)
     kq_so_bo = build_vn30(ds_so_bo, as_of)
     top_n = load_thresholds()["vn30"]["consideration_list_size"]
     ma_can_lnst = sorted(
@@ -404,7 +434,7 @@ def main() -> None:
     logger.info("Lấy được LNST tự động cho %d/%d mã", len(lnst_auto), len(ma_can_lnst))
 
     # --- Vong 2: chay lai voi LNST da co, ra ket qua chinh thuc ---
-    ds = lap_stock_inputs(symbols, daily_map, shares, manual, prev, free_float, lnst_auto, start=start)
+    ds = lap_stock_inputs(symbols, daily_map, shares, manual, prev, free_float, lnst_auto, start=start, ky_cbtt=ky_cbtt)
     logger.info("Chạy bộ quy tắc trên %d mã", len(ds))
     kq = build_vn30(ds, as_of)
     kq.canh_bao.extend(canh_bao_ma_ro_cu_bien_mat(prev, ds))

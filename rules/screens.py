@@ -85,8 +85,19 @@ def screen_free_float(stock: StockInput, gtvh_f_value: Optional[float]) -> Scree
     t = load_thresholds()["free_float"]
     ref = t["rule_ref"]
 
-    # Thiếu dữ liệu free float
+    # Khong co trong cong bo VNAllshare cua HOSE
     if stock.free_float is None:
+        if stock.hose_loai_khoi_vnallshare:
+            # Da co bang chung ma giao dich tren HOSE tu TRUOC ngay chot du lieu cua
+            # ky cong bo - HOSE da xet va LOAI no o buoc sang loc, KHONG phai thieu
+            # du lieu (xem rules/models.StockInput.hose_loai_khoi_vnallshare).
+            return ScreenResult(
+                stock.symbol, "free_float", ref, False,
+                f"Không nằm trong danh mục VNAllshare mà HOSE công bố kỳ "
+                f"{stock.ky_cbtt_gan_nhat}, tức HOSE đã loại ở bước sàng lọc điều kiện "
+                "tham gia/free float/thanh khoản (Điều 3.2–3.4); lý do cụ thể (cảnh báo, "
+                "kiểm soát, thanh khoản...) HOSE không nêu trong file này",
+            )
         return ScreenResult(stock.symbol, "free_float", ref, False,
                             "Thiếu dữ liệu free float — cần cập nhật thủ công",
                             thieu_du_lieu=True)
@@ -135,6 +146,16 @@ def screen_liquidity(stock: StockInput, turnover: Optional[float]) -> ScreenResu
         gtvh_f_val = gtvh_f(stock)
 
         if gtvh_f_val is None:
+            if stock.hose_loai_khoi_vnallshare:
+                # He qua cua viec HOSE da loai ma khoi VNAllshare (xem screen_free_float)
+                # - khong tinh duoc turnover vi khong co free float CONG BO, khong phai
+                # vi thieu du lieu.
+                return ScreenResult(
+                    stock.symbol, "liquidity", ref, False,
+                    "Không tính được turnover vì HOSE không công bố free float cho mã "
+                    f"này (không nằm trong VNAllshare kỳ {stock.ky_cbtt_gan_nhat}, đã bị "
+                    "loại ở bước sàng lọc Điều 3.2–3.4)",
+                )
             # Thiếu dữ liệu free float - không thể tính gtvh_f
             return ScreenResult(stock.symbol, "liquidity", ref, False,
                                 "Không tính được turnover do thiếu dữ liệu free float — cần cập nhật thủ công",

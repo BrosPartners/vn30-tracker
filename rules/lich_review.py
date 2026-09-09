@@ -23,6 +23,20 @@ def thu_hai_dau_tien(nam: int, thang: int) -> date:
     return _cac_ngay_theo_thu(nam, thang, THU_HAI)[0]
 
 
+def ngay_chot_tu_ky(ky: str) -> date:
+    """Ngay chot du lieu cua MOT ky cong bo da biet (khong phai ky ke tiep).
+
+    ky la chuoi "YYYY-MM" dung format luu trong data/hose_index/<ky>.yaml (vd
+    "2026-07" cho ky thang 7/2026). Dung ham nay khi da co san ky cong bo (vd
+    ky_cbtt tra ve tu build.load_free_float_moi_nhat) va can biet HOSE da CHOT
+    du lieu ngay nao de doi chieu voi ngay giao dich/niem yet cua mot ma - xem
+    build.py, lap_stock_inputs (phan biet "HOSE da xet va loai" voi "thieu du
+    lieu thuc su").
+    """
+    nam, thang = (int(x) for x in ky.split("-"))
+    return thu_tu_trong_thang(nam, thang, 3)
+
+
 def ky_review_ke_tiep(hom_nay: date) -> dict:
     """Ky review gan nhat con o phia truoc, tinh theo ngay chot du lieu."""
     ung_vien = []

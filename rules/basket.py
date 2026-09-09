@@ -36,6 +36,8 @@ def build_vn30(stocks: list[StockInput], as_of: date) -> BasketResult:
             "lnst_nguon": s.lnst_nguon,
             "niem_yet_nguon": s.niem_yet_nguon,
             "canh_bao_chuyen_san": s.canh_bao_chuyen_san,
+            "hose_loai_khoi_vnallshare": s.hose_loai_khoi_vnallshare,
+            "ky_cbtt_gan_nhat": s.ky_cbtt_gan_nhat,
             # So thang chi tinh duoc khi co listing_date cu the; ma "truoc cua so"
             # chi biet la du 6 thang, khong biet chinh xac bao nhieu thang -> None.
             "niem_yet_thang": None if s.listing_date is None else listing_months(s, as_of),
@@ -43,7 +45,11 @@ def build_vn30(stocks: list[StockInput], as_of: date) -> BasketResult:
         # Thieu ca listing_date CU THE lan bang chung "truoc cua so" moi la thieu du lieu -
         # niem_yet_truoc_cua_so=True la bang chung hop le, khong duoc coi la thieu.
         thieu_niem_yet = s.listing_date is None and not s.niem_yet_truoc_cua_so
-        if s.free_float is None or s.lnst_positive is None or thieu_niem_yet:
+        # free_float=None CHI la thieu du lieu khi KHONG co bang chung HOSE da xet
+        # va loai ma nay (xem rules/models.StockInput.hose_loai_khoi_vnallshare) -
+        # neu co, day la thong tin duong ("HOSE loai"), khong phai lo hong du lieu.
+        thieu_free_float = s.free_float is None and not s.hose_loai_khoi_vnallshare
+        if thieu_free_float or s.lnst_positive is None or thieu_niem_yet:
             result.missing_data.append(s.symbol)
 
     # Xep hang GTVH giam dan; dong hang uu tien GTGD_KL lon hon (Dieu 4.3.1.e)

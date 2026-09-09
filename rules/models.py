@@ -57,6 +57,18 @@ class StockInput:
     # chuyen san (vd UPCoM -> HOSE, xem ca MCH) hoac chua du dieu kien, can nguoi
     # xac nhan lai listing_date thu cong. KHONG tu dong loai ma, chi canh bao.
     canh_bao_chuyen_san: bool = False
+    # Phan biet 2 truong hop khi ma KHONG co trong danh muc VNAllshare cua cong bo
+    # HOSE gan nhat (free_float=None): (a) ma da giao dich tren HOSE tu TRUOC ngay
+    # chot du lieu cua ky cong bo do -> HOSE da xet va LOAI no o buoc sang loc Dieu
+    # 3.2-3.4 (KHONG phai thieu du lieu - day la THONG TIN DUONG); (b) ma moi bat
+    # dau giao dich SAU ngay chot -> HOSE chua tung xet, day moi la THIEU DU LIEU
+    # thuc su. True nghia la truong hop (a). Tinh o build.py, lap_stock_inputs
+    # (xem rules/lich_review.ngay_chot_tu_ky). Mac dinh False (giu hanh vi cu) khi
+    # khong biet ngay chot cua ky dang dung.
+    hose_loai_khoi_vnallshare: bool = False
+    # Ky cong bo (dinh dang "MM/YYYY", vd "07/2026") dung de doi chieu o tren - hien
+    # trong thong bao cho nguoi doc tu kiem tra, chi co gia tri khi hose_loai_khoi_vnallshare=True.
+    ky_cbtt_gan_nhat: Optional[str] = None
 
 
 @dataclass

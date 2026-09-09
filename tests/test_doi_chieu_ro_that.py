@@ -45,28 +45,18 @@ TEN_KY = "07/2026"
 
 # --- SAI_SO_CHO_PHEP: hang so cua TEST, khong phai cua QUY TAC (quy tac nam het o
 # rules/thresholds.yaml) - so ma lech toi da chap nhan duoc GIUA ket qua tu tinh va
-# ro CHINH THUC, voi dieu kien MOI ma lech deu da duoc chan doan thuoc mot nguyen
-# nhan duy nhat da biet (gioi han du lieu free float lech ky) - KHONG duoc dat > 0
-# chi de "cho qua".
+# ro CHINH THUC. KHONG duoc dat > 0 chi de "cho qua" mot le thuc su.
 #
-# Ket qua chay that: khop 28/30 ma, lech 4 ma - TAT CA deu bat nguon tu MOT nguyen
-# nhan duy nhat: cong bo free float ky 01/2026 (du lieu dau vao duy nhat co san
-# de chay bo quy tac cho ky 07/2026 - xem data/baskets/NGUON.md) chua co MCH va
-# TCX, vi hai ma nay tai thoi diem cong bo 01/2026 con chua vao VNAllshare nen
-# khong the co free float. Chuoi nhan qua:
-#   BO SOT MCH, TCX: ca hai deu xep hang GTVH trong top 20 (MCH hang 10, TCX hang
-#     19) nen se VAO THANG ro theo Dieu 4.3.1 neu co du free float - nhung buoc
-#     free_float (3.3.3) chan ca hai vi thieu du lieu, keo theo lien doi khong
-#     tinh duoc turnover o buoc liquidity (3.4). Day la gioi han du lieu dau vao,
-#     khong phai loi quy tac.
-#   THUA PLX, TPB: vi 2 cho o top-30 bi MCH/TCX bo trong (do buoc tren) nen con
-#     trong, Dieu 4.3.1.f (uu tien ma co trong ro ky truoc) dua PLX (hang GTVH 36)
-#     va TPB (hang GTVH 38) vao lap day - ca hai deu la ma cua ro ky truoc
-#     (2026-05, truyen qua previous_basket) va qua het cac buoc sang loc con lai
-#     (eligibility/free_float/liquidity/vn30_liquidity/profit) nen duoc uu tien
-#     dung theo quy tac; day la he qua day chuyen cua viec MCH/TCX bi chan o
-#     buoc free_float, khong phai loi rieng cua Dieu 4.3.1.f.
-SAI_SO_CHO_PHEP = 4
+# Lich su: truoc khi sua collectors/hose_disclosure.py (bam so trang hard-code khien
+# ky 07/2026 doc nham vung VNAllshare, mat free-float cua MCH/TCX), bai kiem dinh nay
+# phai dung tam free-float ky 01/2026 (ky cong bo duy nhat co luc do) de doi chieu ky
+# 07/2026 - dan den lech ky va khop chi 28/30 ma (thieu MCH/TCX trong VNAllshare ky
+# 01/2026 lam rot 2 ma nay o buoc free_float, keo theo PLX/TPB lap vao qua Dieu 4.3.1.f).
+# Sau khi co cong bo chinh thuc ky 07/2026 (data/hose_index/cbtt_hose_index_2026-07.pdf,
+# doc bang collectors/hose_disclosure.py da sua) va load_free_float_moi_nhat duoc chi
+# dinh dung ky "2026-07" (khop voi ky dang kiem, xem _chay_bo_quy_tac), ket qua chay
+# that la KHOP TOAN BO 30/30 ma - nen dat nguong ve 0, khong con dung sai so nao.
+SAI_SO_CHO_PHEP = 0
 
 
 def _doc_basket(ky: str) -> list[str]:
@@ -82,10 +72,13 @@ def _chay_bo_quy_tac(as_of: date, previous_basket: list[str]):
 
     manual = load_manual(MANUAL_FILE)
 
+    # Chi dinh RO ky "2026-07" (khop voi TEN_KY dang kiem) thay vi de load_free_float_moi_nhat
+    # tu chon ky moi nhat trong thu muc - tranh bi lech ky ve sau khi co them file moi hon.
     from build import load_free_float_moi_nhat
-    free_float, ky_cbtt = load_free_float_moi_nhat(HOSE_INDEX_DIR)
-    assert ky_cbtt is not None, "Thieu data/hose_index/*.yaml - chay scripts/cap_nhat_cbtt.py truoc"
-    logger.info("Free float dung cho doi chieu: cong bo ky %s (dung cho ky dang kiem %s - LECH KY)",
+    free_float, ky_cbtt = load_free_float_moi_nhat(HOSE_INDEX_DIR, ky="2026-07")
+    assert ky_cbtt is not None, "Thieu data/hose_index/2026-07.yaml - chay scripts/cap_nhat_cbtt.py truoc"
+    assert ky_cbtt == "2026-07"
+    logger.info("Free float dung cho doi chieu: cong bo ky %s (DUNG KY dang kiem %s)",
                 ky_cbtt, TEN_KY)
 
     symbols = fetch_hose_universe()

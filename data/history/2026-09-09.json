@@ -11,6 +11,7 @@
     "VPB",
     "HPG",
     "GAS",
+    "MCH",
     "MBB",
     "VPL",
     "FPT",
@@ -21,6 +22,7 @@
     "VNM",
     "STB",
     "MWG",
+    "TCX",
     "MSN",
     "BSR",
     "VJC",
@@ -29,16 +31,14 @@
     "SSI",
     "VIB",
     "SAB",
-    "SSB",
-    "GEE",
-    "PLX"
+    "SSB"
   ],
   "reserve": [
-    "VIX",
-    "TPB",
-    "EIB",
-    "POW",
-    "GEX"
+    "VCK",
+    "GEE",
+    "VPX",
+    "PLX",
+    "VIX"
   ],
   "missing_data": [
     "BAF",
@@ -71,7 +71,6 @@
     "KLB",
     "LGC",
     "LPS",
-    "MCH",
     "NAB",
     "NLG",
     "ORS",
@@ -86,17 +85,14 @@
     "SJS",
     "TAL",
     "TCH",
-    "TCX",
     "VBB",
     "VCF",
     "VCG",
     "VCI",
-    "VCK",
     "VGC",
     "VHC",
     "VND",
     "VPI",
-    "VPX",
     "VSH",
     "VTP"
   ],
@@ -105,12 +101,12 @@
       "symbol": "VIC",
       "gtvh_rank": 1,
       "gtvh_ty": 1203512.6,
-      "gtvh_f_ty": 421229.4,
+      "gtvh_f_ty": 361053.8,
       "gtgd_kl_ty": 727.2,
       "klgd_kl": 4390334,
-      "turnover": 0.001726,
-      "free_float": 0.35,
-      "free_float_rounded": 0.35,
+      "turnover": 0.002014,
+      "free_float": 0.3,
+      "free_float_rounded": 0.3,
       "in_previous_basket": true,
       "lnst_ty": 15988.0,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
@@ -134,7 +130,7 @@
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
-          "message": "Free float 35%",
+          "message": "Free float 30%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -142,7 +138,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 0.173%",
+          "message": "Turnover 0.201%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -294,12 +290,12 @@
       "symbol": "BID",
       "gtvh_rank": 4,
       "gtvh_ty": 277818.1,
-      "gtvh_f_ty": 11112.7,
+      "gtvh_f_ty": 16669.1,
       "gtgd_kl_ty": 223.7,
       "klgd_kl": 5693359,
-      "turnover": 0.020133,
-      "free_float": 0.04,
-      "free_float_rounded": 0.04,
+      "turnover": 0.013422,
+      "free_float": 0.06,
+      "free_float_rounded": 0.06,
       "in_previous_basket": true,
       "lnst_ty": 14947.1,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
@@ -323,7 +319,7 @@
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
-          "message": "Free float 4% dưới 10% nhưng đạt ngoại lệ: vốn hóa free-float 11.113 tỷ ≥ 2.000 tỷ (mã đang trong rổ)",
+          "message": "Free float 6% dưới 10% nhưng đạt ngoại lệ: vốn hóa free-float 16.669 tỷ ≥ 2.000 tỷ (mã đang trong rổ)",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -331,7 +327,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 2.013%",
+          "message": "Turnover 1.342%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -483,77 +479,14 @@
       "symbol": "VPB",
       "gtvh_rank": 7,
       "gtvh_ty": 220953.3,
-      "gtvh_f_ty": 132572.0,
+      "gtvh_f_ty": 121524.3,
       "gtgd_kl_ty": 611.0,
       "klgd_kl": 21032437,
-      "turnover": 0.004609,
-      "free_float": 0.6,
-      "free_float_rounded": 0.6,
-      "in_previous_basket": true,
-      "lnst_ty": 14583.3,
-      "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
-      "lnst_nguon": "tự động",
-      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
-      "niem_yet_thang": null,
-      "ket_luan": "Trong rổ dự kiến",
-      "canh_bao": [
-        "Chưa xác nhận ý kiến kiểm toán"
-      ],
-      "screens": [
-        {
-          "step": "eligibility",
-          "rule_ref": "3.2",
-          "passed": true,
-          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null,
-          "thieu_du_lieu": false
-        },
-        {
-          "step": "free_float",
-          "rule_ref": "3.3.3",
-          "passed": true,
-          "message": "Free float 60%",
-          "shortfall": null,
-          "thieu_du_lieu": false
-        },
-        {
-          "step": "liquidity",
-          "rule_ref": "3.4",
-          "passed": true,
-          "message": "Turnover 0.461%",
-          "shortfall": null,
-          "thieu_du_lieu": false
-        },
-        {
-          "step": "vn30_liquidity",
-          "rule_ref": "4.3.1.a-b",
-          "passed": true,
-          "message": "KLGD 21.032.437 cp và GTGD 611 tỷ/phiên",
-          "shortfall": null,
-          "thieu_du_lieu": false
-        },
-        {
-          "step": "profit",
-          "rule_ref": "4.3.1.d",
-          "passed": true,
-          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null,
-          "thieu_du_lieu": false
-        }
-      ]
-    },
-    {
-      "symbol": "HPG",
-      "gtvh_rank": 8,
-      "gtvh_ty": 202098.2,
-      "gtvh_f_ty": 111154.0,
-      "gtgd_kl_ty": 839.6,
-      "klgd_kl": 34323210,
-      "turnover": 0.007553,
+      "turnover": 0.005028,
       "free_float": 0.55,
       "free_float_rounded": 0.55,
       "in_previous_basket": true,
-      "lnst_ty": 15365.0,
+      "lnst_ty": 14583.3,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
       "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
@@ -583,7 +516,70 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 0.755%",
+          "message": "Turnover 0.503%",
+          "shortfall": null,
+          "thieu_du_lieu": false
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 21.032.437 cp và GTGD 611 tỷ/phiên",
+          "shortfall": null,
+          "thieu_du_lieu": false
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
+          "shortfall": null,
+          "thieu_du_lieu": false
+        }
+      ]
+    },
+    {
+      "symbol": "HPG",
+      "gtvh_rank": 8,
+      "gtvh_ty": 202098.2,
+      "gtvh_f_ty": 121258.9,
+      "gtgd_kl_ty": 839.6,
+      "klgd_kl": 34323210,
+      "turnover": 0.006924,
+      "free_float": 0.6,
+      "free_float_rounded": 0.6,
+      "in_previous_basket": true,
+      "lnst_ty": 15365.0,
+      "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
+      "lnst_nguon": "tự động",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Trong rổ dự kiến",
+      "canh_bao": [
+        "Chưa xác nhận ý kiến kiểm toán"
+      ],
+      "screens": [
+        {
+          "step": "eligibility",
+          "rule_ref": "3.2",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
+          "shortfall": null,
+          "thieu_du_lieu": false
+        },
+        {
+          "step": "free_float",
+          "rule_ref": "3.3.3",
+          "passed": true,
+          "message": "Free float 60%",
+          "shortfall": null,
+          "thieu_du_lieu": false
+        },
+        {
+          "step": "liquidity",
+          "rule_ref": "3.4",
+          "passed": true,
+          "message": "Turnover 0.692%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -672,19 +668,19 @@
       "symbol": "MCH",
       "gtvh_rank": 10,
       "gtvh_ty": 177340.8,
-      "gtvh_f_ty": null,
+      "gtvh_f_ty": 35468.2,
       "gtgd_kl_ty": 50.9,
       "klgd_kl": 395691,
-      "turnover": null,
-      "free_float": null,
-      "free_float_rounded": null,
+      "turnover": 0.001434,
+      "free_float": 0.2,
+      "free_float_rounded": 0.2,
       "in_previous_basket": true,
       "lnst_ty": 3249.0,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
       "niem_yet_nguon": "xác nhận thủ công",
       "niem_yet_thang": 9,
-      "ket_luan": "Thiếu dữ liệu",
+      "ket_luan": "Trong rổ dự kiến",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -700,18 +696,34 @@
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
-          "passed": false,
-          "message": "Thiếu dữ liệu free float — cần cập nhật thủ công",
+          "passed": true,
+          "message": "Free float 20%",
           "shortfall": null,
-          "thieu_du_lieu": true
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
-          "passed": false,
-          "message": "Không tính được turnover do thiếu dữ liệu free float — cần cập nhật thủ công",
+          "passed": true,
+          "message": "Turnover 0.143%",
           "shortfall": null,
-          "thieu_du_lieu": true
+          "thieu_du_lieu": false
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 395.691 cp và GTGD 51 tỷ/phiên",
+          "shortfall": null,
+          "thieu_du_lieu": false
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -908,12 +920,12 @@
       "symbol": "LPB",
       "gtvh_rank": 14,
       "gtvh_ty": 135845.6,
-      "gtvh_f_ty": 129053.3,
+      "gtvh_f_ty": 122261.0,
       "gtgd_kl_ty": 98.8,
       "klgd_kl": 2170935,
-      "turnover": 0.000766,
-      "free_float": 0.95,
-      "free_float_rounded": 0.95,
+      "turnover": 0.000808,
+      "free_float": 0.9,
+      "free_float_rounded": 0.9,
       "in_previous_basket": true,
       "lnst_ty": 4799.9,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
@@ -937,7 +949,7 @@
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
-          "message": "Free float 95%",
+          "message": "Free float 90%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -945,7 +957,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 0.077%",
+          "message": "Turnover 0.081%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -1349,19 +1361,19 @@
       "symbol": "TCX",
       "gtvh_rank": 21,
       "gtvh_ty": 115368.5,
-      "gtvh_f_ty": null,
+      "gtvh_f_ty": 17305.3,
       "gtgd_kl_ty": 78.8,
       "klgd_kl": 1880456,
-      "turnover": null,
-      "free_float": null,
-      "free_float_rounded": null,
+      "turnover": 0.004556,
+      "free_float": 0.15,
+      "free_float_rounded": 0.15,
       "in_previous_basket": true,
       "lnst_ty": 2839.5,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
       "niem_yet_nguon": "suy từ ngày giao dịch đầu tiên",
       "niem_yet_thang": 10,
-      "ket_luan": "Thiếu dữ liệu",
+      "ket_luan": "Trong rổ dự kiến",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -1377,18 +1389,34 @@
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
-          "passed": false,
-          "message": "Thiếu dữ liệu free float — cần cập nhật thủ công",
+          "passed": true,
+          "message": "Free float 15%",
           "shortfall": null,
-          "thieu_du_lieu": true
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
-          "passed": false,
-          "message": "Không tính được turnover do thiếu dữ liệu free float — cần cập nhật thủ công",
+          "passed": true,
+          "message": "Turnover 0.456%",
           "shortfall": null,
-          "thieu_du_lieu": true
+          "thieu_du_lieu": false
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 1.880.456 cp và GTGD 79 tỷ/phiên",
+          "shortfall": null,
+          "thieu_du_lieu": false
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -1569,12 +1597,12 @@
       "symbol": "VJC",
       "gtvh_rank": 25,
       "gtvh_ty": 100551.5,
-      "gtvh_f_ty": 45248.2,
+      "gtvh_f_ty": 35193.0,
       "gtgd_kl_ty": 207.4,
       "klgd_kl": 1588334,
-      "turnover": 0.004584,
-      "free_float": 0.45,
-      "free_float_rounded": 0.45,
+      "turnover": 0.005894,
+      "free_float": 0.35,
+      "free_float_rounded": 0.35,
       "in_previous_basket": true,
       "lnst_ty": 1347.2,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
@@ -1598,7 +1626,7 @@
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
-          "message": "Free float 45%",
+          "message": "Free float 35%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -1606,7 +1634,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 0.458%",
+          "message": "Turnover 0.589%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -1680,19 +1708,19 @@
       "symbol": "VCK",
       "gtvh_rank": 27,
       "gtvh_ty": 77922.1,
-      "gtvh_f_ty": null,
+      "gtvh_f_ty": 19480.5,
       "gtgd_kl_ty": 95.7,
       "klgd_kl": 2935908,
-      "turnover": null,
-      "free_float": null,
-      "free_float_rounded": null,
+      "turnover": 0.004913,
+      "free_float": 0.25,
+      "free_float_rounded": 0.25,
       "in_previous_basket": false,
       "lnst_ty": 2339.6,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
       "niem_yet_nguon": "suy từ ngày giao dịch đầu tiên",
       "niem_yet_thang": 8,
-      "ket_luan": "Thiếu dữ liệu",
+      "ket_luan": "Dự phòng",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -1708,18 +1736,34 @@
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
-          "passed": false,
-          "message": "Thiếu dữ liệu free float — cần cập nhật thủ công",
+          "passed": true,
+          "message": "Free float 25%",
           "shortfall": null,
-          "thieu_du_lieu": true
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
-          "passed": false,
-          "message": "Không tính được turnover do thiếu dữ liệu free float — cần cập nhật thủ công",
+          "passed": true,
+          "message": "Turnover 0.491%",
           "shortfall": null,
-          "thieu_du_lieu": true
+          "thieu_du_lieu": false
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 2.935.908 cp và GTGD 96 tỷ/phiên",
+          "shortfall": null,
+          "thieu_du_lieu": false
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -1963,19 +2007,19 @@
       "symbol": "GEE",
       "gtvh_rank": 32,
       "gtvh_ty": 59072.1,
-      "gtvh_f_ty": 7679.4,
+      "gtvh_f_ty": 8270.1,
       "gtgd_kl_ty": 75.5,
       "klgd_kl": 838657,
-      "turnover": 0.009828,
-      "free_float": 0.13,
-      "free_float_rounded": 0.13,
+      "turnover": 0.009126,
+      "free_float": 0.14,
+      "free_float_rounded": 0.14,
       "in_previous_basket": false,
       "lnst_ty": 1289.2,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
       "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
       "niem_yet_thang": null,
-      "ket_luan": "Trong rổ dự kiến",
+      "ket_luan": "Dự phòng",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -1992,7 +2036,7 @@
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
-          "message": "Free float 13%",
+          "message": "Free float 14%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -2000,7 +2044,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 0.983%",
+          "message": "Turnover 0.913%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -2026,12 +2070,12 @@
       "symbol": "VIB",
       "gtvh_rank": 33,
       "gtvh_ty": 57546.6,
-      "gtvh_f_ty": 37405.3,
+      "gtvh_f_ty": 31650.6,
       "gtgd_kl_ty": 126.1,
       "klgd_kl": 7090677,
-      "turnover": 0.00337,
-      "free_float": 0.65,
-      "free_float_rounded": 0.65,
+      "turnover": 0.003983,
+      "free_float": 0.55,
+      "free_float_rounded": 0.55,
       "in_previous_basket": true,
       "lnst_ty": 4146.6,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
@@ -2055,7 +2099,7 @@
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
-          "message": "Free float 65%",
+          "message": "Free float 55%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -2063,7 +2107,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 0.337%",
+          "message": "Turnover 0.398%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -2152,19 +2196,19 @@
       "symbol": "VPX",
       "gtvh_rank": 35,
       "gtvh_ty": 52560.6,
-      "gtvh_f_ty": null,
+      "gtvh_f_ty": 10512.1,
       "gtgd_kl_ty": 33.4,
       "klgd_kl": 1197215,
-      "turnover": null,
-      "free_float": null,
-      "free_float_rounded": null,
+      "turnover": 0.003179,
+      "free_float": 0.2,
+      "free_float_rounded": 0.2,
       "in_previous_basket": false,
       "lnst_ty": 2168.6,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
       "niem_yet_nguon": "suy từ ngày giao dịch đầu tiên",
       "niem_yet_thang": 8,
-      "ket_luan": "Thiếu dữ liệu",
+      "ket_luan": "Dự phòng",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -2180,18 +2224,34 @@
         {
           "step": "free_float",
           "rule_ref": "3.3.3",
-          "passed": false,
-          "message": "Thiếu dữ liệu free float — cần cập nhật thủ công",
+          "passed": true,
+          "message": "Free float 20%",
           "shortfall": null,
-          "thieu_du_lieu": true
+          "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
-          "passed": false,
-          "message": "Không tính được turnover do thiếu dữ liệu free float — cần cập nhật thủ công",
+          "passed": true,
+          "message": "Turnover 0.318%",
           "shortfall": null,
-          "thieu_du_lieu": true
+          "thieu_du_lieu": false
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 1.197.215 cp và GTGD 33 tỷ/phiên",
+          "shortfall": null,
+          "thieu_du_lieu": false
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
+          "shortfall": null,
+          "thieu_du_lieu": false
         }
       ]
     },
@@ -2199,12 +2259,12 @@
       "symbol": "SSB",
       "gtvh_rank": 36,
       "gtvh_ty": 51529.0,
-      "gtvh_f_ty": 25764.5,
+      "gtvh_f_ty": 28341.0,
       "gtgd_kl_ty": 37.2,
       "klgd_kl": 2426522,
-      "turnover": 0.001443,
-      "free_float": 0.5,
-      "free_float_rounded": 0.5,
+      "turnover": 0.001312,
+      "free_float": 0.55,
+      "free_float_rounded": 0.55,
       "in_previous_basket": true,
       "lnst_ty": 2101.6,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
@@ -2228,7 +2288,7 @@
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
-          "message": "Free float 50%",
+          "message": "Free float 55%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -2236,7 +2296,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 0.144%",
+          "message": "Turnover 0.131%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -2274,7 +2334,7 @@
       "lnst_nguon": "tự động",
       "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
       "niem_yet_thang": null,
-      "ket_luan": "Trong rổ dự kiến",
+      "ket_luan": "Dự phòng",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -2463,7 +2523,7 @@
       "lnst_nguon": "tự động",
       "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
       "niem_yet_thang": null,
-      "ket_luan": "Dự phòng",
+      "ket_luan": "Không đạt",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -2526,7 +2586,7 @@
       "lnst_nguon": "tự động",
       "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
       "niem_yet_thang": null,
-      "ket_luan": "Dự phòng",
+      "ket_luan": "Không đạt",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -2577,19 +2637,19 @@
       "symbol": "POW",
       "gtvh_rank": 42,
       "gtvh_ty": 40501.7,
-      "gtvh_f_ty": 10125.4,
+      "gtvh_f_ty": 8100.3,
       "gtgd_kl_ty": 141.4,
       "klgd_kl": 10566943,
-      "turnover": 0.013969,
-      "free_float": 0.25,
-      "free_float_rounded": 0.25,
+      "turnover": 0.017461,
+      "free_float": 0.2,
+      "free_float_rounded": 0.2,
       "in_previous_basket": false,
       "lnst_ty": 4574.9,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
       "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
       "niem_yet_thang": null,
-      "ket_luan": "Dự phòng",
+      "ket_luan": "Không đạt",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -2606,7 +2666,7 @@
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
-          "message": "Free float 25%",
+          "message": "Free float 20%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -2614,7 +2674,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 1.397%",
+          "message": "Turnover 1.746%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -2652,7 +2712,7 @@
       "lnst_nguon": "tự động",
       "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
       "niem_yet_thang": null,
-      "ket_luan": "Dự phòng",
+      "ket_luan": "Không đạt",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
       ],
@@ -2750,12 +2810,12 @@
       "symbol": "MSB",
       "gtvh_rank": 45,
       "gtvh_ty": 35090.3,
-      "gtvh_f_ty": 26317.7,
+      "gtvh_f_ty": 24563.2,
       "gtgd_kl_ty": 99.1,
       "klgd_kl": 8838446,
-      "turnover": 0.003764,
-      "free_float": 0.75,
-      "free_float_rounded": 0.75,
+      "turnover": 0.004033,
+      "free_float": 0.7,
+      "free_float_rounded": 0.7,
       "in_previous_basket": false,
       "lnst_ty": 2764.8,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
@@ -2779,7 +2839,7 @@
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
-          "message": "Free float 75%",
+          "message": "Free float 70%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -2787,7 +2847,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 0.376%",
+          "message": "Turnover 0.403%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -2876,12 +2936,12 @@
       "symbol": "NVL",
       "gtvh_rank": 47,
       "gtvh_ty": 32537.7,
-      "gtvh_f_ty": 21149.5,
+      "gtvh_f_ty": 17895.7,
       "gtgd_kl_ty": 220.9,
       "klgd_kl": 15212655,
-      "turnover": 0.010445,
-      "free_float": 0.65,
-      "free_float_rounded": 0.65,
+      "turnover": 0.012344,
+      "free_float": 0.55,
+      "free_float_rounded": 0.55,
       "in_previous_basket": false,
       "lnst_ty": 1870.0,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
@@ -2905,7 +2965,7 @@
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
-          "message": "Free float 65%",
+          "message": "Free float 55%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -2913,7 +2973,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 1.044%",
+          "message": "Turnover 1.234%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -3065,12 +3125,12 @@
       "symbol": "KBC",
       "gtvh_rank": 50,
       "gtvh_ty": 31085.6,
-      "gtvh_f_ty": 17097.1,
+      "gtvh_f_ty": 20205.6,
       "gtgd_kl_ty": 131.1,
       "klgd_kl": 3724068,
-      "turnover": 0.007666,
-      "free_float": 0.55,
-      "free_float_rounded": 0.55,
+      "turnover": 0.006487,
+      "free_float": 0.65,
+      "free_float_rounded": 0.65,
       "in_previous_basket": false,
       "lnst_ty": 231.3,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
@@ -3094,7 +3154,7 @@
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
-          "message": "Free float 55%",
+          "message": "Free float 65%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -3102,7 +3162,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 0.767%",
+          "message": "Turnover 0.649%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -3139,7 +3199,7 @@
     "Thứ hạng vốn hóa (GTVH) được tính đầy đủ trên toàn bộ sàn HOSE, nhưng các chỉ tiêu bình quân 12 tháng (GTVH, GTGD khớp lệnh, thanh khoản...) chỉ được tính cho nhóm mã đứng đầu theo vốn hóa HIỆN TẠI (xem rules/thresholds.yaml, vn30.so_ma_lay_lich_su_gia) nhằm giảm số lượt gọi dữ liệu giá lịch sử — mã ngoài nhóm này không được xét vào rổ."
   ],
   "canh_bao": [
-    "Mã HVN, MCH, TCX, VCK, VPX có hạng vốn hóa đủ điều kiện vào rổ (hạng ≤ 40) nhưng bị loại khỏi vòng xét ở bước sàng lọc VNAllshare CHỈ VÌ THIẾU DỮ LIỆU đầu vào (free float/ngày niêm yết/LNST chưa có), không phải vì không đạt tiêu chí thực chất. Vì vậy rổ dự kiến hiện tại KHÔNG đáng tin cậy đầy đủ — các mã đang lấp vào chỗ trống của những mã này không nên được đọc như một dự báo chắc chắn, mà cần chờ bổ sung dữ liệu."
+    "Mã HVN có hạng vốn hóa đủ điều kiện vào rổ (hạng ≤ 40) nhưng bị loại khỏi vòng xét ở bước sàng lọc VNAllshare CHỈ VÌ THIẾU DỮ LIỆU đầu vào (free float/ngày niêm yết/LNST chưa có), không phải vì không đạt tiêu chí thực chất. Vì vậy rổ dự kiến hiện tại KHÔNG đáng tin cậy đầy đủ — các mã đang lấp vào chỗ trống của những mã này không nên được đọc như một dự báo chắc chắn, mà cần chờ bổ sung dữ liệu."
   ],
   "nguon_quy_tac": "HOSE-Index Ground Rules v4.0 (QĐ 747/QĐ-SGDHCM, 30/12/2024)"
 }

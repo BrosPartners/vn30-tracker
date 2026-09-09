@@ -4,9 +4,25 @@ Nguon: HOSE tu cong bo free-float chinh thuc moi quy cho toan bo VNAllshare -
 dung so nay thay vi nhap tay tu DNSE. File PDF (static2.vietstock.vn) duoc luu
 o data/hose_index/cbtt_hose_index_<ky>.pdf va commit vao repo lam bang chung goc.
 
-Cau truc file (kiem chung tren ky 01/2026, 28 trang):
-- Trang 1 (index 0): danh muc VN30 (30 ma) + danh muc du phong VN30 ben duoi.
-- Trang 12-18 (index 11..17): VNALLSHARE - moi ma kem ty le free-float lam tron.
+QUAN TRONG - KHONG duoc bam theo SO TRANG: moi ky cong bo co so trang khac nhau
+cho tung muc (da xac minh thuc te: ky 01/2026 muc VNALLSHARE bat dau o trang
+index 11, nhung ky 07/2026 lai bat dau o trang index 9 - lech 2 trang vi cac
+muc truoc do (VN100/VNSMALLCAP...) co so trang khac nhau giua 2 ky). Neu ham
+bam so trang hard-code, ket qua se sai lech ma khong bao loi (vi dinh dang
+tung dong van dung, chi la doc nham muc) - day chinh la loi da xay ra trong
+thuc te khien ky 07/2026 chi boc duoc 212/303 ma VNAllshare va thieu free-float
+cua BSR (mot ma dang trong VN30, ve nguyen tac VN30 luon la tap con VNAllshare).
+
+Cach lam DUNG: moi trang mo dau 1 muc trong PDF co dong tieu de dang
+"CÔNG BỐ THÔNG TIN DANH MỤC CỔ PHIẾU THÀNH PHẦN (CỦA) CHỈ SỐ <TEN_CHI_SO>"
+nam o footer cua chinh trang do (PyMuPDF doc no o cuoi text trang). Ham quet
+toan bo trang, tim trang co tieu de chua ten chi so muc tieu, roi lay tu trang
+do cho toi ngay truoc trang co tieu de cua muc KE TIEP (bat ke muc gi).
+
+Luu y rieng cho VNALLSHARE: chuoi "VNALLSHARE" cung xuat hien trong tieu de cua
+muc chi so nganh ngay sau do, dang "... CÁC CHỈ SỐ NGÀNH VNALLSHARE SECTOR
+INDICES" - phai loai tru bang tu khoa "NGÀNH"/"SECTOR" thi moi phan biet duoc
+voi tieu de muc VNALLSHARE that ("... CHỈ SỐ VNALLSHARE").
 
 collectors/ KHONG duoc import gi tu rules/ - module nay chi doc va tra ve dict thuan.
 
@@ -26,9 +42,14 @@ _PATTERN_DONG = re.compile(
     r"\n(\d{1,3})\n([A-Z]{3})\n(.*?)\n\s*([\d,]{7,})\s*\n\s*(\d{1,3})%(?=\n)", re.S
 )
 
-TRANG_VN30 = 0            # index trang chua VN30 + du phong VN30
-TRANG_VNALLSHARE_TU = 11  # index trang bat dau VNALLSHARE
-TRANG_VNALLSHARE_DEN = 18 # index trang ket thuc (khong bao gom) VNALLSHARE
+# Neo nhan dien 1 trang "tieu de muc" - dong nay xuat hien o cuoi moi trang
+# mo dau 1 muc trong PDF cong bo HOSE (VN30, VNMIDCAP, VN100, VNSMALLCAP,
+# VNALLSHARE, cac chi so nganh VNAllshare...).
+_NEO_TIEU_DE_MUC = "CÔNG BỐ THÔNG TIN"
+_TU_KHOA_VN30 = "VN30"
+_TU_KHOA_VNALLSHARE = "VNALLSHARE"
+# Tieu de muc chi so nganh cung chua chuoi "VNALLSHARE" nen phai loai tru rieng
+_TU_LOAI_TRU_VNALLSHARE = ("NGÀNH", "SECTOR")
 
 SO_MA_VN30 = 30
 SO_MA_VNALLSHARE_TOI_THIEU = 200  # duoi nguong nay coi la loi doc PDF/doi layout
@@ -62,6 +83,33 @@ def _bien_ban_vnallshare(text: str) -> tuple[int, dict[str, float]]:
     return len(free_float), free_float
 
 
+def _tim_trang_tieu_de(doc: "fitz.Document", tu_khoa: str, loai_tru: tuple = ()) -> int | None:
+    """Tim trang DAU TIEN co dong tieu de muc (neo _NEO_TIEU_DE_MUC) chua tu_khoa
+    va KHONG chua bat ky tu nao trong loai_tru. Tra ve None neu khong tim thay
+    (goi noi con lai tu HoseDisclosureError ro rang thay vi doan bua trang nao do).
+    """
+    for i in range(len(doc)):
+        text = doc[i].get_text()
+        vi_tri = text.find(_NEO_TIEU_DE_MUC)
+        if vi_tri == -1:
+            continue
+        tieu_de = text[vi_tri : vi_tri + 200]
+        if tu_khoa in tieu_de and not any(tu in tieu_de for tu in loai_tru):
+            return i
+    return None
+
+
+def _tim_trang_tieu_de_ke_tiep(doc: "fitz.Document", tu_trang: int) -> int:
+    """Tim trang tiep theo (sau tu_trang) co dong tieu de cua BAT KY muc nao
+    khac - dung de xac dinh diem KET THUC cua muc bat dau tai tu_trang. Neu
+    khong con muc nao nua, tra ve len(doc) (lay het cac trang con lai).
+    """
+    for i in range(tu_trang + 1, len(doc)):
+        if _NEO_TIEU_DE_MUC in doc[i].get_text():
+            return i
+    return len(doc)
+
+
 def _suy_ky_tu_ten_file(pdf_path: Path) -> str:
     """Suy ky cong bo (vd '2026-01') tu ten file cbtt_hose_index_2026-01.pdf."""
     m = re.search(r"(\d{4}-\d{2})", pdf_path.stem)
@@ -88,9 +136,26 @@ def doc_cbtt(pdf_path: Path) -> dict:
 
     doc = fitz.open(pdf_path)
     try:
-        text_vn30 = doc[TRANG_VN30].get_text()
+        trang_vn30 = _tim_trang_tieu_de(doc, _TU_KHOA_VN30)
+        if trang_vn30 is None:
+            raise HoseDisclosureError(
+                f"Kỳ {ky}: không tìm thấy trang có tiêu đề mục VN30 trong PDF — "
+                f"có thể HOSE đã đổi cách trình bày tiêu đề, kiểm tra lại _tim_trang_tieu_de()"
+            )
+
+        trang_vnallshare_tu = _tim_trang_tieu_de(
+            doc, _TU_KHOA_VNALLSHARE, loai_tru=_TU_LOAI_TRU_VNALLSHARE
+        )
+        if trang_vnallshare_tu is None:
+            raise HoseDisclosureError(
+                f"Kỳ {ky}: không tìm thấy trang có tiêu đề mục VNALLSHARE trong PDF — "
+                f"có thể HOSE đã đổi cách trình bày tiêu đề, kiểm tra lại _tim_trang_tieu_de()"
+            )
+        trang_vnallshare_den = _tim_trang_tieu_de_ke_tiep(doc, trang_vnallshare_tu)
+
+        text_vn30 = doc[trang_vn30].get_text()
         text_vnallshare = "".join(
-            doc[i].get_text() for i in range(TRANG_VNALLSHARE_TU, min(TRANG_VNALLSHARE_DEN, len(doc)))
+            doc[i].get_text() for i in range(trang_vnallshare_tu, trang_vnallshare_den)
         )
     finally:
         doc.close()
@@ -117,6 +182,20 @@ def doc_cbtt(pdf_path: Path) -> dict:
                 f"Kỳ {ky}: mã {ma} có free_float = {ty_le} nằm ngoài khoảng 0-1 — "
                 f"dữ liệu bóc từ PDF có vẻ sai, không được dùng"
             )
+
+    # Kiem tra bat bien quan trong nhat: VN30 la tap con cua VNAllshare theo dung
+    # quy tac chi so HOSE, nen bat ky ma VN30 nao thieu free-float trong VNAllshare
+    # chac chan la loi doc PDF (vd xac dinh sai vung trang VNALLSHARE), khong phai
+    # dac diem du lieu that. Kiem tra nay bat duoc loi ma nguong dem so ma (o tren)
+    # khong bat duoc, vi so ma bot con lai co the van > SO_MA_VNALLSHARE_TOI_THIEU.
+    ma_thieu_free_float = [ma for ma in vn30 if ma not in free_float]
+    if ma_thieu_free_float:
+        raise HoseDisclosureError(
+            f"Kỳ {ky}: các mã VN30 sau đây KHÔNG có free-float trong VNALLSHARE: "
+            f"{', '.join(ma_thieu_free_float)} — điều này bất khả thi vì VN30 luôn "
+            f"là tập con của VNALLSHARE, chắc chắn là lỗi đọc PDF (vùng trang "
+            f"VNALLSHARE xác định sai), kiểm tra lại _tim_trang_tieu_de()"
+        )
 
     return {
         "ky": ky,

@@ -35,14 +35,27 @@ PREV_BASKET_FILE = DATA_DIR / "previous_basket.json"
 HOSE_INDEX_DIR = DATA_DIR / "hose_index"
 
 
-def load_free_float_moi_nhat(hose_index_dir: Path = HOSE_INDEX_DIR) -> tuple[dict[str, float], str | None]:
-    """Doc file data/hose_index/<ky>.yaml MOI NHAT (sinh boi scripts/cap_nhat_cbtt.py tu
-    cong bo chinh thuc HOSE) va tra ve (free_float dict, ky). Ky la chuoi "YYYY-MM" nen
-    so sanh chuoi la du de tim ky moi nhat.
+def load_free_float_moi_nhat(
+    hose_index_dir: Path = HOSE_INDEX_DIR, ky: str | None = None
+) -> tuple[dict[str, float], str | None]:
+    """Doc file data/hose_index/<ky>.yaml (sinh boi scripts/cap_nhat_cbtt.py tu cong bo
+    chinh thuc HOSE) va tra ve (free_float dict, ky). Ky la chuoi "YYYY-MM" nen so sanh
+    chuoi la du de tim ky moi nhat.
+
+    Neu truyen `ky` (vd "2026-07"), doc DUNG file kỳ đó thay vì tự chọn kỳ mới nhất -
+    dùng khi caller (vd bài kiểm định nghiệm thu) cần free-float ĐÚNG KỲ đang xét, để
+    không bị lệch kỳ khi sau này co them file moi hon duoc them vao thu muc.
 
     Neu chua co file nao (vd moi clone repo, chua chay cap_nhat_cbtt.py), tra ve ({}, None)
     - moi ma se roi vao missing_data, khong duoc doan.
     """
+    if ky is not None:
+        p = hose_index_dir / f"{ky}.yaml"
+        if not p.exists():
+            return {}, None
+        du_lieu = yaml.safe_load(p.read_text(encoding="utf-8")) or {}
+        return du_lieu.get("free_float", {}) or {}, du_lieu.get("ky")
+
     files = sorted(hose_index_dir.glob("*.yaml"))
     if not files:
         return {}, None

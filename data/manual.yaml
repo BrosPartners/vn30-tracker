@@ -27,3 +27,15 @@ GAS:
 GVR:
   listing_date: 2020-03
   warning_status: none
+
+MCH:
+  # MCH (Masan Consumer) chuyen tu UPCoM sang HOSE: phien cuoi tren UPCoM la
+  # 17/12/2025, chao san HOSE ngay 25/12/2025. Chuoi gia tu vnstock gop ca lich
+  # su UPCoM (bat dau tu 31/10/2023) nen suy ngay niem yet tu ngay giao dich dau
+  # tien se SAI (tinh thanh niem yet tu 2023 thay vi 2025) - phai ghi de thu cong.
+  # Nguon: cong bo HOSE (mã MCH khong xuat hien trong ca 28 trang cua
+  # data/hose_index/cbtt_hose_index_2026-01.pdf, ky chot du lieu 21/01/2026,
+  # dung voi viec MCH moi len HOSE ~1 thang tai thoi diem do va bi loai theo
+  # Dieu 3.2 - xem task chuyen san 2026-09-09).
+  listing_date: 2025-12
+  warning_status: none

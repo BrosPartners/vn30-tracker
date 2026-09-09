@@ -61,7 +61,11 @@ XAP_XI = [
     "Ngày niêm yết cho mã không có xác nhận thủ công trong data/manual.yaml được SUY "
     "từ ngày giao dịch đầu tiên trong chuỗi giá 12 tháng — cách này không phân biệt "
     "được mã mới niêm yết với mã bị tạm ngừng giao dịch dài rồi giao dịch lại trong "
-    "cửa sổ dữ liệu.",
+    "cửa sổ dữ liệu. Cách suy này còn dùng lịch sử giá của mã trên MỌI sàn (nguồn dữ "
+    "liệu không phân biệt sàn), nên với cổ phiếu CHUYỂN SÀN (ví dụ từ UPCoM sang HOSE "
+    "như MCH) thời gian niêm yết trên HOSE sẽ bị tính DÀI HƠN thực tế — những mã như "
+    "vậy được đối chiếu với danh mục VNAllshare của công bố HOSE gần nhất và đánh dấu "
+    "cảnh báo riêng ở cấp mã nếu không có mặt trong công bố đó.",
     "Thứ hạng vốn hóa (GTVH) được tính đầy đủ trên toàn bộ sàn HOSE, nhưng các chỉ "
     "tiêu bình quân 12 tháng (GTVH, GTGD khớp lệnh, thanh khoản...) chỉ được tính "
     "cho nhóm mã đứng đầu theo vốn hóa HIỆN TẠI (xem rules/thresholds.yaml, "
@@ -172,6 +176,17 @@ def lap_stock_inputs(symbols, daily_map, shares_map, manual, previous_basket, fr
         else:
             niem_yet_nguon = None
 
+        # Tuyen kiem tra cheo voi cong bo VNAllshare chinh thuc cua HOSE (xem
+        # rules/models.py, StockInput.canh_bao_chuyen_san): chi ap dung khi ma dat
+        # dieu kien tham gia CHI nho suy luan "truoc cua so" (khong co xac nhan
+        # thu cong) - neu ma khong co mat trong free_float (chinh la danh muc
+        # VNAllshare da qua sang loc cua ky cong bo gan nhat, xem
+        # scripts/cap_nhat_cbtt.py) thi nghi ngo vua chuyen san, phai canh bao.
+        canh_bao_chuyen_san = (
+            niem_yet_nguon == "giao dịch từ trước cửa sổ dữ liệu"
+            and sym not in free_float
+        )
+
         ds.append(StockInput(
             symbol=sym,
             daily=daily,
@@ -187,6 +202,7 @@ def lap_stock_inputs(symbols, daily_map, shares_map, manual, previous_basket, fr
             lnst_ky=lnst["lnst_ky"],
             lnst_nguon=lnst["lnst_nguon"],
             niem_yet_nguon=niem_yet_nguon,
+            canh_bao_chuyen_san=canh_bao_chuyen_san,
         ))
     return ds
 
@@ -269,8 +285,15 @@ def xuat_json(r: BasketResult, as_of: date, ky_review: str, lich_su: dict | None
             "niem_yet_thang": m["niem_yet_thang"],
             "ket_luan": _ket_luan(sym, r),
             # Nhan canh bao rieng cho tung ma - khong duoc am tham bo (spec muc 4.3)
-            "canh_bao": ([] if m["audit_opinion"] == "unqualified"
-                         else ["Chưa xác nhận ý kiến kiểm toán"]),
+            "canh_bao": (
+                ([] if m["audit_opinion"] == "unqualified"
+                 else ["Chưa xác nhận ý kiến kiểm toán"])
+                + (["Chưa xác nhận được thời gian niêm yết trên HOSE; mã không có "
+                    "trong công bố VNAllshare gần nhất nên có thể mới chuyển sàn "
+                    "(vd. từ UPCoM sang HOSE) — cần xác nhận listing_date thủ công "
+                    "trong data/manual.yaml"]
+                   if m["canh_bao_chuyen_san"] else [])
+            ),
             "screens": [
                 {"step": s.step, "rule_ref": s.rule_ref, "passed": s.passed,
                  "message": s.message, "shortfall": s.shortfall,

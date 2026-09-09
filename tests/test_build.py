@@ -2,7 +2,14 @@ from datetime import date
 
 import pandas as pd
 
-from build import canh_bao_ma_ro_cu_bien_mat, lap_stock_inputs, load_free_float_moi_nhat, xuat_json
+from build import (
+    MANUAL_FILE,
+    canh_bao_ma_ro_cu_bien_mat,
+    lap_stock_inputs,
+    load_free_float_moi_nhat,
+    xuat_json,
+)
+from collectors.manual_data import load_manual
 from rules.basket import build_vn30
 
 TIMES = pd.to_datetime(["2026-01-05", "2026-02-05"])
@@ -335,6 +342,73 @@ def test_canh_bao_ma_ro_cu_bien_mat_neu_dich_danh_nhieu_ma():
     assert len(canh_bao) == 2
     ma_neu = " ".join(canh_bao)
     assert "DGC" in ma_neu and "BSR" in ma_neu
+
+
+# ---------------------------------------------------------------------------
+# Canh bao chuyen san (vd MCH: HOSE cong bo lich su UPCoM lan HOSE nen ngay giao
+# dich dau tien trong chuoi gia KHONG phai ngay niem yet HOSE). Tuyen kiem tra
+# cheo: mac dinh "niem_yet_truoc_cua_so" doi voi danh muc VNAllshare cong bo
+# chinh thuc cua HOSE (free_float dict tu data/hose_index/<ky>.yaml, key la
+# chinh tap ma VNAllshare da qua sang loc - xem scripts/cap_nhat_cbtt.py).
+# ---------------------------------------------------------------------------
+
+def test_ma_suy_truoc_cua_so_nhung_khong_co_trong_vnallshare_thi_canh_bao():
+    """Ma dat dieu kien tham gia CHI nho suy luan 'giao dich tu truoc cua so',
+    khong co xac nhan thu cong, va KHONG co trong cong bo VNAllshare gan nhat
+    (free_float dict) -> nghi ngo moi chuyen san, phai gan canh bao."""
+    start = date(2025, 7, 1)
+    free_float = {"VIC": 0.30}  # khong co MCH trong cong bo VNAllshare ky nay
+    ds = lap_stock_inputs(["MCH"], {"MCH": _daily_tu("2025-07-02")}, {"MCH": 1_000_000},
+                          {}, [], free_float, start=start)
+    assert ds[0].niem_yet_truoc_cua_so is True
+    r = build_vn30(ds, date(2026, 7, 1))
+    kq = xuat_json(r, date(2026, 7, 1), "07/2026")
+    dong = next(d for d in kq["stocks"] if d["symbol"] == "MCH")
+    assert any("chuyển sàn" in cb or "VNAllshare" in cb for cb in dong["canh_bao"])
+
+
+def test_ma_suy_truoc_cua_so_va_co_trong_vnallshare_thi_khong_canh_bao():
+    """Cung suy luan 'truoc cua so' nhung ma CO mat trong cong bo VNAllshare
+    gan nhat -> khong co dau hieu chuyen san, khong canh bao."""
+    start = date(2025, 7, 1)
+    free_float = {"ABC": 0.30}  # ABC CO trong cong bo VNAllshare ky nay
+    ds = lap_stock_inputs(["ABC"], {"ABC": _daily_tu("2025-07-02")}, {"ABC": 1_000_000},
+                          {}, [], free_float, start=start)
+    assert ds[0].niem_yet_truoc_cua_so is True
+    r = build_vn30(ds, date(2026, 7, 1))
+    kq = xuat_json(r, date(2026, 7, 1), "07/2026")
+    dong = next(d for d in kq["stocks"] if d["symbol"] == "ABC")
+    assert not any("chuyển sàn" in cb or "VNAllshare" in cb for cb in dong["canh_bao"])
+
+
+def test_ma_co_listing_date_xac_nhan_thu_cong_thi_khong_canh_bao_chuyen_san():
+    """Nguoi da xac nhan listing_date thu cong thi tin nguoi, du ma khong co
+    trong cong bo VNAllshare ky nay (co the cong bo cu hon thuc te)."""
+    manual = {"MCH": {"listing_date": date(2025, 12, 1), "warning_status": "none"}}
+    free_float = {}  # khong co MCH trong cong bo VNAllshare ky nay
+    ds = lap_stock_inputs(["MCH"], {"MCH": _daily_tu("2023-10-31")}, {"MCH": 1_000_000},
+                          manual, [], free_float)
+    assert ds[0].niem_yet_nguon == "xác nhận thủ công"
+    r = build_vn30(ds, date(2026, 7, 1))
+    kq = xuat_json(r, date(2026, 7, 1), "07/2026")
+    dong = next(d for d in kq["stocks"] if d["symbol"] == "MCH")
+    assert not any("chuyển sàn" in cb or "VNAllshare" in cb for cb in dong["canh_bao"])
+
+
+def test_mch_sau_khi_ghi_de_manual_thi_niem_yet_tu_thang_12_2025():
+    """MCH: chao san HOSE that 25/12/2025 nhung chuoi gia (UPCoM+HOSE gop) bat dau
+    tu 31/10/2023 -> khong co listing_date thu cong se suy sai. Sau khi ghi de
+    trong data/manual.yaml, niem_yet_nguon phai la 'xác nhận thủ công' va so
+    thang tinh tu 2025-12."""
+    manual = load_manual(MANUAL_FILE)
+    assert "MCH" in manual, "data/manual.yaml phai co ghi de MCH (xem task chuyen san)"
+    assert manual["MCH"]["listing_date"] == date(2025, 12, 1)
+    free_float = {}
+    ds = lap_stock_inputs(["MCH"], {"MCH": _daily_tu("2023-10-31")}, {"MCH": 1_000_000},
+                          manual, [], free_float)
+    assert ds[0].niem_yet_nguon == "xác nhận thủ công"
+    r = build_vn30(ds, date(2026, 7, 1))
+    assert r.metrics["MCH"]["niem_yet_thang"] == 7  # 2025-12 -> 2026-07 = 7 thang
 
 
 def test_json_xuat_thieu_du_lieu_cho_moi_buoc_sang_loc():

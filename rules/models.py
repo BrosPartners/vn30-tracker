@@ -49,6 +49,14 @@ class StockInput:
     # kiem tra can cu: "xác nhận thủ công" | "suy từ ngày giao dịch đầu tiên" |
     # "giao dịch từ trước cửa sổ dữ liệu" | None (khong biet gi ca)
     niem_yet_nguon: Optional[str] = None
+    # Tuyen kiem tra cheo voi cong bo VNAllshare chinh thuc cua HOSE (xem build.py,
+    # lap_stock_inputs): True khi ma DAT dieu kien tham gia CHI nho suy luan
+    # "giao dich tu truoc cua so" (niem_yet_nguon == "giao dịch từ trước cửa sổ dữ
+    # liệu", KHONG co listing_date xac nhan thu cong) NHUNG lai KHONG co mat trong
+    # danh muc VNAllshare cua cong bo HOSE ky gan nhat - dau hieu ma co the vua
+    # chuyen san (vd UPCoM -> HOSE, xem ca MCH) hoac chua du dieu kien, can nguoi
+    # xac nhan lai listing_date thu cong. KHONG tu dong loai ma, chi canh bao.
+    canh_bao_chuyen_san: bool = False
 
 
 @dataclass

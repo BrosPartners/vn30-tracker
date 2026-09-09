@@ -682,8 +682,8 @@
       "lnst_ty": 3249.0,
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
-      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
-      "niem_yet_thang": null,
+      "niem_yet_nguon": "xác nhận thủ công",
+      "niem_yet_thang": 9,
       "ket_luan": "Thiếu dữ liệu",
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
@@ -693,7 +693,7 @@
           "step": "eligibility",
           "rule_ref": "3.2",
           "passed": true,
-          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
+          "message": "Đã niêm yết 9 tháng",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -1646,7 +1646,8 @@
       "niem_yet_thang": null,
       "ket_luan": "Thiếu dữ liệu",
       "canh_bao": [
-        "Chưa xác nhận ý kiến kiểm toán"
+        "Chưa xác nhận ý kiến kiểm toán",
+        "Chưa xác nhận được thời gian niêm yết trên HOSE; mã không có trong công bố VNAllshare gần nhất nên có thể mới chuyển sàn (vd. từ UPCoM sang HOSE) — cần xác nhận listing_date thủ công trong data/manual.yaml"
       ],
       "screens": [
         {
@@ -3735,7 +3736,7 @@
     "GTGD chưa gồm giao dịch thỏa thuận (nguồn dữ liệu chỉ có khớp lệnh) — turnover ratio là ước tính cận dưới.",
     "GTVH 12 tháng dùng số cổ phiếu lưu hành hiện tại cho toàn chuỗi giá quá khứ — lệch với mã có phát hành thêm hoặc chia thưởng trong kỳ.",
     "Ý kiến kiểm toán không đọc được tự động — mã chưa xác nhận hiển thị là 'chưa xác nhận', không mặc định là đạt.",
-    "Ngày niêm yết cho mã không có xác nhận thủ công trong data/manual.yaml được SUY từ ngày giao dịch đầu tiên trong chuỗi giá 12 tháng — cách này không phân biệt được mã mới niêm yết với mã bị tạm ngừng giao dịch dài rồi giao dịch lại trong cửa sổ dữ liệu.",
+    "Ngày niêm yết cho mã không có xác nhận thủ công trong data/manual.yaml được SUY từ ngày giao dịch đầu tiên trong chuỗi giá 12 tháng — cách này không phân biệt được mã mới niêm yết với mã bị tạm ngừng giao dịch dài rồi giao dịch lại trong cửa sổ dữ liệu. Cách suy này còn dùng lịch sử giá của mã trên MỌI sàn (nguồn dữ liệu không phân biệt sàn), nên với cổ phiếu CHUYỂN SÀN (ví dụ từ UPCoM sang HOSE như MCH) thời gian niêm yết trên HOSE sẽ bị tính DÀI HƠN thực tế — những mã như vậy được đối chiếu với danh mục VNAllshare của công bố HOSE gần nhất và đánh dấu cảnh báo riêng ở cấp mã nếu không có mặt trong công bố đó.",
     "Thứ hạng vốn hóa (GTVH) được tính đầy đủ trên toàn bộ sàn HOSE, nhưng các chỉ tiêu bình quân 12 tháng (GTVH, GTGD khớp lệnh, thanh khoản...) chỉ được tính cho nhóm mã đứng đầu theo vốn hóa HIỆN TẠI (xem rules/thresholds.yaml, vn30.so_ma_lay_lich_su_gia) nhằm giảm số lượt gọi dữ liệu giá lịch sử — mã ngoài nhóm này không được xét vào rổ."
   ],
   "canh_bao": [

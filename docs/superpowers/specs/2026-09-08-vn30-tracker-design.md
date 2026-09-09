@@ -200,6 +200,32 @@ hạn trong top 50.
    tạm ngừng giao dịch dài rồi giao dịch lại trong cửa sổ dữ liệu 12 tháng**: cả hai đều có
    ngày giao dịch đầu tiên nằm trong cửa sổ. Web hiển thị `niem_yet_nguon` cho từng mã để người
    đọc tự đối chiếu khi nghi ngờ.
+
+   **Bẫy chuyển sàn (phát hiện 2026-09-09, mã MCH):** nguồn dữ liệu giá (vnstock) trả về lịch
+   sử giao dịch của mã trên **MỌI sàn**, không chỉ HOSE. Với cổ phiếu **chuyển sàn** (ví dụ từ
+   UPCoM sang HOSE), ngày giao dịch đầu tiên trong chuỗi giá là ngày mã bắt đầu giao dịch ở sàn
+   CŨ, không phải ngày niêm yết HOSE thật — nên `suy_ngay_niem_yet` tính thời gian niêm yết
+   trên HOSE **dài hơn thực tế**. Ca cụ thể: MCH (Masan Consumer) có phiên giao dịch đầu tiên
+   trong dữ liệu là 31/10/2023 (lịch sử UPCoM), nhưng chỉ chào sàn HOSE ngày 25/12/2025 (phiên
+   cuối trên UPCoM 17/12/2025). Nếu suy từ chuỗi giá, công cụ sẽ kết luận sai là MCH đã niêm
+   yết trên HOSE từ 2023, trong khi thực tế tại kỳ chốt dữ liệu 21/01/2026 MCH mới có ~1 tháng
+   trên HOSE và bị Điều 3.2 loại khỏi VNAllshare — đúng như công bố CBTT của HOSE (MCH không
+   xuất hiện lần nào trong `data/hose_index/cbtt_hose_index_2026-01.pdf`).
+
+   **Tuyến kiểm tra chéo (khắc phục):** danh mục VNAllshare trong công bố CBTT gần nhất của
+   HOSE (chính là tập khóa của `free_float` trong `data/hose_index/<ky>.yaml`, xem
+   `scripts/cap_nhat_cbtt.py`) là tập mã **đã qua sàng lọc điều kiện tham gia**, bao gồm cả quy
+   tắc 6 tháng. Vì vậy, `lap_stock_inputs` (build.py) đối chiếu: nếu một mã được suy là "đã
+   giao dịch từ trước cửa sổ dữ liệu" (`niem_yet_nguon == "giao dịch từ trước cửa sổ dữ liệu"`,
+   không có `listing_date` xác nhận thủ công) NHƯNG mã đó **không có mặt trong `free_float`
+   (= không có trong công bố VNAllshare gần nhất)**, đó là dấu hiệu mã có thể vừa chuyển sàn
+   hoặc chưa đủ điều kiện — `StockInput.canh_bao_chuyen_san = True`, và JSON xuất ra gắn nhãn
+   cảnh báo cấp mã (`stocks[].canh_bao`) yêu cầu xác nhận `listing_date` thủ công. Công cụ
+   **KHÔNG tự động loại mã** ở bước này (công bố CBTT có thể chỉ đơn giản cũ hơn thực tế), chỉ
+   cảnh báo để người đọc tự kiểm. Mã có `listing_date` xác nhận thủ công trong `manual.yaml`
+   luôn được tin, không bị gắn cảnh báo này (xem `data/manual.yaml`, mục MCH: ghi đè
+   `listing_date: 2025-12`). `rules/` không import từ `collectors/` và ngược lại — dữ liệu
+   `free_float` được TRUYỀN VÀO `lap_stock_inputs` từ `build.py`, không tạo phụ thuộc chéo.
 6. **Rổ VN30 "kỳ trước" (`data/baskets/*.json`, `data/previous_basket.json`) suy ra bằng cách
    cộng dồn delta giữa các kỳ, không phải chép lại PDF công bố mỗi kỳ** — bài học rút ra
    2026-09 (xem `data/baskets/NGUON.md`): rổ VN30 có thể thay đổi **GIỮA KỲ** theo Điều 8

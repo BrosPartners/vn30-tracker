@@ -35,6 +35,7 @@ def build_vn30(stocks: list[StockInput], as_of: date) -> BasketResult:
             "lnst_ky": s.lnst_ky,
             "lnst_nguon": s.lnst_nguon,
             "niem_yet_nguon": s.niem_yet_nguon,
+            "canh_bao_chuyen_san": s.canh_bao_chuyen_san,
             # So thang chi tinh duoc khi co listing_date cu the; ma "truoc cua so"
             # chi biet la du 6 thang, khong biet chinh xac bao nhieu thang -> None.
             "niem_yet_thang": None if s.listing_date is None else listing_months(s, as_of),

@@ -3,7 +3,7 @@
 # ve danh muc va co cau chi so ky 2026-07, tai tu static2.vietstock.vn.
 # Muon sua du lieu: sua file PDF nguon (hoac thay file PDF ky moi vao
 # data/hose_index/) roi chay lai: python scripts/cap_nhat_cbtt.py
-# Sinh luc: 2026-09-09
+# Sinh luc: 2026-09-10
 ky: 2026-07
 vn30:
 - ACB

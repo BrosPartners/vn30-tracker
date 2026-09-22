@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-09-18",
+  "as_of": "2026-09-22",
   "ky_review": "01/2027",
   "constituents": [
     "VIC",
@@ -14,8 +14,8 @@
     "MCH",
     "MBB",
     "VPL",
-    "FPT",
     "LPB",
+    "FPT",
     "HDB",
     "GVR",
     "ACB",
@@ -26,30 +26,30 @@
     "MSN",
     "VJC",
     "TCX",
+    "SSI",
     "SHB",
     "VRE",
+    "SAB",
     "VIB",
-    "SSB",
-    "VCK",
-    "GEE"
+    "SSB"
   ],
   "reserve": [
+    "VCK",
+    "GEE",
     "VPX",
     "PLX",
-    "VIX",
-    "BVH",
-    "TPB"
+    "VIX"
   ],
   "missing_data": [],
   "stocks": [
     {
       "symbol": "VIC",
       "gtvh_rank": 1,
-      "gtvh_ty": 1249105.2,
-      "gtvh_f_ty": 374731.6,
-      "gtgd_kl_ty": 685.2,
-      "klgd_kl": 4187918,
-      "turnover": 0.001828,
+      "gtvh_ty": 1256485.9,
+      "gtvh_f_ty": 376945.8,
+      "gtgd_kl_ty": 676.6,
+      "klgd_kl": 4123133,
+      "turnover": 0.001795,
       "free_float": 0.3,
       "free_float_rounded": 0.3,
       "in_previous_basket": true,
@@ -84,7 +84,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 0.183%",
+          "message": "Turnover 0.179%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -92,7 +92,7 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 4.187.918 cp và GTGD 685 tỷ/phiên",
+          "message": "KLGD 4.123.133 cp và GTGD 677 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -109,11 +109,11 @@
     {
       "symbol": "VCB",
       "gtvh_rank": 2,
-      "gtvh_ty": 509018.4,
-      "gtvh_f_ty": 55992.0,
-      "gtgd_kl_ty": 382.7,
-      "klgd_kl": 6165346,
-      "turnover": 0.006835,
+      "gtvh_ty": 508858.4,
+      "gtvh_f_ty": 55974.4,
+      "gtgd_kl_ty": 381.1,
+      "klgd_kl": 6133107,
+      "turnover": 0.006809,
       "free_float": 0.11,
       "free_float_rounded": 0.11,
       "in_previous_basket": true,
@@ -148,7 +148,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 0.684%",
+          "message": "Turnover 0.681%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -156,7 +156,7 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 6.165.346 cp và GTGD 383 tỷ/phiên",
+          "message": "KLGD 6.133.107 cp và GTGD 381 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -173,11 +173,11 @@
     {
       "symbol": "VHM",
       "gtvh_rank": 3,
-      "gtvh_ty": 490650.0,
-      "gtvh_f_ty": 147195.0,
-      "gtgd_kl_ty": 359.2,
-      "klgd_kl": 5862637,
-      "turnover": 0.00244,
+      "gtvh_ty": 491569.3,
+      "gtvh_f_ty": 147470.8,
+      "gtgd_kl_ty": 359.0,
+      "klgd_kl": 5856087,
+      "turnover": 0.002434,
       "free_float": 0.3,
       "free_float_rounded": 0.3,
       "in_previous_basket": true,
@@ -212,7 +212,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 0.244%",
+          "message": "Turnover 0.243%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -220,7 +220,7 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 5.862.637 cp và GTGD 359 tỷ/phiên",
+          "message": "KLGD 5.856.087 cp và GTGD 359 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -237,11 +237,11 @@
     {
       "symbol": "BID",
       "gtvh_rank": 4,
-      "gtvh_ty": 277576.9,
-      "gtvh_f_ty": 16654.6,
-      "gtgd_kl_ty": 227.0,
-      "klgd_kl": 5771007,
-      "turnover": 0.013631,
+      "gtvh_ty": 277496.6,
+      "gtvh_f_ty": 16649.8,
+      "gtgd_kl_ty": 223.6,
+      "klgd_kl": 5672459,
+      "turnover": 0.013428,
       "free_float": 0.06,
       "free_float_rounded": 0.06,
       "in_previous_basket": true,
@@ -268,7 +268,7 @@
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
-          "message": "Free float 6% dưới 10% nhưng đạt ngoại lệ: vốn hóa free-float 16.655 tỷ ≥ 2.000 tỷ (mã đang trong rổ)",
+          "message": "Free float 6% dưới 10% nhưng đạt ngoại lệ: vốn hóa free-float 16.650 tỷ ≥ 2.000 tỷ (mã đang trong rổ)",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -276,7 +276,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 1.363%",
+          "message": "Turnover 1.343%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -284,7 +284,7 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 5.771.007 cp và GTGD 227 tỷ/phiên",
+          "message": "KLGD 5.672.459 cp và GTGD 224 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -301,11 +301,11 @@
     {
       "symbol": "CTG",
       "gtvh_rank": 5,
-      "gtvh_ty": 265400.0,
-      "gtvh_f_ty": 39810.0,
-      "gtgd_kl_ty": 332.3,
-      "klgd_kl": 9553365,
-      "turnover": 0.008348,
+      "gtvh_ty": 265215.2,
+      "gtvh_f_ty": 39782.3,
+      "gtgd_kl_ty": 331.7,
+      "klgd_kl": 9552405,
+      "turnover": 0.008339,
       "free_float": 0.15,
       "free_float_rounded": 0.15,
       "in_previous_basket": true,
@@ -340,7 +340,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 0.835%",
+          "message": "Turnover 0.834%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -348,7 +348,7 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 9.553.365 cp và GTGD 332 tỷ/phiên",
+          "message": "KLGD 9.552.405 cp và GTGD 332 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -365,11 +365,11 @@
     {
       "symbol": "TCB",
       "gtvh_rank": 6,
-      "gtvh_ty": 236277.7,
-      "gtvh_f_ty": 129952.8,
-      "gtgd_kl_ty": 473.4,
-      "klgd_kl": 13866536,
-      "turnover": 0.003643,
+      "gtvh_ty": 236081.9,
+      "gtvh_f_ty": 129845.1,
+      "gtgd_kl_ty": 462.7,
+      "klgd_kl": 13579751,
+      "turnover": 0.003564,
       "free_float": 0.55,
       "free_float_rounded": 0.55,
       "in_previous_basket": true,
@@ -404,7 +404,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 0.364%",
+          "message": "Turnover 0.356%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -412,7 +412,7 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 13.866.536 cp và GTGD 473 tỷ/phiên",
+          "message": "KLGD 13.579.751 cp và GTGD 463 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -429,11 +429,11 @@
     {
       "symbol": "VPB",
       "gtvh_rank": 7,
-      "gtvh_ty": 220302.3,
-      "gtvh_f_ty": 121166.2,
-      "gtgd_kl_ty": 640.1,
-      "klgd_kl": 22000759,
-      "turnover": 0.005283,
+      "gtvh_ty": 220089.1,
+      "gtvh_f_ty": 121049.0,
+      "gtgd_kl_ty": 630.0,
+      "klgd_kl": 21693711,
+      "turnover": 0.005204,
       "free_float": 0.55,
       "free_float_rounded": 0.55,
       "in_previous_basket": true,
@@ -468,7 +468,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 0.528%",
+          "message": "Turnover 0.520%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -476,7 +476,7 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 22.000.759 cp và GTGD 640 tỷ/phiên",
+          "message": "KLGD 21.693.711 cp và GTGD 630 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -493,11 +493,11 @@
     {
       "symbol": "HPG",
       "gtvh_rank": 8,
-      "gtvh_ty": 201095.7,
-      "gtvh_f_ty": 120657.4,
-      "gtgd_kl_ty": 831.9,
-      "klgd_kl": 34173091,
-      "turnover": 0.006895,
+      "gtvh_ty": 200906.5,
+      "gtvh_f_ty": 120543.9,
+      "gtgd_kl_ty": 817.9,
+      "klgd_kl": 33605761,
+      "turnover": 0.006785,
       "free_float": 0.6,
       "free_float_rounded": 0.6,
       "in_previous_basket": true,
@@ -532,7 +532,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 0.689%",
+          "message": "Turnover 0.679%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -540,7 +540,7 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 34.173.091 cp và GTGD 832 tỷ/phiên",
+          "message": "KLGD 33.605.761 cp và GTGD 818 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -557,11 +557,11 @@
     {
       "symbol": "GAS",
       "gtvh_rank": 9,
-      "gtvh_ty": 188924.8,
-      "gtvh_f_ty": 9446.2,
-      "gtgd_kl_ty": 141.3,
-      "klgd_kl": 1681639,
-      "turnover": 0.014959,
+      "gtvh_ty": 183898.0,
+      "gtvh_f_ty": 9194.9,
+      "gtgd_kl_ty": 137.2,
+      "klgd_kl": 1676666,
+      "turnover": 0.014926,
       "free_float": 0.05,
       "free_float_rounded": 0.05,
       "in_previous_basket": true,
@@ -588,7 +588,7 @@
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
-          "message": "Free float 5% dưới 10% nhưng đạt ngoại lệ: vốn hóa free-float 9.446 tỷ ≥ 2.000 tỷ (mã đang trong rổ)",
+          "message": "Free float 5% dưới 10% nhưng đạt ngoại lệ: vốn hóa free-float 9.195 tỷ ≥ 2.000 tỷ (mã đang trong rổ)",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -596,7 +596,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 1.496%",
+          "message": "Turnover 1.493%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -604,7 +604,7 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 1.681.639 cp và GTGD 141 tỷ/phiên",
+          "message": "KLGD 1.676.666 cp và GTGD 137 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -621,11 +621,11 @@
     {
       "symbol": "MCH",
       "gtvh_rank": 10,
-      "gtvh_ty": 179725.3,
-      "gtvh_f_ty": 35945.1,
-      "gtgd_kl_ty": 48.8,
-      "klgd_kl": 354192,
-      "turnover": 0.001359,
+      "gtvh_ty": 180004.1,
+      "gtvh_f_ty": 36000.8,
+      "gtgd_kl_ty": 50.5,
+      "klgd_kl": 366663,
+      "turnover": 0.001402,
       "free_float": 0.2,
       "free_float_rounded": 0.2,
       "in_previous_basket": true,
@@ -660,7 +660,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 0.136%",
+          "message": "Turnover 0.140%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -668,7 +668,7 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 354.192 cp và GTGD 49 tỷ/phiên",
+          "message": "KLGD 366.663 cp và GTGD 50 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -685,11 +685,11 @@
     {
       "symbol": "MBB",
       "gtvh_rank": 11,
-      "gtvh_ty": 165723.8,
-      "gtvh_f_ty": 82861.9,
-      "gtgd_kl_ty": 460.2,
-      "klgd_kl": 21916526,
-      "turnover": 0.005553,
+      "gtvh_ty": 165647.6,
+      "gtvh_f_ty": 82823.8,
+      "gtgd_kl_ty": 457.9,
+      "klgd_kl": 21889493,
+      "turnover": 0.005528,
       "free_float": 0.5,
       "free_float_rounded": 0.5,
       "in_previous_basket": true,
@@ -724,7 +724,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 0.555%",
+          "message": "Turnover 0.553%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -732,7 +732,7 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 21.916.526 cp và GTGD 460 tỷ/phiên",
+          "message": "KLGD 21.889.493 cp và GTGD 458 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -749,11 +749,11 @@
     {
       "symbol": "VPL",
       "gtvh_rank": 12,
-      "gtvh_ty": 151063.5,
-      "gtvh_f_ty": 22659.5,
+      "gtvh_ty": 151044.6,
+      "gtvh_f_ty": 22656.7,
       "gtgd_kl_ty": 58.6,
-      "klgd_kl": 693925,
-      "turnover": 0.002585,
+      "klgd_kl": 693986,
+      "turnover": 0.002586,
       "free_float": 0.15,
       "free_float_rounded": 0.15,
       "in_previous_basket": true,
@@ -788,7 +788,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 0.258%",
+          "message": "Turnover 0.259%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -796,71 +796,7 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 693.925 cp và GTGD 59 tỷ/phiên",
-          "shortfall": null,
-          "thieu_du_lieu": false
-        },
-        {
-          "step": "profit",
-          "rule_ref": "4.3.1.d",
-          "passed": true,
-          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null,
-          "thieu_du_lieu": false
-        }
-      ]
-    },
-    {
-      "symbol": "FPT",
-      "gtvh_rank": 13,
-      "gtvh_ty": 144122.2,
-      "gtvh_f_ty": 122503.9,
-      "gtgd_kl_ty": 710.0,
-      "klgd_kl": 8216434,
-      "turnover": 0.005796,
-      "free_float": 0.85,
-      "free_float_rounded": 0.85,
-      "in_previous_basket": true,
-      "lnst_ty": 5055.0,
-      "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
-      "lnst_nguon": "tự động",
-      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
-      "niem_yet_thang": null,
-      "ket_luan": "Trong rổ dự kiến",
-      "hose_loai_khoi_vnallshare": false,
-      "canh_bao": [
-        "Chưa xác nhận ý kiến kiểm toán"
-      ],
-      "screens": [
-        {
-          "step": "eligibility",
-          "rule_ref": "3.2",
-          "passed": true,
-          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null,
-          "thieu_du_lieu": false
-        },
-        {
-          "step": "free_float",
-          "rule_ref": "3.3.3",
-          "passed": true,
-          "message": "Free float 85%",
-          "shortfall": null,
-          "thieu_du_lieu": false
-        },
-        {
-          "step": "liquidity",
-          "rule_ref": "3.4",
-          "passed": true,
-          "message": "Turnover 0.580%",
-          "shortfall": null,
-          "thieu_du_lieu": false
-        },
-        {
-          "step": "vn30_liquidity",
-          "rule_ref": "4.3.1.a-b",
-          "passed": true,
-          "message": "KLGD 8.216.434 cp và GTGD 710 tỷ/phiên",
+          "message": "KLGD 693.986 cp và GTGD 59 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -876,12 +812,12 @@
     },
     {
       "symbol": "LPB",
-      "gtvh_rank": 14,
-      "gtvh_ty": 136923.9,
-      "gtvh_f_ty": 123231.5,
-      "gtgd_kl_ty": 98.4,
-      "klgd_kl": 2156107,
-      "turnover": 0.000799,
+      "gtvh_rank": 13,
+      "gtvh_ty": 136960.9,
+      "gtvh_f_ty": 123264.8,
+      "gtgd_kl_ty": 97.1,
+      "klgd_kl": 2125778,
+      "turnover": 0.000788,
       "free_float": 0.9,
       "free_float_rounded": 0.9,
       "in_previous_basket": true,
@@ -916,7 +852,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 0.080%",
+          "message": "Turnover 0.079%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -924,7 +860,71 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 2.156.107 cp và GTGD 98 tỷ/phiên",
+          "message": "KLGD 2.125.778 cp và GTGD 97 tỷ/phiên",
+          "shortfall": null,
+          "thieu_du_lieu": false
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
+          "shortfall": null,
+          "thieu_du_lieu": false
+        }
+      ]
+    },
+    {
+      "symbol": "FPT",
+      "gtvh_rank": 14,
+      "gtvh_ty": 130829.5,
+      "gtvh_f_ty": 111205.1,
+      "gtgd_kl_ty": 633.0,
+      "klgd_kl": 8085183,
+      "turnover": 0.005692,
+      "free_float": 0.85,
+      "free_float_rounded": 0.85,
+      "in_previous_basket": true,
+      "lnst_ty": 5055.0,
+      "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
+      "lnst_nguon": "tự động",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Trong rổ dự kiến",
+      "hose_loai_khoi_vnallshare": false,
+      "canh_bao": [
+        "Chưa xác nhận ý kiến kiểm toán"
+      ],
+      "screens": [
+        {
+          "step": "eligibility",
+          "rule_ref": "3.2",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
+          "shortfall": null,
+          "thieu_du_lieu": false
+        },
+        {
+          "step": "free_float",
+          "rule_ref": "3.3.3",
+          "passed": true,
+          "message": "Free float 85%",
+          "shortfall": null,
+          "thieu_du_lieu": false
+        },
+        {
+          "step": "liquidity",
+          "rule_ref": "3.4",
+          "passed": true,
+          "message": "Turnover 0.569%",
+          "shortfall": null,
+          "thieu_du_lieu": false
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 8.085.183 cp và GTGD 633 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -941,11 +941,11 @@
     {
       "symbol": "HDB",
       "gtvh_rank": 15,
-      "gtvh_ty": 129921.7,
-      "gtvh_f_ty": 103937.3,
-      "gtgd_kl_ty": 360.6,
-      "klgd_kl": 13857930,
-      "turnover": 0.00347,
+      "gtvh_ty": 130007.9,
+      "gtvh_f_ty": 104006.3,
+      "gtgd_kl_ty": 356.0,
+      "klgd_kl": 13728684,
+      "turnover": 0.003423,
       "free_float": 0.8,
       "free_float_rounded": 0.8,
       "in_previous_basket": true,
@@ -980,7 +980,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 0.347%",
+          "message": "Turnover 0.342%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -988,7 +988,7 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 13.857.930 cp và GTGD 361 tỷ/phiên",
+          "message": "KLGD 13.728.684 cp và GTGD 356 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -1005,11 +1005,11 @@
     {
       "symbol": "GVR",
       "gtvh_rank": 16,
-      "gtvh_ty": 126208.1,
-      "gtvh_f_ty": 5048.3,
-      "gtgd_kl_ty": 112.3,
-      "klgd_kl": 3410663,
-      "turnover": 0.022245,
+      "gtvh_ty": 126224.4,
+      "gtvh_f_ty": 5049.0,
+      "gtgd_kl_ty": 111.1,
+      "klgd_kl": 3365590,
+      "turnover": 0.022013,
       "free_float": 0.04,
       "free_float_rounded": 0.04,
       "in_previous_basket": true,
@@ -1036,7 +1036,7 @@
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
-          "message": "Free float 4% dưới 10% nhưng đạt ngoại lệ: vốn hóa free-float 5.048 tỷ ≥ 2.000 tỷ (mã đang trong rổ)",
+          "message": "Free float 4% dưới 10% nhưng đạt ngoại lệ: vốn hóa free-float 5.049 tỷ ≥ 2.000 tỷ (mã đang trong rổ)",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -1044,7 +1044,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 2.224%",
+          "message": "Turnover 2.201%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -1052,7 +1052,7 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 3.410.663 cp và GTGD 112 tỷ/phiên",
+          "message": "KLGD 3.365.590 cp và GTGD 111 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -1069,11 +1069,11 @@
     {
       "symbol": "ACB",
       "gtvh_rank": 17,
-      "gtvh_ty": 124987.8,
-      "gtvh_f_ty": 106239.7,
-      "gtgd_kl_ty": 295.0,
-      "klgd_kl": 13549319,
-      "turnover": 0.002777,
+      "gtvh_ty": 124960.8,
+      "gtvh_f_ty": 106216.7,
+      "gtgd_kl_ty": 284.9,
+      "klgd_kl": 13133123,
+      "turnover": 0.002682,
       "free_float": 0.85,
       "free_float_rounded": 0.85,
       "in_previous_basket": true,
@@ -1108,7 +1108,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 0.278%",
+          "message": "Turnover 0.268%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -1116,7 +1116,7 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 13.549.319 cp và GTGD 295 tỷ/phiên",
+          "message": "KLGD 13.133.123 cp và GTGD 285 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -1133,11 +1133,11 @@
     {
       "symbol": "VNM",
       "gtvh_rank": 18,
-      "gtvh_ty": 124563.3,
-      "gtvh_f_ty": 49825.3,
-      "gtgd_kl_ty": 262.6,
-      "klgd_kl": 4340215,
-      "turnover": 0.00527,
+      "gtvh_ty": 124613.0,
+      "gtvh_f_ty": 49845.2,
+      "gtgd_kl_ty": 261.2,
+      "klgd_kl": 4315857,
+      "turnover": 0.00524,
       "free_float": 0.4,
       "free_float_rounded": 0.4,
       "in_previous_basket": true,
@@ -1172,7 +1172,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 0.527%",
+          "message": "Turnover 0.524%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -1180,7 +1180,7 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 4.340.215 cp và GTGD 263 tỷ/phiên",
+          "message": "KLGD 4.315.857 cp và GTGD 261 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -1197,11 +1197,11 @@
     {
       "symbol": "STB",
       "gtvh_rank": 19,
-      "gtvh_ty": 118994.4,
-      "gtvh_f_ty": 113044.7,
-      "gtgd_kl_ty": 461.9,
-      "klgd_kl": 7714493,
-      "turnover": 0.004086,
+      "gtvh_ty": 119248.0,
+      "gtvh_f_ty": 113285.6,
+      "gtgd_kl_ty": 450.2,
+      "klgd_kl": 7507086,
+      "turnover": 0.003974,
       "free_float": 0.95,
       "free_float_rounded": 0.95,
       "in_previous_basket": true,
@@ -1236,7 +1236,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 0.409%",
+          "message": "Turnover 0.397%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -1244,7 +1244,7 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 7.714.493 cp và GTGD 462 tỷ/phiên",
+          "message": "KLGD 7.507.086 cp và GTGD 450 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -1261,11 +1261,11 @@
     {
       "symbol": "MWG",
       "gtvh_rank": 20,
-      "gtvh_ty": 116953.9,
-      "gtvh_f_ty": 87715.4,
-      "gtgd_kl_ty": 481.0,
-      "klgd_kl": 6067011,
-      "turnover": 0.005484,
+      "gtvh_ty": 116937.3,
+      "gtvh_f_ty": 87703.0,
+      "gtgd_kl_ty": 484.3,
+      "klgd_kl": 6081952,
+      "turnover": 0.005521,
       "free_float": 0.75,
       "free_float_rounded": 0.75,
       "in_previous_basket": true,
@@ -1300,7 +1300,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 0.548%",
+          "message": "Turnover 0.552%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -1308,7 +1308,7 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 6.067.011 cp và GTGD 481 tỷ/phiên",
+          "message": "KLGD 6.081.952 cp và GTGD 484 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -1325,11 +1325,11 @@
     {
       "symbol": "BSR",
       "gtvh_rank": 21,
-      "gtvh_ty": 113664.8,
-      "gtvh_f_ty": 9093.2,
-      "gtgd_kl_ty": 313.8,
-      "klgd_kl": 13411770,
-      "turnover": 0.034507,
+      "gtvh_ty": 114074.7,
+      "gtvh_f_ty": 9126.0,
+      "gtgd_kl_ty": 312.7,
+      "klgd_kl": 13277048,
+      "turnover": 0.034265,
       "free_float": 0.08,
       "free_float_rounded": 0.08,
       "in_previous_basket": true,
@@ -1356,7 +1356,7 @@
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": true,
-          "message": "Free float 8% dưới 10% nhưng đạt ngoại lệ: vốn hóa free-float 9.093 tỷ ≥ 2.000 tỷ (mã đang trong rổ)",
+          "message": "Free float 8% dưới 10% nhưng đạt ngoại lệ: vốn hóa free-float 9.126 tỷ ≥ 2.000 tỷ (mã đang trong rổ)",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -1364,7 +1364,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 3.451%",
+          "message": "Turnover 3.427%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -1372,7 +1372,7 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 13.411.770 cp và GTGD 314 tỷ/phiên",
+          "message": "KLGD 13.277.048 cp và GTGD 313 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -1389,11 +1389,11 @@
     {
       "symbol": "MSN",
       "gtvh_rank": 22,
-      "gtvh_ty": 110856.1,
-      "gtvh_f_ty": 66513.6,
-      "gtgd_kl_ty": 445.4,
-      "klgd_kl": 5732071,
-      "turnover": 0.006696,
+      "gtvh_ty": 110737.7,
+      "gtvh_f_ty": 66442.6,
+      "gtgd_kl_ty": 442.2,
+      "klgd_kl": 5710150,
+      "turnover": 0.006655,
       "free_float": 0.6,
       "free_float_rounded": 0.6,
       "in_previous_basket": true,
@@ -1428,7 +1428,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 0.670%",
+          "message": "Turnover 0.666%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -1436,7 +1436,7 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 5.732.071 cp và GTGD 445 tỷ/phiên",
+          "message": "KLGD 5.710.150 cp và GTGD 442 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -1453,11 +1453,11 @@
     {
       "symbol": "VJC",
       "gtvh_rank": 23,
-      "gtvh_ty": 101159.1,
-      "gtvh_f_ty": 35405.7,
-      "gtgd_kl_ty": 205.2,
-      "klgd_kl": 1568637,
-      "turnover": 0.005796,
+      "gtvh_ty": 101249.9,
+      "gtvh_f_ty": 35437.5,
+      "gtgd_kl_ty": 204.6,
+      "klgd_kl": 1559276,
+      "turnover": 0.005773,
       "free_float": 0.35,
       "free_float_rounded": 0.35,
       "in_previous_basket": true,
@@ -1492,7 +1492,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 0.580%",
+          "message": "Turnover 0.577%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -1500,7 +1500,7 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 1.568.637 cp và GTGD 205 tỷ/phiên",
+          "message": "KLGD 1.559.276 cp và GTGD 205 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -1517,10 +1517,10 @@
     {
       "symbol": "DMX",
       "gtvh_rank": 24,
-      "gtvh_ty": 100002.7,
+      "gtvh_ty": 99840.5,
       "gtvh_f_ty": null,
-      "gtgd_kl_ty": 37.2,
-      "klgd_kl": 464288,
+      "gtgd_kl_ty": 36.0,
+      "klgd_kl": 446638,
       "turnover": null,
       "free_float": null,
       "free_float_rounded": null,
@@ -1565,11 +1565,11 @@
     {
       "symbol": "TCX",
       "gtvh_rank": 25,
-      "gtvh_ty": 95891.5,
-      "gtvh_f_ty": 14383.7,
-      "gtgd_kl_ty": 66.3,
-      "klgd_kl": 1899528,
-      "turnover": 0.004611,
+      "gtvh_ty": 95804.8,
+      "gtvh_f_ty": 14370.7,
+      "gtgd_kl_ty": 66.1,
+      "klgd_kl": 1896502,
+      "turnover": 0.004597,
       "free_float": 0.15,
       "free_float_rounded": 0.15,
       "in_previous_basket": true,
@@ -1577,7 +1577,7 @@
       "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
       "lnst_nguon": "tự động",
       "niem_yet_nguon": "suy từ ngày giao dịch đầu tiên",
-      "niem_yet_thang": 10,
+      "niem_yet_thang": 11,
       "ket_luan": "Trong rổ dự kiến",
       "hose_loai_khoi_vnallshare": false,
       "canh_bao": [
@@ -1588,7 +1588,7 @@
           "step": "eligibility",
           "rule_ref": "3.2",
           "passed": true,
-          "message": "Đã niêm yết 10 tháng",
+          "message": "Đã niêm yết 11 tháng",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -1604,7 +1604,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 0.461%",
+          "message": "Turnover 0.460%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -1612,7 +1612,7 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 1.899.528 cp và GTGD 66 tỷ/phiên",
+          "message": "KLGD 1.896.502 cp và GTGD 66 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -1629,10 +1629,10 @@
     {
       "symbol": "HVN",
       "gtvh_rank": 26,
-      "gtvh_ty": 81715.1,
+      "gtvh_ty": 81520.1,
       "gtvh_f_ty": null,
-      "gtgd_kl_ty": 29.6,
-      "klgd_kl": 1090064,
+      "gtgd_kl_ty": 29.1,
+      "klgd_kl": 1072311,
       "turnover": null,
       "free_float": null,
       "free_float_rounded": null,
@@ -1678,11 +1678,11 @@
     {
       "symbol": "VCK",
       "gtvh_rank": 27,
-      "gtvh_ty": 77611.6,
-      "gtvh_f_ty": 19402.9,
-      "gtgd_kl_ty": 96.5,
-      "klgd_kl": 2972328,
-      "turnover": 0.004973,
+      "gtvh_ty": 77533.3,
+      "gtvh_f_ty": 19383.3,
+      "gtgd_kl_ty": 96.1,
+      "klgd_kl": 2954553,
+      "turnover": 0.004956,
       "free_float": 0.25,
       "free_float_rounded": 0.25,
       "in_previous_basket": false,
@@ -1691,7 +1691,7 @@
       "lnst_nguon": "tự động",
       "niem_yet_nguon": "suy từ ngày giao dịch đầu tiên",
       "niem_yet_thang": 9,
-      "ket_luan": "Trong rổ dự kiến",
+      "ket_luan": "Dự phòng",
       "hose_loai_khoi_vnallshare": false,
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
@@ -1717,7 +1717,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 0.497%",
+          "message": "Turnover 0.496%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -1725,7 +1725,71 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 2.972.328 cp và GTGD 96 tỷ/phiên",
+          "message": "KLGD 2.954.553 cp và GTGD 96 tỷ/phiên",
+          "shortfall": null,
+          "thieu_du_lieu": false
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
+          "shortfall": null,
+          "thieu_du_lieu": false
+        }
+      ]
+    },
+    {
+      "symbol": "SSI",
+      "gtvh_rank": 28,
+      "gtvh_ty": 71131.7,
+      "gtvh_f_ty": 49792.2,
+      "gtgd_kl_ty": 664.4,
+      "klgd_kl": 26898207,
+      "turnover": 0.013344,
+      "free_float": 0.7,
+      "free_float_rounded": 0.7,
+      "in_previous_basket": true,
+      "lnst_ty": 2509.0,
+      "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
+      "lnst_nguon": "tự động",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Trong rổ dự kiến",
+      "hose_loai_khoi_vnallshare": false,
+      "canh_bao": [
+        "Chưa xác nhận ý kiến kiểm toán"
+      ],
+      "screens": [
+        {
+          "step": "eligibility",
+          "rule_ref": "3.2",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
+          "shortfall": null,
+          "thieu_du_lieu": false
+        },
+        {
+          "step": "free_float",
+          "rule_ref": "3.3.3",
+          "passed": true,
+          "message": "Free float 70%",
+          "shortfall": null,
+          "thieu_du_lieu": false
+        },
+        {
+          "step": "liquidity",
+          "rule_ref": "3.4",
+          "passed": true,
+          "message": "Turnover 1.334%",
+          "shortfall": null,
+          "thieu_du_lieu": false
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 26.898.207 cp và GTGD 664 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -1741,12 +1805,12 @@
     },
     {
       "symbol": "SHB",
-      "gtvh_rank": 28,
-      "gtvh_ty": 68552.8,
-      "gtvh_f_ty": 51414.6,
-      "gtgd_kl_ty": 998.5,
-      "klgd_kl": 64616414,
-      "turnover": 0.019421,
+      "gtvh_rank": 29,
+      "gtvh_ty": 68387.0,
+      "gtvh_f_ty": 51290.2,
+      "gtgd_kl_ty": 979.2,
+      "klgd_kl": 64049827,
+      "turnover": 0.019092,
       "free_float": 0.75,
       "free_float_rounded": 0.75,
       "in_previous_basket": true,
@@ -1781,7 +1845,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 1.942%",
+          "message": "Turnover 1.909%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -1789,7 +1853,7 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 64.616.414 cp và GTGD 999 tỷ/phiên",
+          "message": "KLGD 64.049.827 cp và GTGD 979 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -1805,12 +1869,12 @@
     },
     {
       "symbol": "VRE",
-      "gtvh_rank": 29,
-      "gtvh_ty": 67928.2,
-      "gtvh_f_ty": 27171.3,
-      "gtgd_kl_ty": 223.5,
-      "klgd_kl": 7464619,
-      "turnover": 0.008227,
+      "gtvh_rank": 30,
+      "gtvh_ty": 67856.4,
+      "gtvh_f_ty": 27142.6,
+      "gtgd_kl_ty": 221.9,
+      "klgd_kl": 7417846,
+      "turnover": 0.008175,
       "free_float": 0.4,
       "free_float_rounded": 0.4,
       "in_previous_basket": true,
@@ -1845,7 +1909,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 0.823%",
+          "message": "Turnover 0.817%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -1853,7 +1917,7 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 7.464.619 cp và GTGD 224 tỷ/phiên",
+          "message": "KLGD 7.417.846 cp và GTGD 222 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -1869,12 +1933,12 @@
     },
     {
       "symbol": "BCM",
-      "gtvh_rank": 30,
-      "gtvh_ty": 59346.1,
-      "gtvh_f_ty": 2373.8,
-      "gtgd_kl_ty": 35.2,
-      "klgd_kl": 599724,
-      "turnover": 0.014837,
+      "gtvh_rank": 31,
+      "gtvh_ty": 59166.7,
+      "gtvh_f_ty": 2366.7,
+      "gtgd_kl_ty": 35.0,
+      "klgd_kl": 595659,
+      "turnover": 0.014783,
       "free_float": 0.04,
       "free_float_rounded": 0.04,
       "in_previous_basket": false,
@@ -1901,15 +1965,15 @@
           "step": "free_float",
           "rule_ref": "3.3.3",
           "passed": false,
-          "message": "Free float 4% dưới 10% và vốn hóa free-float 2.374 tỷ chưa đạt ngoại lệ 2.500 tỷ (mã ngoài rổ)",
-          "shortfall": 126154895522.38818,
+          "message": "Free float 4% dưới 10% và vốn hóa free-float 2.367 tỷ chưa đạt ngoại lệ 2.500 tỷ (mã ngoài rổ)",
+          "shortfall": 133332832713.7544,
           "thieu_du_lieu": false
         },
         {
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 1.484%",
+          "message": "Turnover 1.478%",
           "shortfall": null,
           "thieu_du_lieu": false
         }
@@ -1917,12 +1981,12 @@
     },
     {
       "symbol": "GEE",
-      "gtvh_rank": 31,
-      "gtvh_ty": 58543.3,
-      "gtvh_f_ty": 8196.1,
-      "gtgd_kl_ty": 73.7,
-      "klgd_kl": 822327,
-      "turnover": 0.008989,
+      "gtvh_rank": 32,
+      "gtvh_ty": 58460.5,
+      "gtvh_f_ty": 8184.5,
+      "gtgd_kl_ty": 73.6,
+      "klgd_kl": 821241,
+      "turnover": 0.008988,
       "free_float": 0.14,
       "free_float_rounded": 0.14,
       "in_previous_basket": false,
@@ -1931,7 +1995,7 @@
       "lnst_nguon": "tự động",
       "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
       "niem_yet_thang": null,
-      "ket_luan": "Trong rổ dự kiến",
+      "ket_luan": "Dự phòng",
       "hose_loai_khoi_vnallshare": false,
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
@@ -1965,7 +2029,71 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 822.327 cp và GTGD 74 tỷ/phiên",
+          "message": "KLGD 821.241 cp và GTGD 74 tỷ/phiên",
+          "shortfall": null,
+          "thieu_du_lieu": false
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
+          "shortfall": null,
+          "thieu_du_lieu": false
+        }
+      ]
+    },
+    {
+      "symbol": "SAB",
+      "gtvh_rank": 33,
+      "gtvh_ty": 56017.9,
+      "gtvh_f_ty": 6162.0,
+      "gtgd_kl_ty": 37.1,
+      "klgd_kl": 853378,
+      "turnover": 0.006028,
+      "free_float": 0.11,
+      "free_float_rounded": 0.11,
+      "in_previous_basket": true,
+      "lnst_ty": 2351.6,
+      "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
+      "lnst_nguon": "tự động",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Trong rổ dự kiến",
+      "hose_loai_khoi_vnallshare": false,
+      "canh_bao": [
+        "Chưa xác nhận ý kiến kiểm toán"
+      ],
+      "screens": [
+        {
+          "step": "eligibility",
+          "rule_ref": "3.2",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
+          "shortfall": null,
+          "thieu_du_lieu": false
+        },
+        {
+          "step": "free_float",
+          "rule_ref": "3.3.3",
+          "passed": true,
+          "message": "Free float 11%",
+          "shortfall": null,
+          "thieu_du_lieu": false
+        },
+        {
+          "step": "liquidity",
+          "rule_ref": "3.4",
+          "passed": true,
+          "message": "Turnover 0.603%",
+          "shortfall": null,
+          "thieu_du_lieu": false
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 853.378 cp và GTGD 37 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -1981,12 +2109,12 @@
     },
     {
       "symbol": "VPX",
-      "gtvh_rank": 32,
-      "gtvh_ty": 52234.6,
-      "gtvh_f_ty": 10446.9,
+      "gtvh_rank": 34,
+      "gtvh_ty": 52165.7,
+      "gtvh_f_ty": 10433.1,
       "gtgd_kl_ty": 33.1,
       "klgd_kl": 1189710,
-      "turnover": 0.003171,
+      "turnover": 0.003176,
       "free_float": 0.2,
       "free_float_rounded": 0.2,
       "in_previous_basket": false,
@@ -2021,7 +2149,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 0.317%",
+          "message": "Turnover 0.318%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -2045,12 +2173,12 @@
     },
     {
       "symbol": "VIB",
-      "gtvh_rank": 33,
-      "gtvh_ty": 52128.0,
-      "gtvh_f_ty": 28670.4,
-      "gtgd_kl_ty": 118.9,
-      "klgd_kl": 7216901,
-      "turnover": 0.004146,
+      "gtvh_rank": 35,
+      "gtvh_ty": 52032.8,
+      "gtvh_f_ty": 28618.1,
+      "gtgd_kl_ty": 116.3,
+      "klgd_kl": 7085805,
+      "turnover": 0.004065,
       "free_float": 0.55,
       "free_float_rounded": 0.55,
       "in_previous_basket": true,
@@ -2085,7 +2213,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 0.415%",
+          "message": "Turnover 0.407%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -2093,7 +2221,7 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 7.216.901 cp và GTGD 119 tỷ/phiên",
+          "message": "KLGD 7.085.805 cp và GTGD 116 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -2109,12 +2237,12 @@
     },
     {
       "symbol": "SSB",
-      "gtvh_rank": 34,
-      "gtvh_ty": 51876.1,
-      "gtvh_f_ty": 28531.8,
-      "gtgd_kl_ty": 37.9,
-      "klgd_kl": 2453798,
-      "turnover": 0.001329,
+      "gtvh_rank": 36,
+      "gtvh_ty": 52007.4,
+      "gtvh_f_ty": 28604.1,
+      "gtgd_kl_ty": 37.5,
+      "klgd_kl": 2414192,
+      "turnover": 0.00131,
       "free_float": 0.55,
       "free_float_rounded": 0.55,
       "in_previous_basket": true,
@@ -2149,7 +2277,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 0.133%",
+          "message": "Turnover 0.131%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -2157,7 +2285,7 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 2.453.798 cp và GTGD 38 tỷ/phiên",
+          "message": "KLGD 2.414.192 cp và GTGD 37 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -2173,12 +2301,12 @@
     },
     {
       "symbol": "PLX",
-      "gtvh_rank": 35,
-      "gtvh_ty": 49876.9,
-      "gtvh_f_ty": 4987.7,
-      "gtgd_kl_ty": 166.6,
-      "klgd_kl": 3929558,
-      "turnover": 0.033403,
+      "gtvh_rank": 37,
+      "gtvh_ty": 49872.5,
+      "gtvh_f_ty": 4987.2,
+      "gtgd_kl_ty": 166.8,
+      "klgd_kl": 3925765,
+      "turnover": 0.033441,
       "free_float": 0.1,
       "free_float_rounded": 0.1,
       "in_previous_basket": false,
@@ -2213,7 +2341,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 3.340%",
+          "message": "Turnover 3.344%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -2221,7 +2349,7 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 3.929.558 cp và GTGD 167 tỷ/phiên",
+          "message": "KLGD 3.925.765 cp và GTGD 167 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -2237,12 +2365,12 @@
     },
     {
       "symbol": "VIX",
-      "gtvh_rank": 36,
-      "gtvh_ty": 48700.2,
-      "gtvh_f_ty": 48700.2,
-      "gtgd_kl_ty": 746.3,
-      "klgd_kl": 38769667,
-      "turnover": 0.015324,
+      "gtvh_rank": 38,
+      "gtvh_ty": 48485.6,
+      "gtvh_f_ty": 48485.6,
+      "gtgd_kl_ty": 736.2,
+      "klgd_kl": 38356069,
+      "turnover": 0.015184,
       "free_float": 1.0,
       "free_float_rounded": 1.0,
       "in_previous_basket": false,
@@ -2277,7 +2405,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 1.532%",
+          "message": "Turnover 1.518%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -2285,7 +2413,7 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 38.769.667 cp và GTGD 746 tỷ/phiên",
+          "message": "KLGD 38.356.069 cp và GTGD 736 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -2301,12 +2429,12 @@
     },
     {
       "symbol": "BVH",
-      "gtvh_rank": 37,
-      "gtvh_ty": 47595.9,
-      "gtvh_f_ty": 4759.6,
-      "gtgd_kl_ty": 38.9,
-      "klgd_kl": 579971,
-      "turnover": 0.008165,
+      "gtvh_rank": 39,
+      "gtvh_ty": 47645.0,
+      "gtvh_f_ty": 4764.5,
+      "gtgd_kl_ty": 39.4,
+      "klgd_kl": 586772,
+      "turnover": 0.008272,
       "free_float": 0.1,
       "free_float_rounded": 0.1,
       "in_previous_basket": false,
@@ -2315,7 +2443,7 @@
       "lnst_nguon": "tự động",
       "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
       "niem_yet_thang": null,
-      "ket_luan": "Dự phòng",
+      "ket_luan": "Đạt tiêu chí, ngoài rổ",
       "hose_loai_khoi_vnallshare": false,
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
@@ -2341,7 +2469,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 0.817%",
+          "message": "Turnover 0.827%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -2349,7 +2477,7 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 579.971 cp và GTGD 39 tỷ/phiên",
+          "message": "KLGD 586.772 cp và GTGD 39 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -2365,12 +2493,12 @@
     },
     {
       "symbol": "TPB",
-      "gtvh_rank": 38,
-      "gtvh_ty": 46057.1,
-      "gtvh_f_ty": 25331.4,
-      "gtgd_kl_ty": 221.3,
-      "klgd_kl": 12585122,
-      "turnover": 0.008735,
+      "gtvh_rank": 40,
+      "gtvh_ty": 45974.4,
+      "gtvh_f_ty": 25285.9,
+      "gtgd_kl_ty": 219.5,
+      "klgd_kl": 12549734,
+      "turnover": 0.008682,
       "free_float": 0.55,
       "free_float_rounded": 0.55,
       "in_previous_basket": false,
@@ -2379,7 +2507,7 @@
       "lnst_nguon": "tự động",
       "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
       "niem_yet_thang": null,
-      "ket_luan": "Dự phòng",
+      "ket_luan": "Đạt tiêu chí, ngoài rổ",
       "hose_loai_khoi_vnallshare": false,
       "canh_bao": [
         "Chưa xác nhận ý kiến kiểm toán"
@@ -2405,7 +2533,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 0.874%",
+          "message": "Turnover 0.868%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -2413,7 +2541,71 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 12.585.122 cp và GTGD 221 tỷ/phiên",
+          "message": "KLGD 12.549.734 cp và GTGD 220 tỷ/phiên",
+          "shortfall": null,
+          "thieu_du_lieu": false
+        },
+        {
+          "step": "profit",
+          "rule_ref": "4.3.1.d",
+          "passed": true,
+          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
+          "shortfall": null,
+          "thieu_du_lieu": false
+        }
+      ]
+    },
+    {
+      "symbol": "EIB",
+      "gtvh_rank": 41,
+      "gtvh_ty": 40854.4,
+      "gtvh_f_ty": 32683.5,
+      "gtgd_kl_ty": 181.9,
+      "klgd_kl": 7862454,
+      "turnover": 0.005565,
+      "free_float": 0.8,
+      "free_float_rounded": 0.8,
+      "in_previous_basket": false,
+      "lnst_ty": 519.7,
+      "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
+      "lnst_nguon": "tự động",
+      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
+      "niem_yet_thang": null,
+      "ket_luan": "Đạt tiêu chí, ngoài rổ",
+      "hose_loai_khoi_vnallshare": false,
+      "canh_bao": [
+        "Chưa xác nhận ý kiến kiểm toán"
+      ],
+      "screens": [
+        {
+          "step": "eligibility",
+          "rule_ref": "3.2",
+          "passed": true,
+          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
+          "shortfall": null,
+          "thieu_du_lieu": false
+        },
+        {
+          "step": "free_float",
+          "rule_ref": "3.3.3",
+          "passed": true,
+          "message": "Free float 80%",
+          "shortfall": null,
+          "thieu_du_lieu": false
+        },
+        {
+          "step": "liquidity",
+          "rule_ref": "3.4",
+          "passed": true,
+          "message": "Turnover 0.557%",
+          "shortfall": null,
+          "thieu_du_lieu": false
+        },
+        {
+          "step": "vn30_liquidity",
+          "rule_ref": "4.3.1.a-b",
+          "passed": true,
+          "message": "KLGD 7.862.454 cp và GTGD 182 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -2429,12 +2621,12 @@
     },
     {
       "symbol": "POW",
-      "gtvh_rank": 39,
-      "gtvh_ty": 40460.1,
-      "gtvh_f_ty": 8092.0,
-      "gtgd_kl_ty": 136.8,
-      "klgd_kl": 10211518,
-      "turnover": 0.01691,
+      "gtvh_rank": 42,
+      "gtvh_ty": 40448.5,
+      "gtvh_f_ty": 8089.7,
+      "gtgd_kl_ty": 136.5,
+      "klgd_kl": 10197740,
+      "turnover": 0.016874,
       "free_float": 0.2,
       "free_float_rounded": 0.2,
       "in_previous_basket": false,
@@ -2469,7 +2661,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 1.691%",
+          "message": "Turnover 1.687%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -2477,7 +2669,7 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 10.211.518 cp và GTGD 137 tỷ/phiên",
+          "message": "KLGD 10.197.740 cp và GTGD 137 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -2493,12 +2685,12 @@
     },
     {
       "symbol": "GEX",
-      "gtvh_rank": 40,
-      "gtvh_ty": 38708.6,
-      "gtvh_f_ty": 27096.0,
-      "gtgd_kl_ty": 312.0,
-      "klgd_kl": 10380205,
-      "turnover": 0.011513,
+      "gtvh_rank": 43,
+      "gtvh_ty": 38617.8,
+      "gtvh_f_ty": 27032.4,
+      "gtgd_kl_ty": 310.2,
+      "klgd_kl": 10307862,
+      "turnover": 0.011474,
       "free_float": 0.7,
       "free_float_rounded": 0.7,
       "in_previous_basket": false,
@@ -2533,7 +2725,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 1.151%",
+          "message": "Turnover 1.147%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -2541,7 +2733,7 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 10.380.205 cp và GTGD 312 tỷ/phiên",
+          "message": "KLGD 10.307.862 cp và GTGD 310 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -2556,61 +2748,13 @@
       ]
     },
     {
-      "symbol": "LPS",
-      "gtvh_rank": 41,
-      "gtvh_ty": 35572.2,
-      "gtvh_f_ty": null,
-      "gtgd_kl_ty": 26.2,
-      "klgd_kl": 1040925,
-      "turnover": null,
-      "free_float": null,
-      "free_float_rounded": null,
-      "in_previous_basket": false,
-      "lnst_ty": 574.7,
-      "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
-      "lnst_nguon": "tự động",
-      "niem_yet_nguon": "suy từ ngày giao dịch đầu tiên",
-      "niem_yet_thang": 1,
-      "ket_luan": "Không đạt",
-      "hose_loai_khoi_vnallshare": false,
-      "canh_bao": [
-        "Chưa xác nhận ý kiến kiểm toán"
-      ],
-      "screens": [
-        {
-          "step": "eligibility",
-          "rule_ref": "3.2",
-          "passed": false,
-          "message": "Mới niêm yết 1 tháng, chưa đủ 6 tháng",
-          "shortfall": 5,
-          "thieu_du_lieu": false
-        },
-        {
-          "step": "free_float",
-          "rule_ref": "3.3.3",
-          "passed": false,
-          "message": "Thiếu dữ liệu free float — cần cập nhật thủ công",
-          "shortfall": null,
-          "thieu_du_lieu": true
-        },
-        {
-          "step": "liquidity",
-          "rule_ref": "3.4",
-          "passed": false,
-          "message": "Không tính được turnover do thiếu dữ liệu free float — cần cập nhật thủ công",
-          "shortfall": null,
-          "thieu_du_lieu": true
-        }
-      ]
-    },
-    {
       "symbol": "MSB",
-      "gtvh_rank": 42,
-      "gtvh_ty": 35285.9,
-      "gtvh_f_ty": 24700.1,
+      "gtvh_rank": 44,
+      "gtvh_ty": 35331.0,
+      "gtvh_f_ty": 24731.7,
       "gtgd_kl_ty": 106.7,
-      "klgd_kl": 9274637,
-      "turnover": 0.004319,
+      "klgd_kl": 9199046,
+      "turnover": 0.004316,
       "free_float": 0.7,
       "free_float_rounded": 0.7,
       "in_previous_basket": false,
@@ -2653,7 +2797,7 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 9.274.637 cp và GTGD 107 tỷ/phiên",
+          "message": "KLGD 9.199.046 cp và GTGD 107 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -2668,13 +2812,61 @@
       ]
     },
     {
+      "symbol": "LPS",
+      "gtvh_rank": 45,
+      "gtvh_ty": 35127.9,
+      "gtvh_f_ty": null,
+      "gtgd_kl_ty": 23.5,
+      "klgd_kl": 973450,
+      "turnover": null,
+      "free_float": null,
+      "free_float_rounded": null,
+      "in_previous_basket": false,
+      "lnst_ty": 574.7,
+      "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
+      "lnst_nguon": "tự động",
+      "niem_yet_nguon": "suy từ ngày giao dịch đầu tiên",
+      "niem_yet_thang": 1,
+      "ket_luan": "Không đạt",
+      "hose_loai_khoi_vnallshare": false,
+      "canh_bao": [
+        "Chưa xác nhận ý kiến kiểm toán"
+      ],
+      "screens": [
+        {
+          "step": "eligibility",
+          "rule_ref": "3.2",
+          "passed": false,
+          "message": "Mới niêm yết 1 tháng, chưa đủ 6 tháng",
+          "shortfall": 5,
+          "thieu_du_lieu": false
+        },
+        {
+          "step": "free_float",
+          "rule_ref": "3.3.3",
+          "passed": false,
+          "message": "Thiếu dữ liệu free float — cần cập nhật thủ công",
+          "shortfall": null,
+          "thieu_du_lieu": true
+        },
+        {
+          "step": "liquidity",
+          "rule_ref": "3.4",
+          "passed": false,
+          "message": "Không tính được turnover do thiếu dữ liệu free float — cần cập nhật thủ công",
+          "shortfall": null,
+          "thieu_du_lieu": true
+        }
+      ]
+    },
+    {
       "symbol": "REE",
-      "gtvh_rank": 43,
-      "gtvh_ty": 32856.2,
-      "gtvh_f_ty": 11499.7,
-      "gtgd_kl_ty": 32.5,
-      "klgd_kl": 595389,
-      "turnover": 0.002824,
+      "gtvh_rank": 46,
+      "gtvh_ty": 32821.4,
+      "gtvh_f_ty": 11487.5,
+      "gtgd_kl_ty": 32.4,
+      "klgd_kl": 593738,
+      "turnover": 0.00282,
       "free_float": 0.35,
       "free_float_rounded": 0.35,
       "in_previous_basket": false,
@@ -2717,7 +2909,7 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 595.389 cp và GTGD 32 tỷ/phiên",
+          "message": "KLGD 593.738 cp và GTGD 32 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -2733,12 +2925,12 @@
     },
     {
       "symbol": "OCB",
-      "gtvh_rank": 44,
-      "gtvh_ty": 32307.7,
-      "gtvh_f_ty": 9692.3,
-      "gtgd_kl_ty": 34.3,
-      "klgd_kl": 3098894,
-      "turnover": 0.003537,
+      "gtvh_rank": 47,
+      "gtvh_ty": 32290.4,
+      "gtvh_f_ty": 9687.1,
+      "gtgd_kl_ty": 32.6,
+      "klgd_kl": 2938194,
+      "turnover": 0.003361,
       "free_float": 0.3,
       "free_float_rounded": 0.3,
       "in_previous_basket": false,
@@ -2773,7 +2965,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 0.354%",
+          "message": "Turnover 0.336%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -2781,7 +2973,7 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 3.098.894 cp và GTGD 34 tỷ/phiên",
+          "message": "KLGD 2.938.194 cp và GTGD 33 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -2797,12 +2989,12 @@
     },
     {
       "symbol": "NVL",
-      "gtvh_rank": 45,
-      "gtvh_ty": 32171.1,
-      "gtvh_f_ty": 17694.1,
-      "gtgd_kl_ty": 202.7,
-      "klgd_kl": 14411349,
-      "turnover": 0.011457,
+      "gtvh_rank": 48,
+      "gtvh_ty": 32132.0,
+      "gtvh_f_ty": 17672.6,
+      "gtgd_kl_ty": 200.4,
+      "klgd_kl": 14261734,
+      "turnover": 0.011339,
       "free_float": 0.55,
       "free_float_rounded": 0.55,
       "in_previous_basket": false,
@@ -2837,7 +3029,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 1.146%",
+          "message": "Turnover 1.134%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -2845,7 +3037,7 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 14.411.349 cp và GTGD 203 tỷ/phiên",
+          "message": "KLGD 14.261.734 cp và GTGD 200 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -2861,12 +3053,12 @@
     },
     {
       "symbol": "PNJ",
-      "gtvh_rank": 46,
-      "gtvh_ty": 30964.2,
-      "gtvh_f_ty": 27867.8,
-      "gtgd_kl_ty": 95.1,
-      "klgd_kl": 1913028,
-      "turnover": 0.003411,
+      "gtvh_rank": 49,
+      "gtvh_ty": 30882.0,
+      "gtvh_f_ty": 27793.8,
+      "gtgd_kl_ty": 95.0,
+      "klgd_kl": 1912649,
+      "turnover": 0.00342,
       "free_float": 0.9,
       "free_float_rounded": 0.9,
       "in_previous_basket": false,
@@ -2901,7 +3093,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 0.341%",
+          "message": "Turnover 0.342%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -2909,7 +3101,7 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 1.913.028 cp và GTGD 95 tỷ/phiên",
+          "message": "KLGD 1.912.649 cp và GTGD 95 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -2925,12 +3117,12 @@
     },
     {
       "symbol": "KBC",
-      "gtvh_rank": 47,
-      "gtvh_ty": 30864.8,
-      "gtvh_f_ty": 20062.1,
-      "gtgd_kl_ty": 138.8,
-      "klgd_kl": 3929168,
-      "turnover": 0.006919,
+      "gtvh_rank": 50,
+      "gtvh_ty": 30791.7,
+      "gtvh_f_ty": 20014.6,
+      "gtgd_kl_ty": 137.4,
+      "klgd_kl": 3880693,
+      "turnover": 0.006867,
       "free_float": 0.65,
       "free_float_rounded": 0.65,
       "in_previous_basket": false,
@@ -2965,7 +3157,7 @@
           "step": "liquidity",
           "rule_ref": "3.4",
           "passed": true,
-          "message": "Turnover 0.692%",
+          "message": "Turnover 0.687%",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -2973,199 +3165,7 @@
           "step": "vn30_liquidity",
           "rule_ref": "4.3.1.a-b",
           "passed": true,
-          "message": "KLGD 3.929.168 cp và GTGD 139 tỷ/phiên",
-          "shortfall": null,
-          "thieu_du_lieu": false
-        },
-        {
-          "step": "profit",
-          "rule_ref": "4.3.1.d",
-          "passed": true,
-          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null,
-          "thieu_du_lieu": false
-        }
-      ]
-    },
-    {
-      "symbol": "GMD",
-      "gtvh_rank": 48,
-      "gtvh_ty": 30316.4,
-      "gtvh_f_ty": 28800.5,
-      "gtgd_kl_ty": 114.2,
-      "klgd_kl": 1669708,
-      "turnover": 0.003966,
-      "free_float": 0.95,
-      "free_float_rounded": 0.95,
-      "in_previous_basket": false,
-      "lnst_ty": 1658.4,
-      "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
-      "lnst_nguon": "tự động",
-      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
-      "niem_yet_thang": null,
-      "ket_luan": "Đạt tiêu chí, ngoài rổ",
-      "hose_loai_khoi_vnallshare": false,
-      "canh_bao": [
-        "Chưa xác nhận ý kiến kiểm toán"
-      ],
-      "screens": [
-        {
-          "step": "eligibility",
-          "rule_ref": "3.2",
-          "passed": true,
-          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null,
-          "thieu_du_lieu": false
-        },
-        {
-          "step": "free_float",
-          "rule_ref": "3.3.3",
-          "passed": true,
-          "message": "Free float 95%",
-          "shortfall": null,
-          "thieu_du_lieu": false
-        },
-        {
-          "step": "liquidity",
-          "rule_ref": "3.4",
-          "passed": true,
-          "message": "Turnover 0.397%",
-          "shortfall": null,
-          "thieu_du_lieu": false
-        },
-        {
-          "step": "vn30_liquidity",
-          "rule_ref": "4.3.1.a-b",
-          "passed": true,
-          "message": "KLGD 1.669.708 cp và GTGD 114 tỷ/phiên",
-          "shortfall": null,
-          "thieu_du_lieu": false
-        },
-        {
-          "step": "profit",
-          "rule_ref": "4.3.1.d",
-          "passed": true,
-          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null,
-          "thieu_du_lieu": false
-        }
-      ]
-    },
-    {
-      "symbol": "KDH",
-      "gtvh_rank": 49,
-      "gtvh_ty": 30238.2,
-      "gtvh_f_ty": 19654.9,
-      "gtgd_kl_ty": 140.6,
-      "klgd_kl": 5100239,
-      "turnover": 0.007155,
-      "free_float": 0.65,
-      "free_float_rounded": 0.65,
-      "in_previous_basket": false,
-      "lnst_ty": 1033.0,
-      "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
-      "lnst_nguon": "tự động",
-      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
-      "niem_yet_thang": null,
-      "ket_luan": "Đạt tiêu chí, ngoài rổ",
-      "hose_loai_khoi_vnallshare": false,
-      "canh_bao": [
-        "Chưa xác nhận ý kiến kiểm toán"
-      ],
-      "screens": [
-        {
-          "step": "eligibility",
-          "rule_ref": "3.2",
-          "passed": true,
-          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null,
-          "thieu_du_lieu": false
-        },
-        {
-          "step": "free_float",
-          "rule_ref": "3.3.3",
-          "passed": true,
-          "message": "Free float 65%",
-          "shortfall": null,
-          "thieu_du_lieu": false
-        },
-        {
-          "step": "liquidity",
-          "rule_ref": "3.4",
-          "passed": true,
-          "message": "Turnover 0.716%",
-          "shortfall": null,
-          "thieu_du_lieu": false
-        },
-        {
-          "step": "vn30_liquidity",
-          "rule_ref": "4.3.1.a-b",
-          "passed": true,
-          "message": "KLGD 5.100.239 cp và GTGD 141 tỷ/phiên",
-          "shortfall": null,
-          "thieu_du_lieu": false
-        },
-        {
-          "step": "profit",
-          "rule_ref": "4.3.1.d",
-          "passed": true,
-          "message": "Lợi nhuận sau thuế dương, nhưng chưa xác nhận ý kiến kiểm toán",
-          "shortfall": null,
-          "thieu_du_lieu": false
-        }
-      ]
-    },
-    {
-      "symbol": "VCI",
-      "gtvh_rank": 50,
-      "gtvh_ty": 29957.5,
-      "gtvh_f_ty": 22468.1,
-      "gtgd_kl_ty": 242.5,
-      "klgd_kl": 9178646,
-      "turnover": 0.010791,
-      "free_float": 0.75,
-      "free_float_rounded": 0.75,
-      "in_previous_basket": false,
-      "lnst_ty": 591.3,
-      "lnst_ky": "Bán niên 2026 (cộng từ báo cáo quý 1+2, không phải bản soát xét bán niên chính thức)",
-      "lnst_nguon": "tự động",
-      "niem_yet_nguon": "giao dịch từ trước cửa sổ dữ liệu",
-      "niem_yet_thang": null,
-      "ket_luan": "Đạt tiêu chí, ngoài rổ",
-      "hose_loai_khoi_vnallshare": false,
-      "canh_bao": [
-        "Chưa xác nhận ý kiến kiểm toán"
-      ],
-      "screens": [
-        {
-          "step": "eligibility",
-          "rule_ref": "3.2",
-          "passed": true,
-          "message": "Đã giao dịch liên tục từ trước cửa sổ dữ liệu 12 tháng, nên đủ 6 tháng niêm yết",
-          "shortfall": null,
-          "thieu_du_lieu": false
-        },
-        {
-          "step": "free_float",
-          "rule_ref": "3.3.3",
-          "passed": true,
-          "message": "Free float 75%",
-          "shortfall": null,
-          "thieu_du_lieu": false
-        },
-        {
-          "step": "liquidity",
-          "rule_ref": "3.4",
-          "passed": true,
-          "message": "Turnover 1.079%",
-          "shortfall": null,
-          "thieu_du_lieu": false
-        },
-        {
-          "step": "vn30_liquidity",
-          "rule_ref": "4.3.1.a-b",
-          "passed": true,
-          "message": "KLGD 9.178.646 cp và GTGD 242 tỷ/phiên",
+          "message": "KLGD 3.880.693 cp và GTGD 137 tỷ/phiên",
           "shortfall": null,
           "thieu_du_lieu": false
         },
@@ -3216,6 +3216,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 1,
         "gtgd_kl_ty": 685.2
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 1,
+        "gtgd_kl_ty": 676.6
       }
     ],
     "VCB": [
@@ -3248,6 +3253,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 2,
         "gtgd_kl_ty": 382.7
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 2,
+        "gtgd_kl_ty": 381.1
       }
     ],
     "VHM": [
@@ -3280,6 +3290,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 3,
         "gtgd_kl_ty": 359.2
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 3,
+        "gtgd_kl_ty": 359.0
       }
     ],
     "BID": [
@@ -3312,6 +3327,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 4,
         "gtgd_kl_ty": 227.0
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 4,
+        "gtgd_kl_ty": 223.6
       }
     ],
     "CTG": [
@@ -3344,6 +3364,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 5,
         "gtgd_kl_ty": 332.3
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 5,
+        "gtgd_kl_ty": 331.7
       }
     ],
     "TCB": [
@@ -3376,6 +3401,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 6,
         "gtgd_kl_ty": 473.4
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 6,
+        "gtgd_kl_ty": 462.7
       }
     ],
     "VPB": [
@@ -3408,6 +3438,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 7,
         "gtgd_kl_ty": 640.1
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 7,
+        "gtgd_kl_ty": 630.0
       }
     ],
     "HPG": [
@@ -3440,6 +3475,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 8,
         "gtgd_kl_ty": 831.9
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 8,
+        "gtgd_kl_ty": 817.9
       }
     ],
     "GAS": [
@@ -3472,6 +3512,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 9,
         "gtgd_kl_ty": 141.3
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 9,
+        "gtgd_kl_ty": 137.2
       }
     ],
     "MCH": [
@@ -3504,6 +3549,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 10,
         "gtgd_kl_ty": 48.8
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 10,
+        "gtgd_kl_ty": 50.5
       }
     ],
     "MBB": [
@@ -3536,6 +3586,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 11,
         "gtgd_kl_ty": 460.2
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 11,
+        "gtgd_kl_ty": 457.9
       }
     ],
     "VPL": [
@@ -3566,6 +3621,11 @@
       },
       {
         "ngay": "2026-09-18",
+        "gtvh_rank": 12,
+        "gtgd_kl_ty": 58.6
+      },
+      {
+        "ngay": "2026-09-22",
         "gtvh_rank": 12,
         "gtgd_kl_ty": 58.6
       }
@@ -3600,6 +3660,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 13,
         "gtgd_kl_ty": 710.0
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 14,
+        "gtgd_kl_ty": 633.0
       }
     ],
     "LPB": [
@@ -3632,6 +3697,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 14,
         "gtgd_kl_ty": 98.4
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 13,
+        "gtgd_kl_ty": 97.1
       }
     ],
     "HDB": [
@@ -3664,6 +3734,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 15,
         "gtgd_kl_ty": 360.6
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 15,
+        "gtgd_kl_ty": 356.0
       }
     ],
     "GVR": [
@@ -3696,6 +3771,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 16,
         "gtgd_kl_ty": 112.3
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 16,
+        "gtgd_kl_ty": 111.1
       }
     ],
     "ACB": [
@@ -3728,6 +3808,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 17,
         "gtgd_kl_ty": 295.0
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 17,
+        "gtgd_kl_ty": 284.9
       }
     ],
     "VNM": [
@@ -3760,6 +3845,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 18,
         "gtgd_kl_ty": 262.6
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 18,
+        "gtgd_kl_ty": 261.2
       }
     ],
     "STB": [
@@ -3792,6 +3882,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 19,
         "gtgd_kl_ty": 461.9
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 19,
+        "gtgd_kl_ty": 450.2
       }
     ],
     "MWG": [
@@ -3824,6 +3919,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 20,
         "gtgd_kl_ty": 481.0
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 20,
+        "gtgd_kl_ty": 484.3
       }
     ],
     "TCX": [
@@ -3856,6 +3956,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 25,
         "gtgd_kl_ty": 66.3
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 25,
+        "gtgd_kl_ty": 66.1
       }
     ],
     "MSN": [
@@ -3888,6 +3993,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 22,
         "gtgd_kl_ty": 445.4
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 22,
+        "gtgd_kl_ty": 442.2
       }
     ],
     "BSR": [
@@ -3920,6 +4030,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 21,
         "gtgd_kl_ty": 313.8
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 21,
+        "gtgd_kl_ty": 312.7
       }
     ],
     "DMX": [
@@ -3952,6 +4067,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 24,
         "gtgd_kl_ty": 37.2
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 24,
+        "gtgd_kl_ty": 36.0
       }
     ],
     "VJC": [
@@ -3984,6 +4104,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 23,
         "gtgd_kl_ty": 205.2
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 23,
+        "gtgd_kl_ty": 204.6
       }
     ],
     "HVN": [
@@ -4016,6 +4141,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 26,
         "gtgd_kl_ty": 29.6
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 26,
+        "gtgd_kl_ty": 29.1
       }
     ],
     "VCK": [
@@ -4048,6 +4178,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 27,
         "gtgd_kl_ty": 96.5
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 27,
+        "gtgd_kl_ty": 96.1
       }
     ],
     "SHB": [
@@ -4080,6 +4215,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 28,
         "gtgd_kl_ty": 998.5
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 29,
+        "gtgd_kl_ty": 979.2
       }
     ],
     "VRE": [
@@ -4112,6 +4252,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 29,
         "gtgd_kl_ty": 223.5
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 30,
+        "gtgd_kl_ty": 221.9
       }
     ],
     "BCM": [
@@ -4144,6 +4289,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 30,
         "gtgd_kl_ty": 35.2
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 31,
+        "gtgd_kl_ty": 35.0
       }
     ],
     "SSI": [
@@ -4171,6 +4321,11 @@
         "ngay": "2026-09-15",
         "gtvh_rank": 31,
         "gtgd_kl_ty": 658.1
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 28,
+        "gtgd_kl_ty": 664.4
       }
     ],
     "GEE": [
@@ -4203,6 +4358,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 31,
         "gtgd_kl_ty": 73.7
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 32,
+        "gtgd_kl_ty": 73.6
       }
     ],
     "VIB": [
@@ -4235,6 +4395,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 33,
         "gtgd_kl_ty": 118.9
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 35,
+        "gtgd_kl_ty": 116.3
       }
     ],
     "SAB": [
@@ -4262,6 +4427,11 @@
         "ngay": "2026-09-15",
         "gtvh_rank": 33,
         "gtgd_kl_ty": 37.7
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 33,
+        "gtgd_kl_ty": 37.1
       }
     ],
     "VPX": [
@@ -4293,6 +4463,11 @@
       {
         "ngay": "2026-09-18",
         "gtvh_rank": 32,
+        "gtgd_kl_ty": 33.1
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 34,
         "gtgd_kl_ty": 33.1
       }
     ],
@@ -4326,6 +4501,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 34,
         "gtgd_kl_ty": 37.9
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 36,
+        "gtgd_kl_ty": 37.5
       }
     ],
     "PLX": [
@@ -4358,6 +4538,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 35,
         "gtgd_kl_ty": 166.6
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 37,
+        "gtgd_kl_ty": 166.8
       }
     ],
     "VIX": [
@@ -4390,6 +4575,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 36,
         "gtgd_kl_ty": 746.3
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 38,
+        "gtgd_kl_ty": 736.2
       }
     ],
     "BVH": [
@@ -4422,6 +4612,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 37,
         "gtgd_kl_ty": 38.9
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 39,
+        "gtgd_kl_ty": 39.4
       }
     ],
     "TPB": [
@@ -4454,6 +4649,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 38,
         "gtgd_kl_ty": 221.3
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 40,
+        "gtgd_kl_ty": 219.5
       }
     ],
     "EIB": [
@@ -4481,6 +4681,11 @@
         "ngay": "2026-09-15",
         "gtvh_rank": 41,
         "gtgd_kl_ty": 193.7
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 41,
+        "gtgd_kl_ty": 181.9
       }
     ],
     "POW": [
@@ -4513,6 +4718,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 39,
         "gtgd_kl_ty": 136.8
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 42,
+        "gtgd_kl_ty": 136.5
       }
     ],
     "GEX": [
@@ -4545,6 +4755,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 40,
         "gtgd_kl_ty": 312.0
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 43,
+        "gtgd_kl_ty": 310.2
       }
     ],
     "LPS": [
@@ -4577,6 +4792,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 41,
         "gtgd_kl_ty": 26.2
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 45,
+        "gtgd_kl_ty": 23.5
       }
     ],
     "MSB": [
@@ -4608,6 +4828,11 @@
       {
         "ngay": "2026-09-18",
         "gtvh_rank": 42,
+        "gtgd_kl_ty": 106.7
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 44,
         "gtgd_kl_ty": 106.7
       }
     ],
@@ -4641,6 +4866,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 43,
         "gtgd_kl_ty": 32.5
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 46,
+        "gtgd_kl_ty": 32.4
       }
     ],
     "NVL": [
@@ -4673,6 +4903,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 45,
         "gtgd_kl_ty": 202.7
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 48,
+        "gtgd_kl_ty": 200.4
       }
     ],
     "OCB": [
@@ -4705,6 +4940,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 44,
         "gtgd_kl_ty": 34.3
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 47,
+        "gtgd_kl_ty": 32.6
       }
     ],
     "PNJ": [
@@ -4737,6 +4977,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 46,
         "gtgd_kl_ty": 95.1
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 49,
+        "gtgd_kl_ty": 95.0
       }
     ],
     "KBC": [
@@ -4769,6 +5014,11 @@
         "ngay": "2026-09-18",
         "gtvh_rank": 47,
         "gtgd_kl_ty": 138.8
+      },
+      {
+        "ngay": "2026-09-22",
+        "gtvh_rank": 50,
+        "gtgd_kl_ty": 137.4
       }
     ],
     "GMD": [
@@ -4873,9 +5123,6 @@
     "Thứ hạng vốn hóa (GTVH) được tính đầy đủ trên toàn bộ sàn HOSE, nhưng các chỉ tiêu bình quân 12 tháng (GTVH, GTGD khớp lệnh, thanh khoản...) chỉ được tính cho nhóm mã đứng đầu theo vốn hóa HIỆN TẠI (xem rules/thresholds.yaml, vn30.so_ma_lay_lich_su_gia) nhằm giảm số lượt gọi dữ liệu giá lịch sử — mã ngoài nhóm này không được xét vào rổ.",
     "Lợi nhuận sau thuế (Điều 4.3.1.d) chỉ được lấy cho danh sách xem xét — nhóm mã đứng đầu theo vốn hóa (xem rules/thresholds.yaml, vn30.consideration_list_size) — vì Điều 4.3.1.f chỉ chọn tới hạng 40 nên mã ngoài nhóm này không thể vào rổ. Đây là quyết định phạm vi có ý, không phải lỗ hổng dữ liệu, nên những mã đó KHÔNG bị gắn nhãn 'thiếu dữ liệu'."
   ],
-  "canh_bao": [
-    "Mã SAB đang ở trong rổ VN30 kỳ trước nhưng không lấy được dữ liệu giá/SLCP kỳ này nên KHÔNG THỂ xét — nghi ngờ lỗi kỹ thuật (mạng lỗi/cache hỏng/API sập), không phải sự thật thị trường, cần kiểm tra lại nguồn dữ liệu cho mã này.",
-    "Mã SSI đang ở trong rổ VN30 kỳ trước nhưng không lấy được dữ liệu giá/SLCP kỳ này nên KHÔNG THỂ xét — nghi ngờ lỗi kỹ thuật (mạng lỗi/cache hỏng/API sập), không phải sự thật thị trường, cần kiểm tra lại nguồn dữ liệu cho mã này."
-  ],
+  "canh_bao": [],
   "nguon_quy_tac": "HOSE-Index Ground Rules v4.0 (QĐ 747/QĐ-SGDHCM, 30/12/2024)"
 }
